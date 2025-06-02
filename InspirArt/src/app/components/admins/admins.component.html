@@ -1,0 +1,20 @@
+
+<div class="admin-cards">
+  <div class="card" *ngFor="let admin of admins">
+    <img [src]="admin.fotoPerfil" alt="Foto de {{ admin.nombre }}">
+    <div class="card-body">
+      <h3>{{ admin.nombre }} {{ admin.apellidos }}</h3>
+      <p><strong>Usuario:</strong> {{ admin.username }}</p>
+      <p><strong>Email:</strong> {{ admin.email }}</p>
+      <p><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="pagination">
+  <button *ngFor="let p of [].constructor(totalPages); let i = index" 
+          (click)="goToPage(i)" 
+          [class.active]="page === i">
+    {{ i + 1 }}
+  </button>
+</div>

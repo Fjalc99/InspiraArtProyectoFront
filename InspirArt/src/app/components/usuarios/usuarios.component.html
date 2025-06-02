@@ -1,0 +1,20 @@
+
+<div class="user-cards">
+  <div class="card" *ngFor="let usuario of Usuarios">
+    <img [src]="usuario.fotoPerfil" alt="Foto de {{ usuario.nombre }}" />
+    <div class="card-body">
+      <h3>{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
+      <p><strong>Usuario:</strong> {{ usuario.username }}</p>
+      <p><strong>Email:</strong> {{ usuario.email }}</p>
+      <p><strong>Registrado:</strong> {{ usuario.createdAt | date:'medium' }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="pagination">
+  <button *ngFor="let p of [].constructor(totalPages); let i = index"
+          (click)="goToPage(i)"
+          [class.active]="page === i">
+    {{ i + 1 }}
+  </button>
+</div>

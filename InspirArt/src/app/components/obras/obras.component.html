@@ -1,0 +1,93 @@
+<div class="obra-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+  <h3>Obras</h3>
+ <!-- <button mat-raised-button color="primary" (click)="aniadirObra()">
+    <mat-icon>add</mat-icon>
+    Agregar obra
+  </button> -->
+</div>
+
+<!-- Formulario para crear obra -->
+<app-obras-form
+  *ngIf="mostrarFormulario"
+  [obra]="obraSeleccionada || {}"
+  [categorias]="categorias"
+  (guardar)="onGuardarObra($event)"
+  (cancelar)="cerrarFormulario()">
+</app-obras-form>
+
+<!-- Detalle de obra -->
+<mat-card *ngIf="mostrarDetalle && obraSeleccionada" class="detalle-obra" style="max-width: 900px; margin: 40px auto; padding: 32px;">
+  <mat-card-header>
+    <mat-card-title style="font-size: 2rem;">Detalle de obra</mat-card-title>
+    <br>
+    <br>
+    <mat-card-subtitle>{{ obraSeleccionada.nombre }}</mat-card-subtitle>
+  </mat-card-header>
+  <div style="display: flex; gap: 32px; align-items: flex-start;">
+    <img mat-card-image [src]="getImageUrl(obraSeleccionada.imagenObra)" alt="Imagen de {{ obraSeleccionada.nombre }}" style="max-width: 400px; max-height: 500px; object-fit: contain; flex-shrink: 0;">
+    <mat-card-content style="flex: 1;">
+      <p><strong>Autor:</strong> {{ obraSeleccionada.nombreArtista }}</p>
+      <p><strong>Categoría:</strong> {{ obraSeleccionada.categoria?.nombre }}</p>
+      <p><strong>Subida:</strong> {{ obraSeleccionada.fechaSubida | date:'medium' }}</p>
+      <p>
+        <strong>Valoración media:</strong>
+        <ng-container *ngIf="obraSeleccionada.mediaValoracion != null; else sinValoracion">
+          <span *ngFor="let star of [1,2,3,4,5]">
+            <mat-icon color="accent">
+              {{ star <= Math.round(obraSeleccionada.mediaValoracion) ? 'star' : 'star_border' }}
+            </mat-icon>
+          </span>
+          ({{ obraSeleccionada.mediaValoracion | number:'1.1-2' }})
+        </ng-container>
+        <ng-template #sinValoracion>-</ng-template>
+      </p>
+      <p>
+        <strong>Total de comentarios:</strong>
+        {{ obraSeleccionada.comentarios?.length ?? 0 }}
+      </p>
+      <p>
+        <strong>Comentarios:</strong>
+        <ng-container *ngIf="(obraSeleccionada.comentarios?.length ?? 0) > 0; else sinComentarios">
+          <ul>
+            <li *ngFor="let comentario of obraSeleccionada.comentarios">
+              <b>{{ comentario.nombreAutor }}:</b> {{ comentario.comentario }}
+              <br>
+              <small>{{ comentario.fechaComentario | date:'short' }}</small>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #sinComentarios>-</ng-template>
+      </p>
+    </mat-card-content>
+  </div>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="cerrarDetalle()">Cerrar</button>
+  </mat-card-actions>
+</mat-card>
+
+<div class="obra-cards" *ngIf="!mostrarFormulario && !mostrarDetalle">
+  <div class="card" *ngFor="let obra of obras">
+    <img [src]="getImageUrl(obra.imagenObra)" alt="Imagen de {{ obra.nombre }}">
+    <div class="card-body">
+      <h3>{{ obra.nombre }}</h3>
+      <p><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
+      <!-- ...otros campos si quieres... -->
+      <div class="card-actions">
+        <button mat-icon-button color="primary" (click)="verDetalleObra(obra)" matTooltip="Ver detalle">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminarObra(obra.idObra)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pagination">
+  <button *ngFor="let p of [].constructor(totalPages); let i = index" 
+          (click)="goToPage(i)" 
+          [class.active]="page === i">
+    {{ i + 1 }}
+  </button>
+</div>

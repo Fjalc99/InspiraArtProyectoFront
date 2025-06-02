@@ -1,0 +1,20 @@
+
+<div class="artist-cards">
+  <div class="card" *ngFor="let artista of artistas">
+    <img [src]="artista.fotoPerfil" alt="Foto de {{ artista.nombre }}">
+    <div class="card-body">
+      <h3>{{ artista.nombre }} {{ artista.apellidos }}</h3>
+      <p><strong>Usuario:</strong> {{ artista.username }}</p>
+      <p><strong>Email:</strong> {{ artista.email }}</p>
+      <p><strong>Registrado:</strong> {{ artista.createdAt | date:'medium' }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="pagination">
+  <button *ngFor="let p of [].constructor(totalPages); let i = index" 
+          (click)="goToPage(i)" 
+          [class.active]="page === i">
+    {{ i + 1 }}
+  </button>
+</div>

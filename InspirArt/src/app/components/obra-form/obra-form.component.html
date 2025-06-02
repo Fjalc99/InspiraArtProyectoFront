@@ -1,0 +1,32 @@
+<form (ngSubmit)="onGuardar()" enctype="multipart/form-data" #obraForm="ngForm">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="obraLocal.nombre" name="nombre" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Autor</mat-label>
+    <input matInput [(ngModel)]="obraLocal.nombreArtista" name="artista" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Categoría</mat-label>
+    <mat-select [(ngModel)]="obraLocal.categoria" name="categoria" required>
+      <mat-option *ngFor="let cat of categorias" [value]="cat">
+        {{ cat.nombre }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div style="margin: 16px 0;">
+    <label>Imagen (archivo):</label>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" required />
+  </div>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!obraForm.form.valid || !selectedFile">
+      Crear obra
+    </button>
+    <button mat-button type="button" (click)="onCancelar()">Cancelar</button>
+  </div>
+</form>

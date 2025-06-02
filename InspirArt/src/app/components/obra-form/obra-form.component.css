@@ -1,0 +1,38 @@
+/* Hace que los campos ocupen todo el ancho disponible */
+.full-width {
+  width: 100%;
+}
+
+/* Espaciado entre los campos del formulario */
+mat-form-field {
+  margin-bottom: 16px;
+  display: block;
+}
+
+/* Centra los botones y les da espacio */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Opcional: añade un poco de padding al formulario */
+form {
+  padding: 24px 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+}
+.form-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}

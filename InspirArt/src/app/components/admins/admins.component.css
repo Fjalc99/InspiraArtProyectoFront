@@ -1,0 +1,66 @@
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+
+.admin-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+}
+
+.card {
+  flex: 0 1 calc(20% - 16px); /* 5 por fila, restando el gap */
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  min-width: 180px;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 8px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .card {
+    flex: 0 1 calc(33.33% - 16px); /* 3 por fila en pantallas medianas */
+  }
+}
+@media (max-width: 600px) {
+  .card {
+    flex: 0 1 calc(50% - 16px); /* 2 por fila en móviles */
+  }
+}
+
+

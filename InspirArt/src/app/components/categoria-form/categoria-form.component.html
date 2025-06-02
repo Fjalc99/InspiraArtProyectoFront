@@ -1,0 +1,13 @@
+<form (ngSubmit)="onGuardar()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput name="nombre" [(ngModel)]="categoriaLocal.nombre"required />
+  </mat-form-field>
+  <div class="form-actions" >
+  <button mat-raised-button color="primary" type="submit">
+    {{ esEdicion ? 'Guardar cambios' : 'Crear categoría' }}
+  </button>
+  <button mat-button type="button" (click)="onCancelar()">Cancelar</button>
+</div>
+<button mat-button  type="button" (click)="onCancelar()">Cerrar</button>
+</form>
