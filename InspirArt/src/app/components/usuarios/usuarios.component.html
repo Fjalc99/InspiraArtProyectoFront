@@ -1,17 +1,64 @@
+<!-- Formulario de usuario (crear/editar) -->
+<app-user-form
+  *ngIf="mostrarFormulario"
+  [usuario]="usuarioSeleccionado"
+  (guardar)="onGuardarUsuario($event)"
+  (cancelar)="cerrarFormulario()">
+</app-user-form>
 
-<div class="user-cards">
+<!-- Card de detalle de usuario -->
+<mat-card *ngIf="usuarioDetalle && !mostrarFormulario" style="max-width: 400px; margin: 24px auto;">
+  <mat-card-header>
+    <mat-card-title>{{ usuarioDetalle.nombre }} {{ usuarioDetalle.apellidos }}</mat-card-title>
+    <mat-card-subtitle>{{ usuarioDetalle.username }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image *ngIf="usuarioDetalle.fotoPerfil"
+       [src]="getImageUrl(usuarioDetalle.fotoPerfil)"
+       alt="Foto de perfil" />
+  <mat-card-content>
+    <p><strong>Email:</strong> {{ usuarioDetalle.email }}</p>
+    <p><strong>Registrado:</strong> {{ usuarioDetalle.createdAt | date:'medium' }}</p>
+    <!-- Añade aquí más campos si los tienes en el DTO -->
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="usuarioDetalle = null">Cerrar</button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- Botón para crear usuario -->
+<div *ngIf="!mostrarFormulario && !usuarioDetalle" style="text-align: right; margin-bottom: 16px;">
+  <button mat-raised-button color="primary" (click)="crearUsuario()">
+    <mat-icon>person_add</mat-icon>
+    Crear usuario
+  </button>
+</div>
+
+<!-- Listado de usuarios -->
+<div class="user-cards" *ngIf="!mostrarFormulario && !usuarioDetalle">
   <div class="card" *ngFor="let usuario of Usuarios">
-    <img [src]="usuario.fotoPerfil" alt="Foto de {{ usuario.nombre }}" />
+    <img [src]="getImageUrl(usuario.fotoPerfil)" alt="Foto de {{ usuario.nombre }}" />
     <div class="card-body">
       <h3>{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
       <p><strong>Usuario:</strong> {{ usuario.username }}</p>
       <p><strong>Email:</strong> {{ usuario.email }}</p>
       <p><strong>Registrado:</strong> {{ usuario.createdAt | date:'medium' }}</p>
+      <div class="card-actions">
+        <button mat-icon-button color="primary" (click)="verUsuario(usuario)" matTooltip="Ver">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="editarUsuario(usuario)" matTooltip="Editar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminarUsuario(usuario)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="pagination">
+<!-- Paginación centrada -->
+<div class="pagination" *ngIf="!mostrarFormulario && !usuarioDetalle">
   <button *ngFor="let p of [].constructor(totalPages); let i = index"
           (click)="goToPage(i)"
           [class.active]="page === i">

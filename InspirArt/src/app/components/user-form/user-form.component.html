@@ -1,0 +1,49 @@
+<form #usuarioForm="ngForm" (ngSubmit)="guardarUsuario()" style="max-width: 400px; margin: 0 auto;">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="usuario.nombre" name="nombre" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Apellidos</mat-label>
+    <input matInput [(ngModel)]="usuario.apellidos" name="apellidos" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Usuario</mat-label>
+    <input matInput [(ngModel)]="usuario.username" name="username" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="usuario.email" name="email" required type="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Contraseña</mat-label>
+    <input matInput [(ngModel)]="usuario.password" name="password"  type="password" />
+  </mat-form-field>
+
+  <!-- Solo mostrar al crear usuario -->
+  <mat-form-field appearance="fill" class="full-width" *ngIf="!usuario.idUser">
+    <mat-label>Repite la contraseña</mat-label>
+    <input matInput [(ngModel)]="usuario.verifyPassword" name="verifyPassword" required type="password" />
+  </mat-form-field>
+
+  <div *ngIf="!contrasenasIguales() && usuario.password && usuario.verifyPassword && !usuario.idUser" style="color: red; margin-bottom: 8px;">
+    Las contraseñas no coinciden.
+  </div>
+
+  <div style="margin: 16px 0;">
+    <label>Foto de perfil:</label>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+  </div>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit"
+      [disabled]="!usuarioForm.form.valid || (!usuario.idUser && !contrasenasIguales())">
+      {{ usuario.idUser ? 'Guardar cambios' : 'Crear usuario' }}
+    </button>
+    <button mat-button type="button" (click)="cancelarFormulario()">Cancelar</button>
+  </div>
+</form>

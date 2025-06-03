@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ObrasFormComponent } from './components/obra-form/obra-form.component';
+import { UserFormComponent } from './components/user-form/user-form.component';
 
 
 
@@ -41,7 +42,8 @@ import { ObrasFormComponent } from './components/obra-form/obra-form.component';
     SidebarComponent,
     CategoriaComponent,
     CategoriaFormComponent,
-    ObrasFormComponent
+    ObrasFormComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
