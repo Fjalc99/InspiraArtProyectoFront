@@ -1,0 +1,49 @@
+<form #adminForm="ngForm" (ngSubmit)="guardarAdmin()" style="max-width: 400px; margin: 0 auto;">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="admin.nombre" name="nombre" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Apellidos</mat-label>
+    <input matInput [(ngModel)]="admin.apellidos" name="apellidos" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Usuario</mat-label>
+    <input matInput [(ngModel)]="admin.username" name="username" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="admin.email" name="email" required type="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Contraseña</mat-label>
+    <input matInput [(ngModel)]="admin.password" name="password"type="password" />
+  </mat-form-field>
+
+  <!-- Solo mostrar al crear admin -->
+  <mat-form-field appearance="fill" class="full-width" *ngIf="!admin.idAdmin">
+    <mat-label>Repite la contraseña</mat-label>
+    <input matInput [(ngModel)]="admin.verifyPassword" name="verifyPassword" required type="password" />
+  </mat-form-field>
+
+  <div *ngIf="!contrasenasIguales() && admin.password && admin.verifyPassword && !admin.idAdmin" style="color: red; margin-bottom: 8px;">
+    Las contraseñas no coinciden.
+  </div>
+
+  <div style="margin: 16px 0;">
+    <label>Foto de perfil:</label>
+    <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+  </div>
+
+  <div class="form-actions">
+    <button mat-raised-button color="primary" type="submit"
+      [disabled]="!adminForm.form.valid || (!admin.idAdmin && !contrasenasIguales())">
+      {{ admin.idAdmin ? 'Guardar cambios' : 'Crear admin' }}
+    </button>
+    <button mat-button type="button" (click)="cancelarFormulario()">Cancelar</button>
+  </div>
+</form>

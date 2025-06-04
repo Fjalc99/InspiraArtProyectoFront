@@ -26,6 +26,7 @@ import { CategoriaFormComponent } from './components/categoria-form/categoria-fo
 import { MatSelectModule } from '@angular/material/select';
 import { ObrasFormComponent } from './components/obra-form/obra-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
+import { AdminFormComponent } from './components/admin-form/admin-form.component';
 
 
 
@@ -43,7 +44,8 @@ import { UserFormComponent } from './components/user-form/user-form.component';
     CategoriaComponent,
     CategoriaFormComponent,
     ObrasFormComponent,
-    UserFormComponent
+    UserFormComponent,
+    AdminFormComponent
   ],
   imports: [
     BrowserModule,

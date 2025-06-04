@@ -1,17 +1,62 @@
+<!-- Formulario de admin (crear/editar) -->
+<app-admin-form
+  *ngIf="mostrarFormulario"
+  [admin]="adminSeleccionado"
+  (guardar)="onGuardarAdmin($event)"
+  (cancelar)="cerrarFormulario()">
+</app-admin-form>
 
-<div class="admin-cards">
+<!-- Card de detalle de admin -->
+<mat-card *ngIf="adminDetalle && !mostrarFormulario" style="max-width: 400px; margin: 24px auto;">
+  <mat-card-header>
+    <mat-card-title>{{ adminDetalle.nombre }} {{ adminDetalle.apellidos }}</mat-card-title>
+    <mat-card-subtitle>{{ adminDetalle.username }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image *ngIf="adminDetalle.fotoPerfil" [src]="getImageUrl(adminDetalle.fotoPerfil)" alt="Foto de perfil" />
+  <mat-card-content>
+    <p><strong>Email:</strong> {{ adminDetalle.email }}</p>
+    <p><strong>Registrado:</strong> {{ adminDetalle.createdAt | date:'medium' }}</p>
+    <!-- Añade aquí más campos si los tienes en el DTO -->
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="adminDetalle = null">Cerrar</button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- Botón para crear admin -->
+<div *ngIf="!mostrarFormulario && !adminDetalle" style="text-align: right; margin-bottom: 16px;">
+  <button mat-raised-button color="primary" (click)="crearAdmin()">
+    <mat-icon>person_add</mat-icon>
+    Crear admin
+  </button>
+</div>
+
+<!-- Listado de admins -->
+<div class="admin-cards" *ngIf="!mostrarFormulario && !adminDetalle">
   <div class="card" *ngFor="let admin of admins">
-    <img [src]="admin.fotoPerfil" alt="Foto de {{ admin.nombre }}">
+    <img [src]="getImageUrl(admin.fotoPerfil)" alt="Foto de {{ admin.nombre }}">
     <div class="card-body">
       <h3>{{ admin.nombre }} {{ admin.apellidos }}</h3>
       <p><strong>Usuario:</strong> {{ admin.username }}</p>
       <p><strong>Email:</strong> {{ admin.email }}</p>
       <p><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
+      <div class="card-actions">
+        <button mat-icon-button color="primary" (click)="verAdmin(admin)" matTooltip="Ver">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="editarAdmin(admin)" matTooltip="Editar">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminarAdmin(admin)" matTooltip="Eliminar">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="pagination">
+<!-- Paginación -->
+<div class="pagination" *ngIf="!mostrarFormulario && !adminDetalle">
   <button *ngFor="let p of [].constructor(totalPages); let i = index" 
           (click)="goToPage(i)" 
           [class.active]="page === i">

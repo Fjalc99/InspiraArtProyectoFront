@@ -1,0 +1,26 @@
+.full-width {
+  width: 100%;
+}
+
+form {
+  background: #fff;
+  padding: 24px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin: 0 auto;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+mat-form-field {
+  margin-bottom: 16px;
+}
+
+input[type="file"] {
+  margin-top: 8px;
+}

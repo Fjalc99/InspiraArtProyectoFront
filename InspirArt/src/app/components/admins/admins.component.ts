@@ -14,6 +14,10 @@ export class AdminsComponent implements OnInit {
   page = 0;
   size = 10;
   totalPages = 0;
+   mostrarFormulario = false;
+  adminSeleccionado: Partial<AdminDto> = {};
+  adminDetalle: AdminDto | null = null;
+
 
   constructor(private adminsService: AdminsService) {}
 
@@ -33,6 +37,80 @@ export class AdminsComponent implements OnInit {
   }
 }
 
+
+
+
+ crearAdmin() {
+    this.adminSeleccionado = {
+      nombre: '',
+      apellidos: '',
+      username: '',
+      email: '',
+      password: '',
+      verifyPassword: ''
+    };
+    this.mostrarFormulario = true;
+  }
+
+  editarAdmin(admin: AdminDto) {
+    this.adminSeleccionado = { ...admin};
+    this.mostrarFormulario = true;
+  }
+
+  cerrarFormulario() {
+    this.mostrarFormulario = false;
+    this.adminSeleccionado = {};
+  }
+
+  async onGuardarAdmin(event: { admin: any, file: File | null }) {
+    const { admin, file } = event;
+    const formData = new FormData();
+
+    if (admin.idAdmin) {
+      // EDITAR
+      const adminEdit = { ...admin };
+      delete adminEdit.idAdmin;
+      formData.append('admin', new Blob([JSON.stringify(adminEdit)], { type: 'application/json' }));
+      if (file) {
+        formData.append('file', file);
+      }
+      try {
+        await firstValueFrom(this.adminsService.updateAdmin(admin.idAdmin, formData));
+        this.mostrarFormulario = false;
+        await this.loadAdmins();
+      } catch (error) {
+        console.error('Error al guardar el admin:', error);
+      }
+    } else {
+      // CREAR
+      formData.append('createAdminDto', new Blob([JSON.stringify(admin)], { type: 'application/json' }));
+      if (file) {
+        formData.append('file', file);
+      }
+      try {
+        await firstValueFrom(this.adminsService.createAdmin(formData));
+        this.mostrarFormulario = false;
+        await this.loadAdmins();
+      } catch (error) {
+        console.error('Error al guardar el admin:', error);
+      }
+    }
+  }
+
+  verAdmin(admin: AdminDto) {
+    this.adminDetalle = admin;
+  }
+
+  async eliminarAdmin(admin: AdminDto) {
+    try {
+      await firstValueFrom(this.adminsService.deleteAdmin(admin.idAdmin));
+      await this.loadAdmins();
+    } catch (error) {
+      console.error('Error al eliminar el admin:', error);
+    }
+  }
+  
+
   goToPage(page: number) {
     if (page >= 0 && page < this.totalPages) {
       this.page = page;
@@ -40,4 +118,9 @@ export class AdminsComponent implements OnInit {
     }
   }
 
+  getImageUrl(nombreArchivo: string | undefined): string {
+  if (!nombreArchivo) return 'assets/no-image.png';
+  if (nombreArchivo.startsWith('http')) return nombreArchivo;
+  return `http://localhost:8080/download/${nombreArchivo}`;
+  }
 }
