@@ -9,4 +9,7 @@ export interface ArtistaDto {
   fotoPerfil: string;
   createdAt: string;
     listaObras: ListaObraDto[];
+    idArtista: string;
+    password?: string;
+    verifyPassword?: string;
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../../services/usuarios.service';
 import { UsuarioDto } from '../../interfaces/UsuarioDto';
 import { firstValueFrom } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -17,7 +19,7 @@ export class UsuariosComponent implements OnInit {
   usuarioSeleccionado: Partial<UsuarioDto> = {};
   usuarioDetalle: UsuarioDto | null = null;
 
-  constructor(private usuarioService: UsuariosService) {}
+  constructor(private usuarioService: UsuariosService, private dialog: MatDialog) {}
 
   async ngOnInit() {
     await this.loadUsuarios();
@@ -106,12 +108,20 @@ export class UsuariosComponent implements OnInit {
 }
 
   async eliminarUsuario(usuario: UsuarioDto) {
-    try {
-      await firstValueFrom(this.usuarioService.deleteUsuario(usuario.idUser));
-      console.log('Usuario eliminado:', usuario.idUser);
-      await this.loadUsuarios();
-    } catch (error) {
-      console.error('Error al eliminar el usuario:', error);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { mensaje: '¿Seguro que quieres eliminar este usuario?' }
+    });
+
+    const result = await firstValueFrom(dialogRef.afterClosed());
+    if (result) {
+      try {
+        await firstValueFrom(this.usuarioService.deleteUsuario(usuario.idUser));
+        console.log('Usuario eliminado:', usuario.idUser);
+        await this.loadUsuarios();
+      } catch (error) {
+        console.error('Error al eliminar el usuario:', error);
+      }
     }
   }
 

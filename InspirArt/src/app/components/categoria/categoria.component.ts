@@ -4,6 +4,8 @@ import { CategoriaDto } from '../../interfaces/categoria/CategoriaDto';
 import { CreateCategoriaDto } from '../../interfaces/categoria/CreateCategoriaDto';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import { EditCategoriaDto } from '../../interfaces/categoria/EditCategoriaDto';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-categoria',
@@ -23,7 +25,7 @@ export class CategoriaComponent implements OnInit {
 
 
 
-  constructor(private categoriasService: CategoriasService) {}
+  constructor(private categoriasService: CategoriasService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadCategorias();
@@ -87,12 +89,19 @@ aniadirCategoria() {
 
   eliminarCategoria(idCategoria: string) {
     if (!idCategoria) return;
-    if (confirm('¿Estás seguro de que quieres eliminar esta categoría?')) {
-      this.categoriasService.eliminarCategoria(idCategoria).subscribe({
-        next: () => this.loadCategorias(),
-        error: (error) => console.error('Error eliminando la categoría:', error)
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { mensaje: '¿Estás seguro de que quieres eliminar esta categoría?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.categoriasService.eliminarCategoria(idCategoria).subscribe({
+          next: () => this.loadCategorias(),
+          error: (error) => console.error('Error eliminando la categoría:', error)
+        });
+      }
+    });
   }
 
   onCancelarFormulario() {

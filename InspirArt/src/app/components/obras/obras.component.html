@@ -1,9 +1,7 @@
-<div class="obra-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+<div class="obra-header"
+  style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
   <h3>Obras</h3>
- <!-- <button mat-raised-button color="primary" (click)="aniadirObra()">
-    <mat-icon>add</mat-icon>
-    Agregar obra
-  </button> -->
+
 </div>
 
 <!-- Formulario para crear obra -->
@@ -16,16 +14,16 @@
 </app-obras-form>
 
 <!-- Detalle de obra -->
-<mat-card *ngIf="mostrarDetalle && obraSeleccionada" class="detalle-obra" style="max-width: 900px; margin: 40px auto; padding: 32px;">
-  <mat-card-header>
-    <mat-card-title style="font-size: 2rem;">Detalle de obra</mat-card-title>
-    <br>
-    <br>
-    <mat-card-subtitle>{{ obraSeleccionada.nombre }}</mat-card-subtitle>
-  </mat-card-header>
-  <div style="display: flex; gap: 32px; align-items: flex-start;">
-    <img mat-card-image [src]="getImageUrl(obraSeleccionada.imagenObra)" alt="Imagen de {{ obraSeleccionada.nombre }}" style="max-width: 400px; max-height: 500px; object-fit: contain; flex-shrink: 0;">
-    <mat-card-content style="flex: 1;">
+<div *ngIf="mostrarDetalle && obraSeleccionada" class="card detalle-obra-card">
+  <div class="card-header text-center bg-light border-0 pb-2">
+    <h4 class="mb-0">Detalle de obra</h4>
+    <div class="text-muted">{{ obraSeleccionada.nombre }}</div>
+  </div>
+  <div class="d-flex gap-4 align-items-start flex-wrap p-3">
+    <img [src]="getImageUrl(obraSeleccionada.imagenObra)"
+         alt="Imagen de {{ obraSeleccionada.nombre }}"
+         class="detalle-obra-img rounded">
+    <div class="flex-grow-1">
       <p><strong>Autor:</strong> {{ obraSeleccionada.nombreArtista }}</p>
       <p><strong>Categoría:</strong> {{ obraSeleccionada.categoria?.nombre }}</p>
       <p><strong>Subida:</strong> {{ obraSeleccionada.fechaSubida | date:'medium' }}</p>
@@ -33,37 +31,65 @@
         <strong>Valoración media:</strong>
         <ng-container *ngIf="obraSeleccionada.mediaValoracion != null; else sinValoracion">
           <span *ngFor="let star of [1,2,3,4,5]">
-            <mat-icon color="accent">
-              {{ star <= Math.round(obraSeleccionada.mediaValoracion) ? 'star' : 'star_border' }}
-            </mat-icon>
+            <i class="bi" [ngClass]="star <= Math.round(obraSeleccionada.mediaValoracion) ? 'bi-star-fill text-warning' : 'bi-star'"></i>
           </span>
           ({{ obraSeleccionada.mediaValoracion | number:'1.1-2' }})
         </ng-container>
         <ng-template #sinValoracion>-</ng-template>
       </p>
-      <p>
-        <strong>Total de comentarios:</strong>
-        {{ obraSeleccionada.comentarios?.length ?? 0 }}
-      </p>
-      <p>
+            <p>
         <strong>Comentarios:</strong>
         <ng-container *ngIf="(obraSeleccionada.comentarios?.length ?? 0) > 0; else sinComentarios">
-          <ul>
-            <li *ngFor="let comentario of obraSeleccionada.comentarios">
-              <b>{{ comentario.nombreAutor }}:</b> {{ comentario.comentario }}
-              <br>
-              <small>{{ comentario.fechaComentario | date:'short' }}</small>
+          <ul class="list-unstyled">
+            <li *ngFor="let comentario of obraSeleccionada.comentarios" class="mb-2 d-flex align-items-start justify-content-between">
+              <div class="flex-grow-1">
+                <b>{{ comentario.nombreAutor }}:</b>
+                <span *ngIf="comentarioEditandoId !== comentario.idComentario">{{ comentario.comentario }}</span>
+                <!-- Textarea para editar -->
+                <textarea *ngIf="comentarioEditandoId === comentario.idComentario"
+                          class="form-control mb-1"
+                          [(ngModel)]="nuevoComentario"
+                          rows="2"></textarea>
+                <br>
+                <small class="text-muted">{{ comentario.fechaComentario | date:'short' }}</small>
+              </div>
+              <div class="ms-2 d-flex flex-column align-items-end">
+                <ng-container *ngIf="comentarioEditandoId !== comentario.idComentario">
+                  <button class="btn btn-link p-0 me-2" (click)="empezarEditarComentario(comentario)" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-link text-danger p-0" (click)="eliminarComentarioAdmin(comentario)" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="comentarioEditandoId === comentario.idComentario">
+                  <button class="btn btn-success btn-sm mb-1" (click)="guardarEdicionComentarioAdmin(comentario)">
+                    <i class="bi bi-check"></i>
+                  </button>
+                  <button class="btn btn-secondary btn-sm" (click)="cancelarEdicionComentarioAdmin()">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </ng-container>
+              </div>
             </li>
           </ul>
         </ng-container>
         <ng-template #sinComentarios>-</ng-template>
       </p>
-    </mat-card-content>
+      
+      <!-- Textarea para nuevo comentario (solo si no se está editando) -->
+      <form *ngIf="!comentarioEditandoId" (ngSubmit)="agregarComentarioAdmin()" class="mt-3">
+        <div class="mb-2">
+          <textarea class="form-control" [(ngModel)]="nuevoComentario" name="nuevoComentario" rows="2" placeholder="Escribe un comentario..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-sm" type="submit" [disabled]="!nuevoComentario">Comentar</button>
+      </form>
+    </div>
   </div>
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="cerrarDetalle()">Cerrar</button>
-  </mat-card-actions>
-</mat-card>
+  <div class="card-footer text-end bg-white border-0 pt-2">
+    <button class="btn btn-primary" (click)="cerrarDetalle()">Cerrar</button>
+  </div>
+</div>
 
 <div class="obra-cards" *ngIf="!mostrarFormulario && !mostrarDetalle">
   <div class="card" *ngFor="let obra of obras">
@@ -73,11 +99,13 @@
       <p><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
       <!-- ...otros campos si quieres... -->
       <div class="card-actions">
-        <button mat-icon-button color="primary" (click)="verDetalleObra(obra)" matTooltip="Ver detalle">
-          <mat-icon>visibility</mat-icon>
+        <button class="btn btn-sm btn-outline-primary me-2"
+          (click)="verDetalleObra(obra)" title="Ver detalle">
+          <i class="bi bi-eye"></i>
         </button>
-        <button mat-icon-button color="warn" (click)="eliminarObra(obra.idObra)" matTooltip="Eliminar">
-          <mat-icon>delete</mat-icon>
+        <button class="btn btn-sm btn-outline-danger"
+          (click)="eliminarObra(obra.idObra)" title="Eliminar">
+          <i class="bi bi-trash"></i>
         </button>
       </div>
     </div>
@@ -85,9 +113,9 @@
 </div>
 
 <div class="pagination">
-  <button *ngFor="let p of [].constructor(totalPages); let i = index" 
-          (click)="goToPage(i)" 
-          [class.active]="page === i">
+  <button *ngFor="let p of [].constructor(totalPages); let i = index"
+    (click)="goToPage(i)"
+    [class.active]="page === i">
     {{ i + 1 }}
   </button>
 </div>

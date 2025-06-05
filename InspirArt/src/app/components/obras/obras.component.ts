@@ -4,6 +4,10 @@ import { ObraDto } from '../../interfaces/ObraDto';
 import { ListaObraDto } from '../../interfaces/ListaObraDto';
 import { CategoriaDto } from '../../interfaces/categoria/CategoriaDto';
 import { CategoriasService } from '../../services/categorias.service';
+import { ComentariosService } from '../../services/comentarios.service';
+import { ComentarioDto } from '../../interfaces/ComentarioDto';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-obras',
@@ -23,6 +27,10 @@ export class ObrasComponent implements OnInit {
     estilo: ''
   };
 
+
+  nuevoComentario: string = '';
+  comentarioEditandoId: string | null = null;
+  comentarioEditado: string = '';
   
   mostrarDetalle = false;
   mostrarFormulario = false;
@@ -30,7 +38,11 @@ export class ObrasComponent implements OnInit {
   obraSeleccionada: Partial<ObraDto> = {};
 categorias: CategoriaDto[] = [];
 
-  constructor(private obrasService: ObrasService, private categoriasService: CategoriasService) { }
+  constructor(private obrasService: ObrasService,
+     private categoriasService: CategoriasService,
+      private comentariosService: ComentariosService,
+      private dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
   this.loadObras();
@@ -113,13 +125,7 @@ categorias: CategoriaDto[] = [];
   this.mostrarFormulario = false;
   this.esEdicion = false;
 }
-/*
-  editarObra(obra: ListaObraDto) {
-    this.obraSeleccionada = { ...obra };
-    this.mostrarFormulario = true;
-    this.mostrarDetalle = false;
-    this.esEdicion = true;
-  } */
+
 
   aniadirObra() {
   this.loadCategorias();
@@ -129,14 +135,21 @@ categorias: CategoriaDto[] = [];
   this.esEdicion = false;
 }
 
-  eliminarObra(idObra: string) {
-    if (confirm('¿Seguro que quieres eliminar esta obra?')) {
+ eliminarObra(idObra: string) {
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    width: '300px',
+    data: { mensaje: '¿Seguro que quieres eliminar esta obra?' }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
       this.obrasService.eliminarObra(idObra).subscribe({
         next: () => this.loadObras(),
-        error: (err) => console.error('Error eliminando obra:', err)
+        error: err => console.error('Error eliminando obra:', err)
       });
     }
-  }
+  });
+}
 
   cerrarDetalle() {
     this.mostrarDetalle = false;
@@ -149,6 +162,77 @@ categorias: CategoriaDto[] = [];
     this.esEdicion = false;
   }
 
+
+  empezarEditarComentario(comentario: ComentarioDto) {
+  this.comentarioEditandoId = comentario.idComentario;
+  this.nuevoComentario = comentario.comentario;
+}
+
+
+
+
+
+agregarComentarioAdmin() {
+  if (!this.nuevoComentario || this.nuevoComentario.length === 0 || !this.obraSeleccionada?.idObra) return;
+  const comentario: Partial<ComentarioDto> = {
+    comentario: this.nuevoComentario,
+    idObra: this.obraSeleccionada.idObra
+  };
+  this.comentariosService.crearComentarioAdministrador(comentario as ComentarioDto).subscribe({
+    next: (nuevo) => {
+      if (!this.obraSeleccionada.comentarios) this.obraSeleccionada.comentarios = [];
+      this.obraSeleccionada.comentarios.push(nuevo);
+      this.nuevoComentario = '';
+    }
+  });
+}
+
+// Editar comentario como admin
+editarComentarioAdmin(comentario: ComentarioDto) {
+  this.comentarioEditandoId = comentario.idComentario;
+  this.comentarioEditado = comentario.comentario;
+}
+
+guardarEdicionComentarioAdmin(comentario: ComentarioDto) {
+  if (!this.nuevoComentario.trim()) return;
+  this.comentariosService.editarComentarioAdministrador(comentario.idComentario, { ...comentario, comentario: this.nuevoComentario }).subscribe({
+    next: (editado) => {
+      if (this.obraSeleccionada.comentarios) {
+        const idx = this.obraSeleccionada.comentarios.findIndex(c => c.idComentario === comentario.idComentario);
+        if (idx > -1) this.obraSeleccionada.comentarios[idx] = editado;
+      }
+      this.comentarioEditandoId = null;
+      this.nuevoComentario = '';
+    }
+  });
+}
+
+cancelarEdicionComentarioAdmin() {
+  this.comentarioEditandoId = null;
+  this.comentarioEditado = '';
+}
+
+// Eliminar comentario como admin
+eliminarComentarioAdmin(comentario: ComentarioDto) {
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    width: '300px',
+    data: { mensaje: '¿Seguro que quieres eliminar este comentario?' }
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      this.comentariosService.deleteComentarioAdministrador(comentario.idComentario).subscribe({
+        next: () => {
+          if (this.obraSeleccionada.comentarios) {
+            this.obraSeleccionada.comentarios = this.obraSeleccionada.comentarios.filter(
+              c => c.idComentario !== comentario.idComentario
+            );
+          }
+        }
+      });
+    }
+  });
+}
   getImageUrl(nombreArchivo: string | undefined): string {
   if (!nombreArchivo) return 'assets/no-image.png';
   if (nombreArchivo.startsWith('http')) return nombreArchivo;

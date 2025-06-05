@@ -1,12 +1,10 @@
-<div class="categoria-header"
-  style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+<div class="d-flex align-items-center justify-content-between mb-3">
   <h3>Categorías</h3>
-  <button mat-raised-button color="primary" (click)="aniadirCategoria()">
-    <mat-icon>add</mat-icon>
+  <button class="btn btn-primary" (click)="aniadirCategoria()">
+    <i class="bi bi-plus"></i>
     Añadir categoría
   </button>
 </div>
-
 
 <app-categoria-form
   *ngIf="mostrarFormulario"
@@ -16,29 +14,28 @@
   (cancelar)="onCancelarFormulario()">
 </app-categoria-form>
 
-
-<div class="categoria-cards" *ngIf="!mostrarFormulario">
-  <div class="card" *ngFor="let categoria of categorias">
-    <div class="card-body" *ngIf="categoria.nombre">
-      <h4>{{ categoria.nombre }}</h4>
-      <div class="acciones">
-        <button mat-icon-button color="primary"
-          (click)="editarCategoria(categoria)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn"
-          (click)="eliminarCategoria(categoria.idCategoria)">
-          <mat-icon>delete</mat-icon>
-        </button>
+<div class="row" *ngIf="!mostrarFormulario">
+  <div class="col-md-4 mb-4" *ngFor="let categoria of categorias">
+    <div class="card h-100">
+      <div class="card-body" *ngIf="categoria.nombre">
+        <h4 class="card-title">{{ categoria.nombre }}</h4>
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-outline-secondary btn-sm" (click)="editarCategoria(categoria)" title="Editar">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-outline-danger btn-sm" (click)="eliminarCategoria(categoria.idCategoria)" title="Eliminar">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="pagination" *ngIf="totalPages > 1">
-  <button *ngFor="let p of [].constructor(totalPages); let i = index"
-    (click)="goToPage(i)"
-    [class.active]="page === i">
-    {{ i + 1 }}
-  </button>
-</div>
+<nav *ngIf="totalPages > 1" class="d-flex justify-content-center mt-4">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let p of [].constructor(totalPages); let i = index" [class.active]="page === i">
+      <button class="page-link" (click)="goToPage(i)">{{ i + 1 }}</button>
+    </li>
+  </ul>
+</nav>

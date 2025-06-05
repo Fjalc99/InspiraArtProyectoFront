@@ -1,3 +1,4 @@
+/* === Listado de usuarios === */
 .user-cards {
   display: flex;
   flex-wrap: wrap;
@@ -5,7 +6,7 @@
   justify-content: flex-start;
 }
 
-.card {
+.user-cards .card {
   flex: 0 1 calc(20% - 16px); /* 5 por fila */
   box-sizing: border-box;
   background: #fff;
@@ -20,42 +21,83 @@
   align-items: center;
 }
 
-.card img {
-  width: 80px;
-  height: 80px;
+.user-cards .card img {
+  width: 100px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 8px;
+  border-radius: 50%;  /* Cambia a 8px si las quieres cuadradas */
+  border: 2px solid #ddd;
+  margin-bottom: 12px;
+  display: block;
 }
 
-.card-body {
+.user-cards .card-body {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
   width: 100%;
   justify-content: space-between;
-  padding: 16px 0 0 0;
+  padding-top: 8px;
 }
 
-.card-actions {
+.user-cards .card-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 8px;
   margin-top: auto;
 }
 
+/* Responsive */
 @media (max-width: 900px) {
-  .card {
+  .user-cards .card {
     flex: 0 1 calc(33.33% - 16px);
   }
 }
 @media (max-width: 600px) {
-  .card {
+  .user-cards .card {
     flex: 0 1 calc(50% - 16px);
   }
 }
 
+/* === Card de detalle de usuario === */
+.usuario-detalle-card {
+  max-width: 360px;
+  margin: 2rem auto;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  padding: 16px;
+  text-align: center;
+}
 
+.usuario-detalle-card .perfil-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  margin: 16px auto;
+}
+
+.usuario-detalle-card .card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.usuario-detalle-card .text-muted {
+  font-size: 0.85rem;
+}
+
+.usuario-detalle-card .card-text {
+  margin: 0.5rem 0;
+}
+
+.usuario-detalle-card .btn {
+  margin-top: 1rem;
+}
+
+/* === Paginación === */
 .pagination {
   margin-top: 20px;
   text-align: center;

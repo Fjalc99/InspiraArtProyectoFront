@@ -7,61 +7,64 @@
 </app-user-form>
 
 <!-- Card de detalle de usuario -->
-<mat-card *ngIf="usuarioDetalle && !mostrarFormulario" style="max-width: 400px; margin: 24px auto;">
-  <mat-card-header>
-    <mat-card-title>{{ usuarioDetalle.nombre }} {{ usuarioDetalle.apellidos }}</mat-card-title>
-    <mat-card-subtitle>{{ usuarioDetalle.username }}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image *ngIf="usuarioDetalle.fotoPerfil"
-       [src]="getImageUrl(usuarioDetalle.fotoPerfil)"
-       alt="Foto de perfil" />
-  <mat-card-content>
-    <p><strong>Email:</strong> {{ usuarioDetalle.email }}</p>
-    <p><strong>Registrado:</strong> {{ usuarioDetalle.createdAt | date:'medium' }}</p>
-    <!-- Añade aquí más campos si los tienes en el DTO -->
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="usuarioDetalle = null">Cerrar</button>
-  </mat-card-actions>
-</mat-card>
+<div *ngIf="usuarioDetalle && !mostrarFormulario" class="card usuario-detalle-card">
+  <div class="card-header text-center">
+    <h5 class="card-title mb-0">{{ usuarioDetalle.nombre }} {{ usuarioDetalle.apellidos }}</h5>
+    <small class="text-muted">{{ usuarioDetalle.username }}</small>
+  </div>
+
+  <div class="card-body text-center">
+    <img *ngIf="usuarioDetalle.fotoPerfil"
+         [src]="getImageUrl(usuarioDetalle.fotoPerfil)"
+         class="rounded-circle perfil-img mb-3"
+         alt="Foto de perfil" />
+         
+    <p class="card-text"><strong>Email:</strong> {{ usuarioDetalle.email }}</p>
+    <p class="card-text"><strong>Registrado:</strong> {{ usuarioDetalle.createdAt | date:'medium' }}</p>
+    
+    <button class="btn btn-primary mt-3" (click)="usuarioDetalle = null">Cerrar</button>
+  </div>
+</div>
 
 <!-- Botón para crear usuario -->
-<div *ngIf="!mostrarFormulario && !usuarioDetalle" style="text-align: right; margin-bottom: 16px;">
-  <button mat-raised-button color="primary" (click)="crearUsuario()">
-    <mat-icon>person_add</mat-icon>
+<div *ngIf="!mostrarFormulario && !usuarioDetalle" class="text-end mb-3">
+  <button class="btn btn-success" (click)="crearUsuario()">
+    <i class="bi bi-person-plus"></i>
     Crear usuario
   </button>
 </div>
 
 <!-- Listado de usuarios -->
-<div class="user-cards" *ngIf="!mostrarFormulario && !usuarioDetalle">
-  <div class="card" *ngFor="let usuario of Usuarios">
-    <img [src]="getImageUrl(usuario.fotoPerfil)" alt="Foto de {{ usuario.nombre }}" />
-    <div class="card-body">
-      <h3>{{ usuario.nombre }} {{ usuario.apellidos }}</h3>
-      <p><strong>Usuario:</strong> {{ usuario.username }}</p>
-      <p><strong>Email:</strong> {{ usuario.email }}</p>
-      <p><strong>Registrado:</strong> {{ usuario.createdAt | date:'medium' }}</p>
-      <div class="card-actions">
-        <button mat-icon-button color="primary" (click)="verUsuario(usuario)" matTooltip="Ver">
-          <mat-icon>visibility</mat-icon>
-        </button>
-        <button mat-icon-button color="accent" (click)="editarUsuario(usuario)" matTooltip="Editar">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="eliminarUsuario(usuario)" matTooltip="Eliminar">
-          <mat-icon>delete</mat-icon>
-        </button>
+<div class="row" *ngIf="!mostrarFormulario && !usuarioDetalle">
+  <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let usuario of Usuarios">
+    <div class="card h-100">
+      <img [src]="getImageUrl(usuario.fotoPerfil)" class="card-img-top" alt="Foto de {{ usuario.nombre }}" />
+      <div class="card-body">
+        <h5 class="card-title">{{ usuario.nombre }} {{ usuario.apellidos }}</h5>
+        <p class="card-text"><strong>Usuario:</strong> {{ usuario.username }}</p>
+        <p class="card-text"><strong>Email:</strong> {{ usuario.email }}</p>
+        <p class="card-text"><strong>Registrado:</strong> {{ usuario.createdAt | date:'medium' }}</p>
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-outline-primary btn-sm" (click)="verUsuario(usuario)" title="Ver">
+            <i class="bi bi-eye"></i>
+          </button>
+          <button class="btn btn-outline-secondary btn-sm" (click)="editarUsuario(usuario)" title="Editar">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-outline-danger btn-sm" (click)="eliminarUsuario(usuario)" title="Eliminar">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Paginación centrada -->
-<div class="pagination" *ngIf="!mostrarFormulario && !usuarioDetalle">
-  <button *ngFor="let p of [].constructor(totalPages); let i = index"
-          (click)="goToPage(i)"
-          [class.active]="page === i">
-    {{ i + 1 }}
-  </button>
-</div>
+<nav *ngIf="!mostrarFormulario && !usuarioDetalle" class="d-flex justify-content-center mt-4">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let p of [].constructor(totalPages); let i = index" [class.active]="page === i">
+      <button class="page-link" (click)="goToPage(i)">{{ i + 1 }}</button>
+    </li>
+  </ul>
+</nav>

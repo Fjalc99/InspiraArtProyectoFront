@@ -7,48 +7,50 @@
 </app-admin-form>
 
 <!-- Card de detalle de admin -->
-<mat-card *ngIf="adminDetalle && !mostrarFormulario" style="max-width: 400px; margin: 24px auto;">
-  <mat-card-header>
-    <mat-card-title>{{ adminDetalle.nombre }} {{ adminDetalle.apellidos }}</mat-card-title>
-    <mat-card-subtitle>{{ adminDetalle.username }}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image *ngIf="adminDetalle.fotoPerfil" [src]="getImageUrl(adminDetalle.fotoPerfil)" alt="Foto de perfil" />
-  <mat-card-content>
-    <p><strong>Email:</strong> {{ adminDetalle.email }}</p>
-    <p><strong>Registrado:</strong> {{ adminDetalle.createdAt | date:'medium' }}</p>
+<div *ngIf="adminDetalle && !mostrarFormulario" class="card mx-auto my-4" style="max-width: 400px;">
+  <div class="card-header text-center">
+    <h5 class="card-title mb-0">{{ adminDetalle.nombre }} {{ adminDetalle.apellidos }}</h5>
+    <small class="text-muted">{{ adminDetalle.username }}</small>
+  </div>
+  <img *ngIf="adminDetalle.fotoPerfil" [src]="getImageUrl(adminDetalle.fotoPerfil)" class="card-img-top" alt="Foto de perfil" />
+  <div class="card-body">
+    <p class="card-text"><strong>Email:</strong> {{ adminDetalle.email }}</p>
+    <p class="card-text"><strong>Registrado:</strong> {{ adminDetalle.createdAt | date:'medium' }}</p>
     <!-- Añade aquí más campos si los tienes en el DTO -->
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="adminDetalle = null">Cerrar</button>
-  </mat-card-actions>
-</mat-card>
+  </div>
+  <div class="card-footer text-end">
+    <button class="btn btn-primary" (click)="adminDetalle = null">Cerrar</button>
+  </div>
+</div>
 
 <!-- Botón para crear admin -->
-<div *ngIf="!mostrarFormulario && !adminDetalle" style="text-align: right; margin-bottom: 16px;">
-  <button mat-raised-button color="primary" (click)="crearAdmin()">
-    <mat-icon>person_add</mat-icon>
+<div *ngIf="!mostrarFormulario && !adminDetalle" class="text-end mb-3">
+  <button class="btn btn-success" (click)="crearAdmin()">
+    <i class="bi bi-person-plus"></i>
     Crear admin
   </button>
 </div>
 
 <!-- Listado de admins -->
-<div class="admin-cards" *ngIf="!mostrarFormulario && !adminDetalle">
-  <div class="card" *ngFor="let admin of admins">
-    <img [src]="getImageUrl(admin.fotoPerfil)" alt="Foto de {{ admin.nombre }}">
-    <div class="card-body">
-      <h3>{{ admin.nombre }} {{ admin.apellidos }}</h3>
-      <p><strong>Usuario:</strong> {{ admin.username }}</p>
-      <p><strong>Email:</strong> {{ admin.email }}</p>
-      <p><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
-      <div class="card-actions">
-        <button mat-icon-button color="primary" (click)="verAdmin(admin)" matTooltip="Ver">
-          <mat-icon>visibility</mat-icon>
+<div class="row" *ngIf="!mostrarFormulario && !adminDetalle">
+  <div class="col-md-4 mb-4" *ngFor="let admin of admins">
+    <div class="card h-100">
+      <img [src]="getImageUrl(admin.fotoPerfil)" class="card-img-top" alt="Foto de {{ admin.nombre }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ admin.nombre }} {{ admin.apellidos }}</h5>
+        <p class="card-text"><strong>Usuario:</strong> {{ admin.username }}</p>
+        <p class="card-text"><strong>Email:</strong> {{ admin.email }}</p>
+        <p class="card-text"><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
+      </div>
+      <div class="card-footer d-flex justify-content-between">
+        <button class="btn btn-outline-primary btn-sm" (click)="verAdmin(admin)" title="Ver">
+          <i class="bi bi-eye"></i>
         </button>
-        <button mat-icon-button color="accent" (click)="editarAdmin(admin)" matTooltip="Editar">
-          <mat-icon>edit</mat-icon>
+        <button class="btn btn-outline-secondary btn-sm" (click)="editarAdmin(admin)" title="Editar">
+          <i class="bi bi-pencil"></i>
         </button>
-        <button mat-icon-button color="warn" (click)="eliminarAdmin(admin)" matTooltip="Eliminar">
-          <mat-icon>delete</mat-icon>
+        <button class="btn btn-outline-danger btn-sm" (click)="eliminarAdmin(admin)" title="Eliminar">
+          <i class="bi bi-trash"></i>
         </button>
       </div>
     </div>
@@ -56,10 +58,10 @@
 </div>
 
 <!-- Paginación -->
-<div class="pagination" *ngIf="!mostrarFormulario && !adminDetalle">
-  <button *ngFor="let p of [].constructor(totalPages); let i = index" 
-          (click)="goToPage(i)" 
-          [class.active]="page === i">
-    {{ i + 1 }}
-  </button>
-</div>
+<nav *ngIf="!mostrarFormulario && !adminDetalle" class="d-flex justify-content-center mt-4">
+  <ul class="pagination">
+    <li class="page-item" *ngFor="let p of [].constructor(totalPages); let i = index" [class.active]="page === i">
+      <button class="page-link" (click)="goToPage(i)">{{ i + 1 }}</button>
+    </li>
+  </ul>
+</nav>

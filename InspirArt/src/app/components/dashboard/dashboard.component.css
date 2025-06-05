@@ -1,0 +1,43 @@
+/* styles.css o app.component.css */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background-color: #22223B;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar .brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+
+.sidebar nav a {
+  color: #ccc;
+  text-decoration: none;
+  padding: 10px 5px;
+  display: block;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.sidebar nav a.active,
+.sidebar nav a:hover {
+  background-color: #ffffff;
+  color: #22223B;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f8f9fa;
+}

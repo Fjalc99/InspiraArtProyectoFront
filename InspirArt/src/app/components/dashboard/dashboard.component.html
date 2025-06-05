@@ -1,0 +1,19 @@
+<div class="app-layout">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/">Galería Admin</a>
+    <nav>
+      <a routerLink="/obra" routerLinkActive="active">Obras</a>
+      <a routerLink="/categoria" routerLinkActive="active">Categorías</a>
+      <a routerLink="/usuario" routerLinkActive="active">Usuarios</a>
+      <a routerLink="/artista" routerLinkActive="active">Artistas</a>
+      <a routerLink="/admin" routerLinkActive="active">Administradores</a>
+      <a routerLink="/comentarios" routerLinkActive="active">Comentarios</a>
+      <a routerLink="/valoraciones" routerLinkActive="active">Valoraciones</a>
+      <a routerLink="/favoritos" routerLinkActive="active">Favoritos</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

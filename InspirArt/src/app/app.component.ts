@@ -10,7 +10,5 @@ export class AppComponent {
   title = 'InspirArt';
    constructor(private router: Router) {}
 
-   isLoginPage() {
-    return this.router.url === '/login';
-  }
+  
 }

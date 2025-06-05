@@ -1,0 +1,44 @@
+<form #artistaForm="ngForm" (ngSubmit)="guardarArtista()" class="mx-auto my-4 p-4 border rounded bg-white" style="max-width: 400px;">
+  <div class="mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="nombre" [(ngModel)]="artista.nombre" name="nombre" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="apellidos" class="form-label">Apellidos</label>
+    <input type="text" class="form-control" id="apellidos" [(ngModel)]="artista.apellidos" name="apellidos" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" [(ngModel)]="artista.email" name="email" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <input type="password" class="form-control" id="password" [(ngModel)]="artista.password" name="password">
+  </div>
+
+  <!-- Solo mostrar al crear artista -->
+  <div class="mb-3" *ngIf="!artista.idArtista">
+    <label for="verifyPassword" class="form-label">Repite la contraseña</label>
+    <input type="password" class="form-control" id="verifyPassword" [(ngModel)]="artista.verifyPassword" name="verifyPassword" required>
+  </div>
+
+  <div *ngIf="!contrasenasIguales() && artista.password && artista.verifyPassword && !artista.idArtista" class="text-danger mb-2">
+    Las contraseñas no coinciden.
+  </div>
+
+  <div class="mb-3">
+    <label for="fotoPerfil" class="form-label">Foto de perfil:</label>
+    <input type="file" class="form-control" id="fotoPerfil" accept="image/*" (change)="onFileSelected($event)">
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button class="btn btn-primary" type="submit"
+      [disabled]="!artistaForm.form.valid || (!artista.idArtista && !contrasenasIguales())">
+      {{ artista.idArtista ? 'Guardar cambios' : 'Crear artista' }}
+    </button>
+    <button class="btn btn-secondary" type="button" (click)="cancelarFormulario()">Cancelar</button>
+  </div>
+</form>

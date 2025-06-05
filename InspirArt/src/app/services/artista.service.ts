@@ -9,7 +9,7 @@ import { ArtistaDto } from '../interfaces/ArtistaDto';
 
 
 export class ArtistaService {
-  private readonly API_URL = 'http://localhost:8080/artistas';
+  private readonly API_URL = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
@@ -19,7 +19,43 @@ export class ArtistaService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    return this.http.get<ArtistaDto[]>(`${this.API_URL}?page=${page}&size=${size}`, { headers });
+    return this.http.get<ArtistaDto[]>(`${this.API_URL}/artistas?page=${page}&size=${size}`, { headers });
+  }
+
+
+  getArtistaById(id: string): Observable<ArtistaDto> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get<ArtistaDto>(`${this.API_URL}/artista/${id}`, { headers });
+  }
+
+  updateArtista(id: string, formData: FormData): Observable<ArtistaDto> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+      // No pongas 'Content-Type' aquí
+    });
+    return this.http.put<ArtistaDto>(`${this.API_URL}/artista/${id}`, formData, { headers });
+  }
+
+
+  deleteArtista(id: string): Observable<void> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.delete<void>(`${this.API_URL}/artista/${id}`, { headers });
+  }
+
+  createArtista(formData: FormData): Observable<ArtistaDto> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+      // No pongas 'Content-Type' aquí
+    });
+    return this.http.post<ArtistaDto>(`${this.API_URL}/auth/register/artista`, formData, { headers });
   }
 
 

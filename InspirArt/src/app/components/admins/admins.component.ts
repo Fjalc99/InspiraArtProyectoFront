@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AdminsService } from '../../services/admins.service';
 import { AdminDto } from '../../interfaces/AdminDto';
 import { firstValueFrom } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-admins',
@@ -19,7 +21,7 @@ export class AdminsComponent implements OnInit {
   adminDetalle: AdminDto | null = null;
 
 
-  constructor(private adminsService: AdminsService) {}
+  constructor(private adminsService: AdminsService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadAdmins();
@@ -102,14 +104,21 @@ export class AdminsComponent implements OnInit {
   }
 
   async eliminarAdmin(admin: AdminDto) {
-    try {
-      await firstValueFrom(this.adminsService.deleteAdmin(admin.idAdmin));
-      await this.loadAdmins();
-    } catch (error) {
-      console.error('Error al eliminar el admin:', error);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { mensaje: '¿Seguro que quieres eliminar este administrador?' }
+    });
+
+    const result = await firstValueFrom(dialogRef.afterClosed());
+    if (result) {
+      try {
+        await firstValueFrom(this.adminsService.deleteAdmin(admin.idAdmin));
+        await this.loadAdmins();
+      } catch (error) {
+        console.error('Error al eliminar el admin:', error);
+      }
     }
   }
-  
 
   goToPage(page: number) {
     if (page >= 0 && page < this.totalPages) {
