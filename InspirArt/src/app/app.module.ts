@@ -30,6 +30,13 @@ import { AdminFormComponent } from './components/admin-form/admin-form.component
 import { ArtistaFormComponent } from './components/artista-form/artista-form.component';
 import { DashboardModule } from './components/dashboard/dashboard.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
+import { RegistroArtistaComponent } from './components/registro-artista/registro-artista.component';
+import { HomeUsuarioComponent } from './components/home-usuario/home-usuario.component';
+import { HomeArtistaComponent } from './components/home-artista/home-artista.component';
+import { ActivarCuentaArtistaComponent } from './components/activar-cuenta-artista/activar-cuenta-artista.component';
+import { ActivarCuentaUsuarioComponent } from './components/activar-cuenta-usuario/activar-cuenta-usuario.component';
+
 
 
 
@@ -49,6 +56,13 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     UserFormComponent,
     AdminFormComponent,
     ArtistaFormComponent,
+    RegistroUsuarioComponent,
+    RegistroArtistaComponent,
+    HomeUsuarioComponent,
+    HomeArtistaComponent,
+    ActivarCuentaArtistaComponent,
+    ActivarCuentaUsuarioComponent,
+
     
     
   ],

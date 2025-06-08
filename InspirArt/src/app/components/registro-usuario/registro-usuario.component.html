@@ -1,0 +1,56 @@
+<div class="fondoCorporativo">
+  <div class="container mt-5" style="max-width: 500px;">
+    <div class="card shadow">
+      <div class="card-header bg-corporativo text-center bg-primary text-white">
+        <h4 class="mb-0">Registro de Usuario</h4>
+      </div>
+      <div class="card-body">
+        <form #usuarioForm="ngForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" name="nombre"
+              [(ngModel)]="usuario.nombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="apellidos" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos"
+              name="apellidos" [(ngModel)]="usuario.apellidos" required>
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username"
+              name="username" [(ngModel)]="usuario.username" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email"
+              [(ngModel)]="usuario.email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password"
+              name="password" [(ngModel)]="usuario.password" required>
+          </div>
+          <div class="mb-3">
+            <label for="verifyPassword" class="form-label">Repetir
+              Contraseña</label>
+            <input type="password" class="form-control" id="verifyPassword"
+              name="verifyPassword" [(ngModel)]="usuario.verifyPassword"
+              required>
+          </div>
+          <div class="mb-3">
+            <label for="file" class="form-label">Foto de perfil
+              (opcional)</label>
+            <input type="file" class="form-control" id="file"
+              (change)="onFileChange($event)">
+          </div>
+         <button type="submit" class="btn btn-corporativo w-100" [disabled]="usuarioForm.invalid">Registrarse</button>
+          <button type="button" class="btn btn-outline-secondary w-100 mt-2"
+            (click)="volverLogin()">Volver al login</button>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{
+            errorMessage }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

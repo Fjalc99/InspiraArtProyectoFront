@@ -35,3 +35,22 @@ mat-card-title {
   justify-content: flex-end;
   margin-top: 8px;
 }
+
+
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 12px;
+  border-radius: 8px;
+  background-color: #22223B;
+  color: white;
+}
+
+
+.botonInicioSesion {
+  background-color: #22223B !important;
+  color: white !important;
+  border-radius: 8px;
+  border: none;
+}

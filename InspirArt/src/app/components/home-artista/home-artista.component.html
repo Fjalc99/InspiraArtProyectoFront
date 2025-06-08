@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-corporativo">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">InspirArt</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarArtista" aria-controls="navbarArtista" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarArtista">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/mis-obras">Mis Obras</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/crear-obra">Crear Obra</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/perfil-artista">Perfil</a>
+        </li>
+      </ul>
+      <!-- Buscador Bootstrap -->
+      <form class="d-flex me-2" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+        <button class="btn btn-outline-light" type="submit">Buscar</button>
+      </form>
+      <button class="btn btn-outline-light" (click)="logout()">Cerrar sesión</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <router-outlet></router-outlet>
+</div>

@@ -36,9 +36,19 @@
           </mat-error>
         </mat-form-field>
 
+                <!-- Puedes usar btn y tu propia clase para el color -->
         <div class="login-actions">
-          <button mat-flat-button color="primary" type="submit" [disabled]="loginForm.invalid">
+          <button type="submit" class="btn botonInicioSesion w-100" [disabled]="loginForm.invalid">
             Iniciar sesión
+          </button>
+        </div>
+
+        <div class="register-actions" style="margin-top: 16px; display: flex; gap: 8px; justify-content: center;">
+          <button mat-stroked-button  class="text-light" type="button" (click)="registrarArtista()">
+            Registrarse como Artista
+          </button>
+          <button mat-stroked-button class="text-light"  type="button" (click)="registrarUsuario()">
+            Registrarse como Usuario
           </button>
         </div>
 

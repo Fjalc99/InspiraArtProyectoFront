@@ -1,0 +1,20 @@
+<div class="fondoCorporativo">
+  <div class="container" style="max-width: 400px;">
+    <div class="card shadow">
+      <div class="card-header text-center bg-corporativo text-white">
+        <h4 class="mb-0">Activar Cuenta de Artista</h4>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="token" class="form-label">Token de activación</label>
+            <input type="text" class="form-control" id="token" [(ngModel)]="token" name="token" required>
+          </div>
+          <button type="submit" class="btn btn-corporativo w-100">Activar cuenta</button>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+          <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

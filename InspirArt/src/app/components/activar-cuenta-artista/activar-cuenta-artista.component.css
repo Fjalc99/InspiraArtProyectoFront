@@ -1,0 +1,24 @@
+.fondoCorporativo {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #22223B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-corporativo {
+  background-color: #22223B !important;
+}
+
+.btn-corporativo {
+  background-color: #22223B !important;
+  color: #fff !important;
+  border: none;
+}
+
+.btn-corporativo:hover,
+.btn-corporativo:focus {
+  background-color: #19192e !important;
+  color: #fff !important;
+}
