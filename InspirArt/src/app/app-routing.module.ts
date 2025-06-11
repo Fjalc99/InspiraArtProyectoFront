@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: '', component: ListaObrasUsuarioComponent },
     ]
   },
+  
   { path: 'home-artista', component: HomeArtistaComponent },
 
   {

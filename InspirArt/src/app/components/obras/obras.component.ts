@@ -115,7 +115,7 @@ categorias: CategoriaDto[] = [];
   }
 
   verDetalleObra(obra: ListaObraDto) {
-  // Si el campo es nombreAutor en ListaObraDto, conviértelo:
+ 
   this.obraSeleccionada = {
     ...obra,
     nombreArtista: (obra as any).nombreArtista ?? (obra as any).nombreAutor ?? ''
