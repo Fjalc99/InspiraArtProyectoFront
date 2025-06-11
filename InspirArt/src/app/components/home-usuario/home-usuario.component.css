@@ -2,3 +2,7 @@
 .bg-corporativo {
   background-color: #22223B !important;
 }
+
+.navbar .nav-link.active {
+  color: #fff !important;
+}
