@@ -4,4 +4,5 @@ export interface ComentarioDto {
   idObra: string;
   comentario: string;
   fechaComentario: string;
+  idUsuario: string;
 }

@@ -30,6 +30,7 @@ export class AuthServiceService {
         localStorage.setItem('refreshToken', res.refreshToken);
         localStorage.setItem('username', res.username);
         localStorage.setItem('userId', res.id);
+        
       })
     );
   }
@@ -62,6 +63,7 @@ export class AuthServiceService {
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('username', res.username);
           localStorage.setItem('userId', res.id);
+
         })
       );
   }

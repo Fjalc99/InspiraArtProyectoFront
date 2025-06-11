@@ -154,6 +154,7 @@ categorias: CategoriaDto[] = [];
   cerrarDetalle() {
     this.mostrarDetalle = false;
     this.obraSeleccionada = {};
+    this.loadObras();
   }
 
   cerrarFormulario() {

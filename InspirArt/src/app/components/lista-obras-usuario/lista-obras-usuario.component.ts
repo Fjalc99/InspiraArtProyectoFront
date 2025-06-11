@@ -25,6 +25,7 @@ export class ListaObrasUsuarioComponent implements OnInit {
       fechaCreacion: '',
       estilo: ''
     };
+    
   
   
     nuevoComentario: string = '';
@@ -33,7 +34,7 @@ export class ListaObrasUsuarioComponent implements OnInit {
     
     mostrarDetalle = false;
     mostrarFormulario = false;
-    esEdicion = false;
+    esEdicion = true;
     obraSeleccionada: Partial<ObraDto> = {};
   categorias: CategoriaDto[] = [];
   
@@ -151,9 +152,10 @@ export class ListaObrasUsuarioComponent implements OnInit {
   }
   
     cerrarDetalle() {
-      this.mostrarDetalle = false;
-      this.obraSeleccionada = {};
-    }
+  this.mostrarDetalle = false;
+  this.obraSeleccionada = {};
+  this.loadObras(); // <- Refresca los datos
+}
   
     cerrarFormulario() {
       this.mostrarFormulario = false;
@@ -171,13 +173,13 @@ export class ListaObrasUsuarioComponent implements OnInit {
   
   
   
-  agregarComentarioAdmin() {
+  agregarComentarioUsuario() {
     if (!this.nuevoComentario || this.nuevoComentario.length === 0 || !this.obraSeleccionada?.idObra) return;
     const comentario: Partial<ComentarioDto> = {
       comentario: this.nuevoComentario,
       idObra: this.obraSeleccionada.idObra
     };
-    this.comentariosService.crearComentarioAdministrador(comentario as ComentarioDto).subscribe({
+    this.comentariosService.crearComentarioUsuario(comentario as ComentarioDto).subscribe({
       next: (nuevo) => {
         if (!this.obraSeleccionada.comentarios) this.obraSeleccionada.comentarios = [];
         this.obraSeleccionada.comentarios.push(nuevo);
@@ -187,14 +189,14 @@ export class ListaObrasUsuarioComponent implements OnInit {
   }
   
   // Editar comentario como admin
-  editarComentarioAdmin(comentario: ComentarioDto) {
+  editarComemtario(comentario: ComentarioDto) {
     this.comentarioEditandoId = comentario.idComentario;
     this.comentarioEditado = comentario.comentario;
   }
   
-  guardarEdicionComentarioAdmin(comentario: ComentarioDto) {
+  guardarEdicionComentarioUsuario(comentario: ComentarioDto) {
     if (!this.nuevoComentario.trim()) return;
-    this.comentariosService.editarComentarioAdministrador(comentario.idComentario, { ...comentario, comentario: this.nuevoComentario }).subscribe({
+    this.comentariosService.editarComentarioUsuario(comentario.idComentario, { ...comentario, comentario: this.nuevoComentario }).subscribe({
       next: (editado) => {
         if (this.obraSeleccionada.comentarios) {
           const idx = this.obraSeleccionada.comentarios.findIndex(c => c.idComentario === comentario.idComentario);
@@ -206,13 +208,13 @@ export class ListaObrasUsuarioComponent implements OnInit {
     });
   }
   
-  cancelarEdicionComentarioAdmin() {
+  cancelarEdicionComentarioUsuario() {
     this.comentarioEditandoId = null;
     this.comentarioEditado = '';
   }
   
   // Eliminar comentario como admin
-  eliminarComentarioAdmin(comentario: ComentarioDto) {
+  eliminarComentarioUsuario(comentario: ComentarioDto) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '300px',
       data: { mensaje: '¿Seguro que quieres eliminar este comentario?' }
@@ -220,7 +222,7 @@ export class ListaObrasUsuarioComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.comentariosService.deleteComentarioAdministrador(comentario.idComentario).subscribe({
+        this.comentariosService.deleteComentarioUsuario(comentario.idComentario).subscribe({
           next: () => {
             if (this.obraSeleccionada.comentarios) {
               this.obraSeleccionada.comentarios = this.obraSeleccionada.comentarios.filter(

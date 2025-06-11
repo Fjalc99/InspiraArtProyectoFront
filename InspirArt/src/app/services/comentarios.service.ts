@@ -61,4 +61,35 @@ export class ComentariosService {
       headers,
     });
   }
+
+  crearComentarioUsuario(
+    comentario: ComentarioDto
+  ): Observable<ComentarioDto> {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return this.http.post<ComentarioDto>(this.API_URL, comentario, { headers });
+  }
+
+  editarComentarioUsuario(
+    id: string,
+    comentario: ComentarioDto
+  ): Observable<ComentarioDto> {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return this.http.put<ComentarioDto>(`${this.API_URL}/${id}`, comentario, {
+      headers,
+    });
+  }
+
+  deleteComentarioUsuario(id: string): Observable<void> {
+    const token = localStorage.getItem('token');
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return this.http.delete<void>(`${this.API_URL}/${id}`, { headers });
+  }
 }
