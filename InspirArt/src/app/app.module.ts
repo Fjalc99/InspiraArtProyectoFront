@@ -36,6 +36,7 @@ import { HomeUsuarioComponent } from './components/home-usuario/home-usuario.com
 import { HomeArtistaComponent } from './components/home-artista/home-artista.component';
 import { ActivarCuentaArtistaComponent } from './components/activar-cuenta-artista/activar-cuenta-artista.component';
 import { ActivarCuentaUsuarioComponent } from './components/activar-cuenta-usuario/activar-cuenta-usuario.component';
+import { ListaObrasUsuarioComponent } from './components/lista-obras-usuario/lista-obras-usuario.component';
 
 
 
@@ -62,6 +63,7 @@ import { ActivarCuentaUsuarioComponent } from './components/activar-cuenta-usuar
     HomeArtistaComponent,
     ActivarCuentaArtistaComponent,
     ActivarCuentaUsuarioComponent,
+    ListaObrasUsuarioComponent,
 
     
     

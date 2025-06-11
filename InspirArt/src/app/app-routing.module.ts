@@ -7,6 +7,7 @@ import { ActivarCuentaUsuarioComponent } from './components/activar-cuenta-usuar
 import { ActivarCuentaArtistaComponent } from './components/activar-cuenta-artista/activar-cuenta-artista.component';
 import { HomeUsuarioComponent } from './components/home-usuario/home-usuario.component';
 import { HomeArtistaComponent } from './components/home-artista/home-artista.component';
+import { ListaObrasUsuarioComponent } from './components/lista-obras-usuario/lista-obras-usuario.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -15,7 +16,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'activar-cuenta-usuario', component: ActivarCuentaUsuarioComponent },
   { path: 'activar-cuenta-artista', component: ActivarCuentaArtistaComponent },
-  { path: 'home-usuario', component: HomeUsuarioComponent },
+  { path: 'home-usuario', component: HomeUsuarioComponent , 
+    children: [
+      { path: '', component: ListaObrasUsuarioComponent },
+    ]
+  },
   { path: 'home-artista', component: HomeArtistaComponent },
 
   {
