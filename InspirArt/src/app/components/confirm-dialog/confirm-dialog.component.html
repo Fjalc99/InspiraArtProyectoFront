@@ -3,6 +3,7 @@
   <p>{{ data.mensaje }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="dialogRef.close(false)">Cancelar</button>
-  <button mat-raised-button color="warn" (click)="dialogRef.close(true)">Eliminar</button>
+  <button *ngIf="data.mostrarEliminar" mat-button (click)="dialogRef.close(false)">Cancelar</button>
+  <button *ngIf="data.mostrarEliminar" mat-raised-button color="warn" (click)="dialogRef.close(true)">Eliminar</button>
+  <button *ngIf="!data.mostrarEliminar" mat-raised-button color="primary" (click)="dialogRef.close(true)">Aceptar</button>
 </mat-dialog-actions>

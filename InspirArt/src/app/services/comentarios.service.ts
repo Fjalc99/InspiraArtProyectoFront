@@ -31,6 +31,23 @@ export class ComentariosService {
     });
   }
 
+  getComentariosPorObra(
+  obraId: string,
+  page: number = 0,
+  size: number = 10
+): Observable<ComentarioDto[]> {
+  const token = localStorage.getItem('token');
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+  const params = new HttpParams().set('page', page).set('size', size);
+
+  return this.http.get<ComentarioDto[]>(`${this.API_URL}/obra/${obraId}`, {
+    headers,
+    params
+  });
+}
+
   deleteComentarioAdministrador(id: string): Observable<void> {
     const token = localStorage.getItem('token');
     const headers = {

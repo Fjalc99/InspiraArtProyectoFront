@@ -1,0 +1,39 @@
+.detalle-obra-card {
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.detalle-obra-img {
+  max-width: 300px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.flex-grow-1 {
+  flex: 1 1 0%;
+}
+
+.bi-star, .bi-star-fill {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.bi-star-fill.text-warning {
+  color: #ffc107 !important;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.card-header {
+  background: #f8f9fa;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}

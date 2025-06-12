@@ -1,6 +1,3 @@
-
-
-
 export interface ValoracionDto {
   id: string;
   puntuacion: number;

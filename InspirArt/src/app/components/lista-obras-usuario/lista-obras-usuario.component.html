@@ -1,94 +1,9 @@
 <!-- Detalle de obra -->
-<div *ngIf="mostrarDetalle && obraSeleccionada" class="card detalle-obra-card mb-4">
-  <div class="card-header text-center bg-light border-0 pb-2">
-    <h4 class="mb-0">Detalle de obra</h4>
-    <div class="text-muted">{{ obraSeleccionada.nombre }}</div>
-  </div>
-  <div class="d-flex gap-4 align-items-start flex-wrap p-3">
-    <img [src]="obraSeleccionada.imagenObra ? obraSeleccionada.imagenObra : 'assets/no-image.png'"
-         alt="Imagen de {{ obraSeleccionada.nombre }}"
-         class="detalle-obra-img rounded" style="max-width: 300px;">
-    <div class="flex-grow-1">
-      <p><strong>Autor:</strong> {{ obraSeleccionada.nombreArtista }}</p>
-      <p><strong>Categoría:</strong> {{ obraSeleccionada.categoria?.nombre }}</p>
-      <p><strong>Subida:</strong> {{ obraSeleccionada.fechaSubida | date:'medium' }}</p>
-      <p>
-        <strong>Valoración media:</strong>
-        <ng-container *ngIf="obraSeleccionada.mediaValoracion != null; else sinValoracion">
-          <span *ngFor="let star of [1,2,3,4,5]">
-            <i class="fa" [ngClass]="star <= Math.round(obraSeleccionada.mediaValoracion) ? 'fa-star text-warning' : 'fa-star-o'"></i>
-          </span>
-          ({{ obraSeleccionada.mediaValoracion | number:'1.1-2' }})
-        </ng-container>
-        <ng-template #sinValoracion>-</ng-template>
-      </p>
-      <!-- Estrellas para valorar -->
-      <div class="mb-2">
-  <strong>Tu valoración:</strong>
-  <span *ngFor="let star of [1,2,3,4,5]">
-    <i
-      class="bi"
-      [ngClass]="star <= (valoracionUsuario || 0) ? 'bi-star-fill text-warning' : 'bi-star'"
-      style="cursor: pointer; font-size: 1.5rem;"
-      (click)="valorarObra(star)"
-      title="{{star}} estrella{{star > 1 ? 's' : ''}}"
-    ></i>
-  </span>
-  <span *ngIf="valoracionUsuario">({{ valoracionUsuario }} / 5)</span>
-  <span *ngIf="!valoracionUsuario" class="text-muted ms-2">(Sin valorar)</span>
-</div>
-            <p>
-        <strong>Comentarios:</strong>
-        <ng-container *ngIf="(obraSeleccionada.comentarios?.length ?? 0) > 0; else sinComentarios">
-                   <ul class="list-unstyled">
-  <li *ngFor="let comentario of obraSeleccionada.comentarios"
-      class="mb-2 d-flex align-items-center justify-content-between">
-    <div class="flex-grow-1">
-      <b>{{ comentario.nombreAutor }}:</b>
-      <span *ngIf="comentarioEditandoId !== comentario.idComentario">{{ comentario.comentario }}</span>
-      <!-- Textarea para editar -->
-      <textarea *ngIf="comentarioEditandoId === comentario.idComentario"
-                class="form-control mb-1 d-inline-block"
-                [(ngModel)]="nuevoComentario"
-                rows="2"></textarea>
-      <br>
-      <small class="text-muted">{{ comentario.fechaComentario | date:'short' }}</small>
-    </div>
-    <div class="ms-2 d-flex align-items-center">
-      <ng-container *ngIf="comentarioEditandoId !== comentario.idComentario">
-                  <button class="btn btn-link p-0 me-2" (click)="empezarEditarComentario(comentario)" title="Editar">
-                    <i class="bi bi-pencil"></i>
-                  </button>
-                  <button class="btn btn-link text-danger p-0" (click)="eliminarComentarioUsuario(comentario)" title="Eliminar">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </ng-container>
-      <ng-container *ngIf="comentarioEditandoId === comentario.idComentario">
-        <button class="btn btn-success btn-sm mb-1 me-1" (click)="guardarEdicionComentarioUsuario(comentario)">
-          <i class="bi bi-check"></i>
-        </button>
-        <button class="btn btn-secondary btn-sm mb-1" (click)="cancelarEdicionComentarioUsuario()">
-          <i class="bi bi-x"></i>
-        </button>
-      </ng-container>
-    </div>
-  </li>
-</ul>
-        </ng-container>
-        <ng-template #sinComentarios>-</ng-template>
-      </p>
-      <!-- Textarea para nuevo comentario (solo si no se está editando) -->
-      <form *ngIf="!comentarioEditandoId" (ngSubmit)="agregarComentarioUsuario()" class="mt-3">
-        <div class="mb-2">
-          <textarea class="form-control" [(ngModel)]="nuevoComentario" name="nuevoComentario" rows="2" placeholder="Escribe un comentario..."></textarea>
-        </div>
-        <button class="btn btn-primary btn-sm" type="submit" [disabled]="!nuevoComentario">Comentar</button>
-      </form>
-    </div>
-  </div>
-  <div class="card-footer text-end bg-white border-0 pt-2">
-    <button class="btn btn-primary" (click)="cerrarDetalle()">Cerrar</button>
-  </div>
+<div *ngIf="mostrarDetalle && obraSeleccionada">
+  <app-detalle-obra
+    [obraSeleccionada]="obraSeleccionada"
+    (cerrar)="cerrarDetalle()">
+  </app-detalle-obra>
 </div>
 
 <!-- Listado de obras -->
@@ -111,10 +26,7 @@
           <p class="card-text" *ngIf="obra.mediaValoracion != null">
             <strong>Valoración:</strong> {{ obra.mediaValoracion | number:'1.1-2' }} / 5
           </p>
-          <button class="btn btn-outline-secondary mt-2"
-            (click)="verDetalleObra(obra)">
-            <i class="fa fa-eye"></i> Ver más
-          </button>
+          <button class="btn btn-link" (click)="verDetalleObra(obra)">Ver más</button>
         </div>
       </div> 
     </div>

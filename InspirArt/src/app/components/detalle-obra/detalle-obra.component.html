@@ -1,0 +1,86 @@
+<div class="card detalle-obra-card mt-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h4 class="mb-0">{{ obraSeleccionada.nombre }}</h4>
+    <button class="btn btn-sm btn-outline-secondary" (click)="cerrarDetalle()" title="Cerrar">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  <div class="card-body d-flex flex-wrap gap-4">
+    <img [src]="getImageUrl(obraSeleccionada.imagenObra)" alt="Imagen de la obra"
+         class="detalle-obra-img me-4 mb-3" />
+    <div class="flex-grow-1">
+      <p><strong>Autor:</strong> {{ obraSeleccionada.nombreArtista }}</p>
+      <p><strong>Categoría:</strong> {{ obraSeleccionada.categoria.nombre }}</p>
+      <p><strong>Fecha de subida:</strong> {{ obraSeleccionada.fechaSubida | date:'mediumDate' }}</p>
+      <p *ngIf="obraSeleccionada.mediaValoracion != null">
+        <strong>Valoración media:</strong>
+        <span class="text-warning">
+          <ng-container *ngFor="let star of [1,2,3,4,5]">
+            <i class="bi" [ngClass]="{
+                'bi-star-fill text-warning': star <= Math.round(obraSeleccionada.mediaValoracion),
+                'bi-star': star > Math.round(obraSeleccionada.mediaValoracion)
+              }"></i>
+          </ng-container>
+        </span>
+        <span class="ms-2">{{ obraSeleccionada.mediaValoracion | number:'1.1-2' }} / 5</span>
+      </p>
+      <div class="mt-3">
+  <strong>Tu valoración:</strong>
+  <span>
+    <ng-container *ngFor="let star of [1,2,3,4,5]">
+      <i class="bi"
+         [ngClass]="{
+           'bi-star-fill text-warning': (valoracionUsuario ?? 0) >= star,
+           'bi-star': (valoracionUsuario ?? 0) < star
+         }"
+         (click)="valorarObra(star)"
+         style="cursor:pointer"></i>
+    </ng-container>
+  </span>
+  <span *ngIf="valoracionUsuario" class="ms-2 text-success">({{ valoracionUsuario }} estrellas)</span>
+  <button class="btn btn-sm btn-primary ms-3" (click)="enviarValoracion()" [disabled]="!valoracionUsuario">
+    Enviar valoración
+  </button>
+</div>
+    </div>
+  </div>
+  <div class="card-footer bg-white">
+  <h5 class="mb-3">Comentarios</h5>
+  <div *ngIf="obraSeleccionada.comentarios?.length; else sinComentarios">
+    <div *ngFor="let comentario of obraSeleccionada.comentarios" class="mb-3 border-bottom pb-2">
+      <div class="d-flex align-items-center mb-1">
+        <strong class="me-2">{{ comentario.nombreAutor }}</strong>
+        <small class="text-muted me-2">{{ comentario.fechaComentario | date:'short' }}</small>
+        <ng-container *ngIf="comentarioEditandoId !== comentario.idComentario">
+          <span class="flex-grow-1">{{ comentario.comentario }}</span>
+          <button class="btn btn-link p-0 ms-2" (click)="empezarEditarComentario(comentario)" title="Editar">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-link text-danger p-0 ms-1" (click)="eliminarComentarioUsuario(comentario)" title="Eliminar">
+            <i class="bi bi-trash"></i>
+          </button>
+        </ng-container>
+      </div>
+      <div *ngIf="comentarioEditandoId === comentario.idComentario">
+        <textarea class="form-control mb-2" [(ngModel)]="nuevoComentario"></textarea>
+        <button class="btn btn-sm btn-success me-2" (click)="guardarEdicionComentarioUsuario(comentario)">
+          <i class="bi bi-check-lg"></i>
+        </button>
+        <button class="btn btn-sm btn-secondary" (click)="cancelarEdicionComentarioUsuario()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <ng-template #sinComentarios>
+    <div class="text-muted mb-3">Aún no hay comentarios.</div>
+  </ng-template>
+  <div class="mt-3" *ngIf="!comentarioEditandoId">
+    <textarea class="form-control mb-2" [(ngModel)]="nuevoComentario" rows="2"
+              placeholder="Añade un comentario..."></textarea>
+    <button class="btn btn-primary" (click)="agregarComentarioUsuario()" [disabled]="!nuevoComentario">
+      Comentar
+    </button>
+  </div>
+</div>
+</div>
