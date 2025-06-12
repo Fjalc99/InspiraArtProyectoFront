@@ -1,6 +1,7 @@
 
 
 import { ComentarioDto } from "./ComentarioDto";
+import { ValoracionDto } from "./ValoracionDto";
 
 
 export interface ObraDto {
@@ -8,8 +9,10 @@ export interface ObraDto {
   nombre: string;
   fechaSubida: string;
   imagenObra: string;
-  nombreArtista: string;
+  nombreArtista?: string;
   categoria: { nombre: string; idCategoria: string };
   mediaValoracion: number;
   comentarios: ComentarioDto[];
+  valoraciones: ValoracionDto[];
+
 }

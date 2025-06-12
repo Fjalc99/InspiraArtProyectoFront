@@ -1,6 +1,7 @@
 
 import { CategoriaDto } from "./categoria/CategoriaDto";
 import { ComentarioDto } from "./ComentarioDto";
+import { ValoracionDto } from "./ValoracionDto";
 
 export interface ListaObraDto {
       idObra: string;
@@ -11,4 +12,5 @@ export interface ListaObraDto {
   categoria: CategoriaDto;
   comentarios: ComentarioDto[];
   mediaValoracion: number;
+  valoraciones: ValoracionDto[];
 }
