@@ -9,6 +9,7 @@ import { HomeUsuarioComponent } from './components/home-usuario/home-usuario.com
 import { HomeArtistaComponent } from './components/home-artista/home-artista.component';
 import { ListaObrasUsuarioComponent } from './components/lista-obras-usuario/lista-obras-usuario.component';
 import { DetalleObraComponent } from './components/detalle-obra/detalle-obra.component';
+import { FavoritosComponent } from './components/favoritos/favoritos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,10 +18,13 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'activar-cuenta-usuario', component: ActivarCuentaUsuarioComponent },
   { path: 'activar-cuenta-artista', component: ActivarCuentaArtistaComponent },
+ 
   { path: 'home-usuario', component: HomeUsuarioComponent , 
     children: [
       { path: '', component: ListaObrasUsuarioComponent },
-            { path: 'obra/:id', component: DetalleObraComponent } // <-- Añadido
+      { path: 'obra/:id', component: DetalleObraComponent},
+       {path: 'favoritos', component: FavoritosComponent},
+       
 
     ]
   },

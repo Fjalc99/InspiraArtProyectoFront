@@ -1,0 +1,54 @@
+<!-- Título -->
+<div class="obra-header">
+  <h3 *ngIf="!obraSeleccionada">Mis obras favoritas</h3>
+</div>
+
+<!-- Detalle de obra -->
+<div *ngIf="mostrarDetalle && obraSeleccionada">
+  <app-detalle-obra
+    [obraSeleccionada]="obraSeleccionada"
+    (cerrar)="cerrarDetalle()">
+  </app-detalle-obra>
+</div>
+
+<!-- Lista de favoritos (solo si no hay obra seleccionada) -->
+<div *ngIf="!obraSeleccionada">
+
+  <div *ngIf="loading" class="text-muted">Cargando favoritos...</div>
+
+  <div *ngIf="!loading && favoritos.length; else sinFavoritos">
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let fav of favoritos">
+        <div class="card h-100">
+          <img [src]="fav.obra.imagenObra ? fav.obra.imagenObra : 'assets/no-image.png'"
+               class="card-img-top" [alt]="fav.obra.nombre">
+          <div class="card-body d-flex flex-column">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <h5 class="card-title mb-0">{{ fav.obra.nombre }}</h5>
+              <div>
+                <button class="btn btn-link p-0 me-2"
+                        (click)="verDetalleObra(fav.obra)"
+                        aria-label="Ver detalle">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <button class="btn btn-link p-0 ms-2"
+                        (click)="eliminarFavorito(fav.obra.idObra)"
+                        aria-label="Quitar de favoritos">
+                  <i class="bi bi-heartbreak text-danger"></i>
+                </button>
+              </div>
+            </div>
+            <p class="card-text mb-1"><strong>Autor:</strong> {{ fav.obra.artista.nombre }} {{ fav.obra.artista.apellidos }}</p>
+            <p class="card-text mb-1"><strong>Fecha:</strong> {{ fav.fechaAgregado | date:'mediumDate' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Si no hay favoritos -->
+  <ng-template #sinFavoritos>
+    <div class="text-muted">No tienes obras favoritas.</div>
+  </ng-template>
+
+</div>

@@ -37,3 +37,14 @@ textarea.form-control {
 .mt-4 {
   margin-top: 1.5rem !important;
 }
+
+/* Por ejemplo, en styles.css o el CSS del componente */
+.btn-corporativo {
+  background-color: #2a2e49; /* Usa el color de tu nav */
+  color: #fff;
+  border: none;
+}
+.btn-corporativo:hover {
+  background-color: #23263a; /* Un poco más oscuro al pasar el ratón */
+  color: #fff;
+}

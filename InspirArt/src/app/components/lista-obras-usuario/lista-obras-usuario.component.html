@@ -19,16 +19,32 @@
         <img [src]="obra.imagenObra ? obra.imagenObra : 'assets/no-image.png'"
           class="card-img-top" [alt]="obra.nombre">
         <div class="card-body">
-          <h5 class="card-title">{{ obra.nombre }}</h5>
-          <p class="card-text"><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
-          <p class="card-text"><strong>Categoría:</strong> {{ obra.categoria.nombre }}</p>
-          <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida | date:'mediumDate' }}</p>
+          <div class="d-flex align-items-center justify-content-between">
+            <h5 class="card-title mb-0">{{ obra.nombre }}</h5>
+            <button class="btn btn-link p-0 ms-2"
+              (click)="toggleFavorito(obra)"
+              [attr.aria-label]="esFavorito(obra) ? 'Quitar de favoritos' : 'Añadir a favoritos'">
+              <i class="bi"
+                [ngClass]="esFavorito(obra) ? 'bi-heart-fill text-danger' : 'bi-heart'"></i>
+            </button>
+          </div>
+          <p class="card-text"><strong>Autor:</strong> {{ obra.nombreAutor
+            }}</p>
+          <p class="card-text"><strong>Categoría:</strong> {{
+            obra.categoria.nombre }}</p>
+          <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida |
+            date:'mediumDate' }}</p>
           <p class="card-text" *ngIf="obra.mediaValoracion != null">
-            <strong>Valoración:</strong> {{ obra.mediaValoracion | number:'1.1-2' }} / 5
+            <strong>Valoración:</strong> {{ obra.mediaValoracion |
+            number:'1.1-2' }} / 5
           </p>
-          <button class="btn btn-link" (click)="verDetalleObra(obra)">Ver más</button>
+                                <button class="btn btn-corporativo ancho-personalizado me-2"
+        (click)="verDetalleObra(obra)"
+        aria-label="Ver detalle">
+  <i class="bi bi-eye fs-6"></i>
+</button>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 

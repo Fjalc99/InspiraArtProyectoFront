@@ -1,31 +1,32 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-corporativo">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">InspirArt</a>
+  <div class="container-fluid align-items-center d-flex">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="assets/Logo_2_tfg-02.png" class="logo-navbarquier me-2" alt="Logo InspirArt" style="height:36px;">
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUsuario" aria-controls="navbarUsuario" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarUsuario">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <div class="collapse navbar-collapse align-items-center" id="navbarUsuario">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
         <li class="nav-item">
           <a class="nav-link" routerLink="/home-usuario" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Obras</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/favoritos" routerLinkActive="active">Favoritos</a>
+          <a class="nav-link" routerLink="favoritos" routerLinkActive="active">Favoritos</a>
+
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/perfil" routerLinkActive="active">Perfil</a>
+          <a class="nav-link" routerLink="perfil" routerLinkActive="active">Perfil</a>
         </li>
       </ul>
-      <!-- Buscador Bootstrap -->
-      <form class="d-flex me-2" role="search">
+      <form class="d-flex me-2 align-items-center" role="search">
         <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
         <button class="btn btn-outline-light" type="submit">Buscar</button>
       </form>
-      <button class="btn btn-outline-light" (click)="logout()">Cerrar sesión</button>
+      <button class="btn btn-outline-light align-self-center" (click)="logout()">Cerrar sesión</button>
     </div>
   </div>
 </nav>
-
 <div class="container mt-4">
   <router-outlet></router-outlet>
 </div>

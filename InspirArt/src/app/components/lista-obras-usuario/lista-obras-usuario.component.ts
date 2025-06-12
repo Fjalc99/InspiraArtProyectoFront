@@ -4,6 +4,7 @@ import { ListaObraDto } from '../../interfaces/ListaObraDto';
 import { CategoriaDto } from '../../interfaces/categoria/CategoriaDto';
 import { ObraDto } from '../../interfaces/ObraDto';
 import { CategoriasService } from '../../services/categorias.service';
+import { FavoritosService } from '../../services/favoritos.service';
 
 @Component({
   selector: 'app-lista-obras-usuario',
@@ -28,12 +29,14 @@ obraSeleccionada: ObraDto | null = null;
 
   constructor(
     private obrasService: ObrasService,
-    private categoriasService: CategoriasService
+    private categoriasService: CategoriasService,
+    private favoritosService: FavoritosService
   ) {}
 
   ngOnInit(): void {
     this.loadObras();
     this.loadCategorias();
+    this.favoritosService.cargarFavoritos(); // Cargar favoritos al iniciar
   }
 
   loadObras() {
@@ -97,6 +100,21 @@ obraSeleccionada: ObraDto | null = null;
   this.mostrarDetalle = false;
   this.obraSeleccionada = null;
   this.loadObras();
+}
+
+// ...código existente...
+
+esFavorito(obra: ListaObraDto): boolean {
+  return this.favoritosService.favoritos.some(f => f.obra.idObra === obra.idObra);
+}
+
+toggleFavorito(obra: ListaObraDto) {
+  const fav = this.favoritosService.favoritos.find(f => f.obra.idObra === obra.idObra);
+  if (fav) {
+    this.favoritosService.eliminarFavorito(fav.id).subscribe(() => this.favoritosService.cargarFavoritos());
+  } else {
+    this.favoritosService.agregarFavorito(obra.idObra).subscribe(() => this.favoritosService.cargarFavoritos());
+  }
 }
 
   getImageUrl(nombreArchivo?: string): string {
