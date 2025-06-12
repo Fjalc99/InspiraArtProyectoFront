@@ -8,6 +8,8 @@ import { ObraDto } from '../../interfaces/ObraDto';
 import { CategoriasService } from '../../services/categorias.service';
 import { ComentariosService } from '../../services/comentarios.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ValoracionDto } from '../../interfaces/ValoracionDto';
+import { ValoracionesService } from '../../services/valoraciones.service';
 
 @Component({
   selector: 'app-lista-obras-usuario',
@@ -27,7 +29,8 @@ export class ListaObrasUsuarioComponent implements OnInit {
     };
     
   
-  
+   valoracionUsuario: number | null = null;
+valoracionActual: ValoracionDto | null = null;
     nuevoComentario: string = '';
     comentarioEditandoId: string | null = null;
     comentarioEditado: string = '';
@@ -37,10 +40,12 @@ export class ListaObrasUsuarioComponent implements OnInit {
     esEdicion = true;
     obraSeleccionada: Partial<ObraDto> = {};
   categorias: CategoriaDto[] = [];
+  puntuacionSeleccionada: number | null = null;
   
     constructor(private obrasService: ObrasService,
        private categoriasService: CategoriasService,
         private comentariosService: ComentariosService,
+        private valoracionesService: ValoracionesService,
         private dialog: MatDialog
       ) { }
   
@@ -114,18 +119,16 @@ export class ListaObrasUsuarioComponent implements OnInit {
       this.loadObras();
     }
   
-    verDetalleObra(obra: ListaObraDto) {
-   
-    this.obraSeleccionada = {
-      ...obra,
-      nombreArtista: (obra as any).nombreArtista ?? (obra as any).nombreAutor ?? ''
-    };
-    console.log('Obra seleccionada:', this.obraSeleccionada);
-    this.mostrarDetalle = true;
-    this.mostrarFormulario = false;
-    this.esEdicion = false;
-  }
-  
+        verDetalleObra(obra: ListaObraDto) {
+      this.obraSeleccionada = {
+        ...obra,
+        nombreArtista: (obra as any).nombreArtista ?? (obra as any).nombreAutor ?? ''
+      };
+      this.mostrarDetalle = true;
+      this.mostrarFormulario = false;
+      this.esEdicion = false;
+      this.cargarValoracionUsuario(); // <--- Añade esto
+    }
   
     aniadirObra() {
     this.loadCategorias();
@@ -234,11 +237,80 @@ export class ListaObrasUsuarioComponent implements OnInit {
       }
     });
   }
-    getImageUrl(nombreArchivo: string | undefined): string {
-    if (!nombreArchivo) return 'assets/no-image.png';
-    if (nombreArchivo.startsWith('http')) return nombreArchivo;
-    return `http://localhost:8080/download/${nombreArchivo}`;
+
+  
+
+   valorarObra(puntuacion: number) {
+    if (!this.obraSeleccionada?.idObra) return;
+  
+    if (this.valoracionActual) {
+      const valoracionEditada: ValoracionDto = {
+        ...this.valoracionActual,
+        puntuacion,
+        fecha: new Date().toISOString()
+      };
+      this.valoracionesService.editarValoracion(this.valoracionActual.id, valoracionEditada).subscribe({
+        next: (val) => {
+          this.valoracionActual = val;
+          this.valoracionUsuario = val.puntuacion;
+          this.cerrarDetalle(); // <-- Cierra el detalle tras valorar
+        }
+      });
+    } else {
+      const nuevaValoracion: Partial<ValoracionDto> = {
+        puntuacion,
+        fecha: new Date().toISOString(),
+        obraId: this.obraSeleccionada.idObra!
+      };
+      this.valoracionesService.crearValoracion(nuevaValoracion as ValoracionDto).subscribe({
+        next: (val) => {
+          this.valoracionActual = val;
+          this.valoracionUsuario = val.puntuacion;
+          this.cerrarDetalle(); // <-- Cierra el detalle tras valorar
+        }
+      });
+    }
   }
+
+recargarObraSeleccionada() {
+  if (!this.obraSeleccionada?.idObra) return;
+  this.obrasService.getObraById(this.obraSeleccionada.idObra).subscribe({
+    next: (obraActualizada) => {
+      this.obraSeleccionada = {
+        ...obraActualizada,
+        mediaValoracion: (obraActualizada as any).mediaValoracion ?? (obraActualizada as any).valoracionMedia
+      };
+    }
+  });
+}
+
+
+cargarValoracionUsuario() {
+  if (!this.obraSeleccionada?.idObra) return;
+  this.valoracionesService.obtenerValoracionesUsuario().subscribe({
+    next: (data) => {
+      const valoracion = data.content.find((v: ValoracionDto) => v.obraId === this.obraSeleccionada.idObra);
+      if (valoracion) {
+        this.valoracionActual = valoracion;
+        this.valoracionUsuario = valoracion.puntuacion;
+      } else {
+        this.valoracionActual = null;
+        this.valoracionUsuario = null;
+      }
+    }
+  });
+}
+
+
+
+   
+  
+
+       getImageUrl(nombreArchivo?: string): string {
+      if (!nombreArchivo) return 'assets/no-image.png';
+      if (nombreArchivo.startsWith('http')) return nombreArchivo;
+      return `http://localhost:8080/download/${nombreArchivo}`;
+    }
   
   get Math() {
     return Math;

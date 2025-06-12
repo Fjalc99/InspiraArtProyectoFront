@@ -24,14 +24,19 @@
       </p>
       <!-- Estrellas para valorar -->
       <div class="mb-2">
-        <strong>Tu valoración:</strong>
-        <ng-container *ngIf="obraSeleccionada.mediaValoracion != null; else sinValoracion">
-          <span *ngFor="let star of [1,2,3,4,5]">
-            <i class="bi" [ngClass]="star <= Math.round(obraSeleccionada.mediaValoracion) ? 'bi-star-fill text-warning' : 'bi-star'"></i>
-          </span>
-          ({{ obraSeleccionada.mediaValoracion | number:'1.1-2' }})
-        </ng-container>
-      </div>
+  <strong>Tu valoración:</strong>
+  <span *ngFor="let star of [1,2,3,4,5]">
+    <i
+      class="bi"
+      [ngClass]="star <= (valoracionUsuario || 0) ? 'bi-star-fill text-warning' : 'bi-star'"
+      style="cursor: pointer; font-size: 1.5rem;"
+      (click)="valorarObra(star)"
+      title="{{star}} estrella{{star > 1 ? 's' : ''}}"
+    ></i>
+  </span>
+  <span *ngIf="valoracionUsuario">({{ valoracionUsuario }} / 5)</span>
+  <span *ngIf="!valoracionUsuario" class="text-muted ms-2">(Sin valorar)</span>
+</div>
             <p>
         <strong>Comentarios:</strong>
         <ng-container *ngIf="(obraSeleccionada.comentarios?.length ?? 0) > 0; else sinComentarios">
