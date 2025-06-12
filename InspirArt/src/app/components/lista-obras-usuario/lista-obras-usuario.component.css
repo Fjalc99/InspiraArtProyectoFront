@@ -50,3 +50,23 @@
   border-color: #22223B !important;
   color: #fff !important;
 }
+
+
+/* Por ejemplo, en styles.css o el CSS del componente */
+.btn-corporativo {
+  background-color: #2a2e49; /* Usa el color de tu nav */
+  color: #fff;
+  border: none;
+}
+.btn-corporativo:hover {
+  background-color: #23263a; /* Un poco más oscuro al pasar el ratón */
+  color: #fff;
+}
+
+
+.btn-corporativo.ancho-personalizado {
+  padding-top: 0.05rem;
+  padding-bottom: 0.05rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+}
