@@ -20,8 +20,7 @@
     <div class="row">
       <div class="col-md-4 mb-4" *ngFor="let fav of favoritos">
         <div class="card h-100">
-          <img [src]="fav.obra.imagenObra ? fav.obra.imagenObra : 'assets/no-image.png'"
-               class="card-img-top" [alt]="fav.obra.nombre">
+           <img [src]="getImageUrl(fav.obra.imagenObra)" class="card-img-top" [alt]="fav.obra.nombre">
           <div class="card-body d-flex flex-column">
             <div class="d-flex align-items-center justify-content-between mb-2">
               <h5 class="card-title mb-0">{{ fav.obra.nombre }}</h5>

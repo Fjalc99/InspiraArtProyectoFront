@@ -2,11 +2,26 @@
   <aside class="sidebar">
     <a class="brand" routerLink="/">Galería Admin</a>
     <nav>
-      <a routerLink="/obra" routerLinkActive="active">Obras</a>
-      <a routerLink="/categoria" routerLinkActive="active">Categorías</a>
-      <a routerLink="/usuario" routerLinkActive="active">Usuarios</a>
-      <a routerLink="/artista" routerLinkActive="active">Artistas</a>
-      <a routerLink="/admins" routerLinkActive="active">Administradores</a>
+      <a routerLink="/obra" routerLinkActive="active">
+  <mat-icon>palette</mat-icon>
+  Obras
+</a>
+<a routerLink="/categoria" routerLinkActive="active">
+  <mat-icon>category</mat-icon>
+  Categorías
+</a>
+<a routerLink="/usuario" routerLinkActive="active">
+  <mat-icon>person</mat-icon>
+  Usuarios
+</a>
+<a routerLink="/artista" routerLinkActive="active">
+  <mat-icon>brush</mat-icon>
+  Artistas
+</a>
+<a routerLink="/admins" routerLinkActive="active">
+  <mat-icon>admin_panel_settings</mat-icon>
+  Administradores
+</a>
       <button class="btn btn-outline-light mt-3 w-100" (click)="logout()">Cerrar sesión</button>
     </nav>
   </aside>

@@ -8,6 +8,7 @@ import { ComentariosService } from '../../services/comentarios.service';
 import { ComentarioDto } from '../../interfaces/ComentarioDto';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateObraDto } from '../../interfaces/CreateObraDto';
 
 @Component({
   selector: 'app-obras',
@@ -79,28 +80,6 @@ categorias: CategoriaDto[] = [];
   });
 }
 
-  onGuardarObra(event: { obra: Partial<ObraDto>; file: File | null; }) {
-  const { obra, file } = event;
-  const formData = new FormData();
-
-  
-  formData.append('createObraDto', JSON.stringify({
-    nombre: obra.nombre,
-    fechaSubida: obra.fechaSubida,
-    nombreCategoria: typeof obra.categoria === 'object' && obra.categoria !== null
-      ? obra.categoria.nombre
-      : obra.categoria
-  }));
-
-  if (file) {
-    formData.append('file', file);
-  }
-
-  this.obrasService.crearObra(formData).subscribe(() => {
-    this.cerrarFormulario();
-    this.loadObras();
-  });
-}
 
   goToPage(page: number) {
     if (page >= 0 && page < this.totalPages) {
@@ -127,13 +106,6 @@ categorias: CategoriaDto[] = [];
 }
 
 
-  aniadirObra() {
-  this.loadCategorias();
-  this.obraSeleccionada = {};
-  this.mostrarFormulario = true;
-  this.mostrarDetalle = false;
-  this.esEdicion = false;
-}
 
  eliminarObra(idObra: string) {
   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -234,11 +206,21 @@ eliminarComentarioAdmin(comentario: ComentarioDto) {
     }
   });
 }
-  getImageUrl(nombreArchivo: string | undefined): string {
-  if (!nombreArchivo) return 'assets/no-image.png';
-  if (nombreArchivo.startsWith('http')) return nombreArchivo;
-  return `http://localhost:8080/download/${nombreArchivo}`;
-}
+ getImageUrl(nombreArchivo?: string): string {
+    if (!nombreArchivo) return 'assets/no-image.png';
+
+    // Si la URL contiene "/download/https", extrae la parte externa
+    const downloadIdx = nombreArchivo.indexOf('/download/https');
+    if (downloadIdx !== -1) {
+      const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);
+      if (httpsIdx !== -1) {
+        return nombreArchivo.substring(httpsIdx);
+      }
+    }
+
+    if (nombreArchivo.startsWith('http')) return nombreArchivo;
+    return `http://localhost:8080/download/${nombreArchivo}`;
+  }
 
 get Math() {
   return Math;

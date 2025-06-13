@@ -1,44 +1,54 @@
-import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output,  OnInit } from '@angular/core';
 import { ObraDto } from '../../interfaces/ObraDto';
 import { CategoriaDto } from '../../interfaces/categoria/CategoriaDto';
+import { CategoriasService } from '../../services/categorias.service';
+import { CreateObraDto } from '../../interfaces/CreateObraDto';
+import { ObrasService } from '../../services/obras.service';
 
 @Component({
   selector: 'app-obras-form',
   templateUrl: './obra-form.component.html',
   styleUrl: './obra-form.component.css'
 })
-export class ObrasFormComponent implements OnChanges {
-  @Input() obra: Partial<ObraDto> = {};
-  @Input() categorias: CategoriaDto[] = [];
-  @Output() guardar = new EventEmitter<{ obra: Partial<ObraDto>, file: File | null }>();
-  @Output() cancelar = new EventEmitter<void>();
+export class ObrasFormComponent implements OnInit{
 
-  obraLocal: Partial<ObraDto> = {};
+   @Output() creada = new EventEmitter<any>();
+  @Output() cancelarForm = new EventEmitter<void>();
+
+  obra: CreateObraDto = {
+    nombre: '',
+    nombreCategoria: ''
+  };
   selectedFile: File | null = null;
+  categorias: CategoriaDto[] = [];
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['obra'] && this.obra) {
-      this.obraLocal = { ...this.obra };
+  constructor(private crearObraService: ObrasService, private categoriaService: CategoriasService) {}
+
+  ngOnInit(): void {
+     this.categoriaService.getCategoriasForm().subscribe(resp => this.categorias = resp);
+  }
+
+  onFileSelected(event: any): void {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
     }
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file && file.type.startsWith('image/')) {
-      this.selectedFile = file;
-    } else {
-      this.selectedFile = null;
-      alert('Solo se permiten archivos de imagen.');
+  crearObra(): void {
+    if (this.obra.nombre && this.obra.nombreCategoria && this.selectedFile) {
+      this.crearObraService.crearObra(
+        {
+          nombre: this.obra.nombre,
+          nombreCategoria: this.obra.nombreCategoria
+        },
+        this.selectedFile
+      ).subscribe(nuevaObra => {
+        this.creada.emit(nuevaObra);
+      });
     }
   }
 
-  onGuardar() {
-    if (this.selectedFile) {
-      this.guardar.emit({ obra: this.obraLocal, file: this.selectedFile });
-    }
-  }
-
-  onCancelar() {
-    this.cancelar.emit();
+  cancelar(): void {
+    this.cancelarForm.emit();
   }
 }

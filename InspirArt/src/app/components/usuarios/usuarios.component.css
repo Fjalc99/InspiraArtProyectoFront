@@ -1,4 +1,4 @@
-/* === Listado de usuarios === */
+
 .user-cards {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +7,7 @@
 }
 
 .user-cards .card {
-  flex: 0 1 calc(20% - 16px); /* 5 por fila */
+  flex: 0 1 calc(20% - 16px); 
   box-sizing: border-box;
   background: #fff;
   border: 1px solid #ddd;
@@ -97,6 +97,27 @@
   margin-top: 1rem;
 }
 
+
+/* Por ejemplo, en styles.css o el CSS del componente */
+.btn-corporativo {
+  background-color: #2a2e49; /* Cambia por tu color corporativo */
+  color: #fff;
+}
+.btn-corporativo:hover {
+  background-color: #fcfcfc;
+  color: #000000;
+  border: #2a2e49 1px solid;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
 /* === Paginación === */
 .pagination {
   margin-top: 20px;

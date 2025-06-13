@@ -1,5 +1,31 @@
 <h2 class="mb-4 obra-header">Mis obras</h2>
-<div *ngIf="!obraSeleccionada">
+
+<!-- Detalle de obra -->
+<div *ngIf="obraSeleccionada">
+  <app-detalle-obra-artista
+    [obraSeleccionada]="obraSeleccionada"
+    (cerrar)="cerrarDetalle()">
+  </app-detalle-obra-artista>
+</div>
+
+<!-- Formulario para crear obra -->
+<app-obras-form
+  *ngIf="mostrarFormulario"
+  (creada)="obraCreada()"
+  (cancelarForm)="cerrarFormulario()">
+</app-obras-form>
+
+<!-- Listado de obras y botón crear -->
+<div *ngIf="!obraSeleccionada && !mostrarFormulario">
+  <div class="d-flex justify-content-end mb-4">
+        <button class="btn btn-corporativo text-white d-flex align-items-center px-4 py-2 shadow-sm"
+            style="font-size: 1.1rem; border-radius: 8px; background-color: #2a2e49;"
+            (click)="abrirFormulario()">
+      <i class="bi bi-plus-lg me-2" style="font-size: 1.3rem;"></i>
+      <span>Crear obra</span>
+    </button>
+  </div>
+
   <div *ngIf="loading" class="text-center my-5">
     <div class="spinner-border text-primary" role="status"></div>
     <div class="mt-2">Cargando obras...</div>
@@ -12,11 +38,11 @@
   <div *ngIf="!loading && obras.length > 0" class="row">
     <div class="col-md-4 mb-4" *ngFor="let obra of obras">
       <div class="card h-100">
-        <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" alt="Imagen de la obra">
+        <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" [alt]="obra.nombre">
         <div class="card-body position-relative">
           <h5 class="card-title text-truncate" title="{{ obra.nombre }}">{{ obra.nombre }}</h5>
+          <P class="card-text mb-1 "><strong>Autor:</strong> {{ obra.nombreAutor }} </P>
           <p class="card-text mb-1"><strong>Categoría:</strong> {{ obra.categoria.nombre }}</p>
-          <p class="card-text mb-1"><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
           <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida | date:'mediumDate' }}</p>
           <button class="btn btn-corporativo btn-ojo position-absolute" style="bottom: 16px; right: 16px;"
                   (click)="verDetalleObra(obra)" title="Ver detalle">
@@ -27,9 +53,3 @@
     </div>
   </div>
 </div>
-
-<app-detalle-obra-artista
-  *ngIf="obraSeleccionada"
-  [obraSeleccionada]="obraSeleccionada"
-  (cerrar)="cerrarDetalle()">
-</app-detalle-obra-artista>

@@ -1,5 +1,5 @@
 
-<!-- Detalle de obra -->
+
 <div *ngIf="mostrarDetalle && obraSeleccionada">
   <app-detalle-obra-artista
     [obraSeleccionada]="obraSeleccionada"
@@ -7,18 +7,30 @@
   </app-detalle-obra-artista>
 </div>
 
-<!-- Listado de obras -->
-<div *ngIf="!mostrarDetalle">
-  <div class="obra-header"
-    style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-    <h3>Obras</h3>
-  </div>
+
+<app-obras-form
+  *ngIf="mostrarFormulario"
+  (creada)="obraCreada()"
+  (cancelarForm)="cerrarFormulario()">
+</app-obras-form>
+
+
+
+<div *ngIf="!mostrarDetalle && !mostrarFormulario">
+  <div class="obra-header d-flex align-items-center justify-content-between mb-4">
+  <h3>Obras</h3>
+  <button class="btn btn-corporativo d-flex align-items-center px-4 py-2 shadow-sm"
+          style="font-size: 1.1rem; border-radius: 8px;"
+          (click)="abrirFormulario()">
+    <i class="bi bi-plus-lg me-2" style="font-size: 1.3rem;"></i>
+    <span>Crear obra</span>
+  </button>
+</div>
 
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let obra of obras">
       <div class="card h-100">
-        <img [src]="obra.imagenObra ? obra.imagenObra : 'assets/no-image.png'"
-          class="card-img-top" [alt]="obra.nombre">
+        <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" [alt]="obra.nombre">
         <div class="card-body">
           <div class="d-flex align-items-center justify-content-between">
             <h5 class="card-title mb-0">{{ obra.nombre }}</h5>

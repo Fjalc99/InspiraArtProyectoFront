@@ -17,7 +17,7 @@
     <img *ngIf="usuarioDetalle.fotoPerfil"
          [src]="getImageUrl(usuarioDetalle.fotoPerfil)"
          class="rounded-circle perfil-img mb-3"
-         alt="Foto de perfil" />
+         [alt]="usuarioDetalle.nombre" />
          
     <p class="card-text"><strong>Email:</strong> {{ usuarioDetalle.email }}</p>
     <p class="card-text"><strong>Registrado:</strong> {{ usuarioDetalle.createdAt | date:'medium' }}</p>
@@ -26,25 +26,32 @@
   </div>
 </div>
 
-<!-- Botón para crear usuario -->
+
 <div *ngIf="!mostrarFormulario && !usuarioDetalle" class="text-end mb-3">
-  <button class="btn btn-success" (click)="crearUsuario()">
+  <button class="btn btn-corporativo" (click)="crearUsuario()">
     <i class="bi bi-person-plus"></i>
     Crear usuario
   </button>
 </div>
 
-<!-- Listado de usuarios -->
+
 <div class="row" *ngIf="!mostrarFormulario && !usuarioDetalle">
   <div class="col-lg-3 col-md-4 col-sm-6 mb-4" *ngFor="let usuario of Usuarios">
-    <div class="card h-100">
-      <img [src]="getImageUrl(usuario.fotoPerfil)" class="card-img-top" alt="Foto de {{ usuario.nombre }}" />
+    <div class="card h-100 text-center">
+      <div class="mt-3 mb-2 d-flex justify-content-center">
+        <img 
+          [src]="getImageUrl(usuario.fotoPerfil)" 
+          class="user-avatar"
+          alt="Foto de {{ usuario.nombre }}" 
+          loading="lazy"
+        />
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{ usuario.nombre }} {{ usuario.apellidos }}</h5>
         <p class="card-text"><strong>Usuario:</strong> {{ usuario.username }}</p>
         <p class="card-text"><strong>Email:</strong> {{ usuario.email }}</p>
         <p class="card-text"><strong>Registrado:</strong> {{ usuario.createdAt | date:'medium' }}</p>
-        <div class="d-flex gap-2 mt-3">
+        <div class="d-flex gap-2 mt-3 justify-content-center">
           <button class="btn btn-outline-primary btn-sm" (click)="verUsuario(usuario)" title="Ver">
             <i class="bi bi-eye"></i>
           </button>
@@ -60,7 +67,7 @@
   </div>
 </div>
 
-<!-- Paginación centrada -->
+
 <nav *ngIf="!mostrarFormulario && !usuarioDetalle" class="d-flex justify-content-center mt-4">
   <ul class="pagination">
     <li class="page-item" *ngFor="let p of [].constructor(totalPages); let i = index" [class.active]="page === i">
