@@ -2,3 +2,14 @@
 .bg-corporativo {
   background-color: #22223B !important;
 }
+
+.navbar .nav-link.active {
+  color: #fff !important;
+}
+
+.logo-navbarquier {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 7px; /* Sube la imagen un poco */
+}

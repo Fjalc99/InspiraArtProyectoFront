@@ -40,6 +40,8 @@ import { ListaObrasUsuarioComponent } from './components/lista-obras-usuario/lis
 import { DetalleObraComponent } from './components/detalle-obra/detalle-obra.component';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { ProfileUserComponent } from './components/profile-user/profile-user.component';
+import { ListaObraArtistaComponent } from './components/lista-obra-artista/lista-obra-artista.component';
+import { DetalleObraArtistaComponent } from './components/detalle-obra-artista/detalle-obra-artista.component';
 
 
 
@@ -70,6 +72,8 @@ import { ProfileUserComponent } from './components/profile-user/profile-user.com
     DetalleObraComponent,
     FavoritosComponent,
     ProfileUserComponent,
+    ListaObraArtistaComponent,
+    DetalleObraArtistaComponent,
    
 
     

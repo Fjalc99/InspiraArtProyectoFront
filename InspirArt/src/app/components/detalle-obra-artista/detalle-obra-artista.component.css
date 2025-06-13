@@ -1,0 +1,105 @@
+.detalle-obra-card {
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.detalle-obra-img {
+  max-width: 300px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.flex-grow-1 {
+  flex: 1 1 0%;
+}
+
+.bi-star, .bi-star-fill {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.bi-star-fill.text-warning {
+  color: #ffc107 !important;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h4 {
+  margin-bottom: 0;
+  margin-right: 1rem;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+/* Por ejemplo, en styles.css o el CSS del componente */
+.btn-corporativo {
+  background-color: #2a2e49; /* Usa el color de tu nav */
+  color: #fff;
+  border: none;
+}
+.btn-corporativo:hover {
+  background-color: #23263a; /* Un poco más oscuro al pasar el ratón */
+  color: #fff;
+}
+
+.btn-corporativo-cerrar {
+  background-color: #2a2e49; /* Cambia por tu color corporativo */
+  color: #fff;
+  border: none;
+}
+
+.btn-corporativo-cerrar:hover,
+.btn-corporativo-cerrar:focus {
+  background-color: #1d2033; /* Un tono más oscuro si quieres */
+  color: #fff;
+}
+
+.btn-corporativo-cerrar .bi-x-lg {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+
+
+.btn-corporativo-cerrar.btn-cerrar-mini {
+  background-color: #2a2e49;
+  color: #fff;
+  border: none;
+  padding: 0.2rem 0.5rem;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-corporativo-cerrar.btn-cerrar-mini:hover,
+.btn-corporativo-cerrar.btn-cerrar-mini:focus {
+  background-color: #1d2033;
+  color: #fff;
+}
+
+.btn-corporativo-cerrar.btn-cerrar-mini .bi-x-lg {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+}
