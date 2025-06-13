@@ -39,6 +39,7 @@ import { ActivarCuentaUsuarioComponent } from './components/activar-cuenta-usuar
 import { ListaObrasUsuarioComponent } from './components/lista-obras-usuario/lista-obras-usuario.component';
 import { DetalleObraComponent } from './components/detalle-obra/detalle-obra.component';
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
+import { ProfileUserComponent } from './components/profile-user/profile-user.component';
 
 
 
@@ -68,6 +69,7 @@ import { FavoritosComponent } from './components/favoritos/favoritos.component';
     ListaObrasUsuarioComponent,
     DetalleObraComponent,
     FavoritosComponent,
+    ProfileUserComponent,
    
 
     
