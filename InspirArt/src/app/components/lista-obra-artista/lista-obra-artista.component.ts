@@ -84,14 +84,14 @@ export class ListaObraArtistaComponent implements OnInit {
         this.obraSeleccionada = {
           idObra: obra.idObra,
           nombre: obra.nombre,
-          nombreArtista: obra.nombreAutor, // <-- usa el nombre correcto según tu ObraDto
+          nombreArtista: obra.nombreAutor, 
           categoria: obra.categoria,
           fechaSubida: obra.fechaSubida,
           imagenObra: obra.imagenObra,
           mediaValoracion: obra.mediaValoracion,
           comentarios: obra.comentarios ?? [],
           valoraciones: obra.valoraciones ?? []
-          // agrega aquí cualquier otro campo requerido por ObraDto
+         
         };
         this.mostrarDetalle = true;
       }

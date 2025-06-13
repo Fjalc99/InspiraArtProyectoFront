@@ -13,6 +13,7 @@ import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { ProfileUserComponent } from './components/profile-user/profile-user.component';
 import { ListaObraArtistaComponent } from './components/lista-obra-artista/lista-obra-artista.component';
 import { ProfileArtistaComponent } from './components/profile-artista/profile-artista.component';
+import { MisObrasComponent } from './components/mis-obras/mis-obras.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
     children: [
       {path: '', component: ListaObraArtistaComponent },
       { path: 'perfil', component: ProfileArtistaComponent },
+        {path: 'mis-obras', component: MisObrasComponent},
 
     ]
    },

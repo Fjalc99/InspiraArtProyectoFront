@@ -1,0 +1,35 @@
+<h2 class="mb-4 obra-header">Mis obras</h2>
+<div *ngIf="!obraSeleccionada">
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <div class="mt-2">Cargando obras...</div>
+  </div>
+
+  <div *ngIf="!loading && obras.length === 0" class="alert alert-info">
+    No tienes obras publicadas.
+  </div>
+
+  <div *ngIf="!loading && obras.length > 0" class="row">
+    <div class="col-md-4 mb-4" *ngFor="let obra of obras">
+      <div class="card h-100">
+        <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" alt="Imagen de la obra">
+        <div class="card-body position-relative">
+          <h5 class="card-title text-truncate" title="{{ obra.nombre }}">{{ obra.nombre }}</h5>
+          <p class="card-text mb-1"><strong>Categoría:</strong> {{ obra.categoria.nombre }}</p>
+          <p class="card-text mb-1"><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
+          <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida | date:'mediumDate' }}</p>
+          <button class="btn btn-corporativo btn-ojo position-absolute" style="bottom: 16px; right: 16px;"
+                  (click)="verDetalleObra(obra)" title="Ver detalle">
+            <i class="bi bi-eye"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-detalle-obra-artista
+  *ngIf="obraSeleccionada"
+  [obraSeleccionada]="obraSeleccionada"
+  (cerrar)="cerrarDetalle()">
+</app-detalle-obra-artista>
