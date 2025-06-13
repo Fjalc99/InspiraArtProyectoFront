@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ObraDto } from '../interfaces/ObraDto';
 import { ListaObraDto } from '../interfaces/ListaObraDto';
+import { CreateObraDto } from '../interfaces/CreateObraDto';
 
 @Injectable({
   providedIn: 'root'
@@ -43,14 +44,24 @@ export class ObrasService {
     return this.http.get<ListaObraDto>(`${this.API_URL}/${idObra}`, { headers });
   }
 
-  crearObra(formData: FormData): Observable<ListaObraDto> {
+  crearObra(obra: CreateObraDto, file: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('createObraDto', new Blob([JSON.stringify(obra)], { type: 'application/json' }));
+  if (file) {
+    formData.append('file', file);
+  }
+
   const token = localStorage.getItem('token');
   const headers = new HttpHeaders({
     Authorization: `Bearer ${token}`
-    
+    // No pongas Content-Type aquí
   });
-  return this.http.post<ListaObraDto>(this.API_URL, formData, { headers });
+
+  return this.http.post<any>(`${this.API_URL}`, formData, { headers });
 }
+
+
+
   editarObra(idObra: string, obra: ObraDto): Observable<ListaObraDto> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({

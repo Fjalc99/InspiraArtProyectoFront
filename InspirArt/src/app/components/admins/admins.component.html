@@ -8,54 +8,65 @@
 
 <!-- Card de detalle de admin -->
 <div *ngIf="adminDetalle && !mostrarFormulario" class="card mx-auto my-4" style="max-width: 400px;">
-  <div class="card-header text-center">
-    <h5 class="card-title mb-0">{{ adminDetalle.nombre }} {{ adminDetalle.apellidos }}</h5>
-    <small class="text-muted">{{ adminDetalle.username }}</small>
+  <div class="card-header text-center bg-white border-0">
+    <div class="d-flex flex-column align-items-center">
+      <img *ngIf="adminDetalle.fotoPerfil"
+           [src]="getImageUrl(adminDetalle.fotoPerfil)"
+           class="admin-avatar mb-2"
+           alt="Foto de perfil" />
+      <h5 class="card-title mb-0">{{ adminDetalle.nombre }} {{ adminDetalle.apellidos }}</h5>
+      <small class="text-muted">{{ adminDetalle.username }}</small>
+    </div>
   </div>
-  <img *ngIf="adminDetalle.fotoPerfil" [src]="getImageUrl(adminDetalle.fotoPerfil)" class="card-img-top" alt="Foto de perfil" />
   <div class="card-body">
     <p class="card-text"><strong>Email:</strong> {{ adminDetalle.email }}</p>
     <p class="card-text"><strong>Registrado:</strong> {{ adminDetalle.createdAt | date:'medium' }}</p>
     <!-- Añade aquí más campos si los tienes en el DTO -->
   </div>
-  <div class="card-footer text-end">
+  <div class="card-footer text-end bg-white border-0">
     <button class="btn btn-primary" (click)="adminDetalle = null">Cerrar</button>
   </div>
 </div>
 
 <!-- Botón para crear admin -->
 <div *ngIf="!mostrarFormulario && !adminDetalle" class="text-end mb-3">
-  <button class="btn btn-success" (click)="crearAdmin()">
-    <i class="bi bi-person-plus"></i>
+  <button class="btn btn-corporativo d-inline-flex align-items-center" (click)="crearAdmin()">
+    <i class="bi bi-person-plus me-2"></i>
     Crear admin
   </button>
 </div>
 
 <!-- Listado de admins -->
-<div class="row" *ngIf="!mostrarFormulario && !adminDetalle">
-  <div class="col-md-4 mb-4" *ngFor="let admin of admins">
-    <div class="card h-100">
-      <img [src]="getImageUrl(admin.fotoPerfil)" class="card-img-top" alt="Foto de {{ admin.nombre }}">
-      <div class="card-body">
-        <h5 class="card-title">{{ admin.nombre }} {{ admin.apellidos }}</h5>
-        <p class="card-text"><strong>Usuario:</strong> {{ admin.username }}</p>
-        <p class="card-text"><strong>Email:</strong> {{ admin.email }}</p>
-        <p class="card-text"><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
-      </div>
-      <div class="card-footer d-flex justify-content-between">
-        <button class="btn btn-outline-primary btn-sm" (click)="verAdmin(admin)" title="Ver">
-          <i class="bi bi-eye"></i>
-        </button>
-        <button class="btn btn-outline-secondary btn-sm" (click)="editarAdmin(admin)" title="Editar">
-          <i class="bi bi-pencil"></i>
-        </button>
-        <button class="btn btn-outline-danger btn-sm" (click)="eliminarAdmin(admin)" title="Eliminar">
-          <i class="bi bi-trash"></i>
-        </button>
-      </div>
+<div class="user-cards" *ngIf="!mostrarFormulario && !adminDetalle">
+  <div class="card" *ngFor="let admin of admins">
+    <div class="avatar-container">
+      <img 
+        [src]="getImageUrl(admin.fotoPerfil)" 
+        class="user-avatar"
+        alt="Foto de {{ admin.nombre }}"
+      />
+    </div>
+    <div class="card-body">
+      <h5 class="card-title text-center">{{ admin.nombre }} {{ admin.apellidos }}</h5>
+      <p class="card-text text-center"><strong>Usuario:</strong> {{ admin.username }}</p>
+      <p class="card-text text-center"><strong>Email:</strong> {{ admin.email }}</p>
+      <p class="card-text text-center"><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
+    </div>
+    <div class="card-actions">
+      <button class="btn btn-outline-primary btn-sm" (click)="verAdmin(admin)" title="Ver">
+        <i class="bi bi-eye"></i>
+      </button>
+      <button class="btn btn-outline-secondary btn-sm" (click)="editarAdmin(admin)" title="Editar">
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button class="btn btn-outline-danger btn-sm" (click)="eliminarAdmin(admin)" title="Eliminar">
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
   </div>
 </div>
+
+
 
 <!-- Paginación -->
 <nav *ngIf="!mostrarFormulario && !adminDetalle" class="d-flex justify-content-center mt-4">

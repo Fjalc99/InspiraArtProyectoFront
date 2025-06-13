@@ -24,6 +24,17 @@
 }
 
 
+.btn-corporativo {
+  background-color: #2a2e49 !important;
+  color: #fff !important;
+  border: none;
+}
+.btn-corporativo:hover,
+.btn-corporativo:focus {
+  background-color: #1d2033 !important;
+  color: #fff !important;
+}
+
 .obra-header {
   margin-bottom: 24px;
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CategoriaDto } from '../interfaces/categoria/CategoriaDto';
 import { CreateCategoriaDto } from '../interfaces/categoria/CreateCategoriaDto';
 import { EditCategoriaDto } from '../interfaces/categoria/EditCategoriaDto';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,16 @@ export class CategoriasService {
     });
     return this.http.get<CategoriaDto[]>(`${this.API_URL}?page=${page}&size=${size}`, { headers });
   }
+
+ getCategoriasForm(page: number = 0, size: number = 10): Observable<CategoriaDto[]> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.get<{ content: CategoriaDto[] }>(`${this.API_URL}/form?page=${page}&size=${size}`, { headers })
+    .pipe(map(resp => resp.content));
+}
 
  editarCategoria(idCategoria: string, dto: EditCategoriaDto): Observable<any> {
   const token = localStorage.getItem('token');

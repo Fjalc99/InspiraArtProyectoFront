@@ -11,18 +11,37 @@ export class MisObrasComponent implements OnInit {
   obras: ListaObraDto[] = [];
   loading = true;
   obraSeleccionada: ListaObraDto | null = null;
+  mostrarFormulario = false;
 
 
   constructor(private obrasService: ObrasArtistaService) {}
 
   ngOnInit(): void {
+    this.loadObras();
+  }
+
+  loadObras(): void {
+    this.loading = true;
     this.obrasService.getObrasArtista().subscribe({
       next: resp => {
-        this.obras = resp.content;
+        this.obras = resp.content ?? resp; // resp.content si es paginado, resp si es array plano
         this.loading = false;
       },
       error: () => this.loading = false
     });
+  }
+
+  abrirFormulario(): void {
+    this.mostrarFormulario = true;
+  }
+
+  cerrarFormulario(): void {
+    this.mostrarFormulario = false;
+  }
+
+  obraCreada(): void {
+    this.mostrarFormulario = false;
+    this.loadObras();
   }
 
   verDetalleObra(obra: ListaObraDto) {
@@ -32,21 +51,20 @@ export class MisObrasComponent implements OnInit {
   cerrarDetalle() {
     this.obraSeleccionada = null;
   }
-  
 
   getImageUrl(nombreArchivo?: string): string {
-        if (!nombreArchivo) return 'assets/no-image.png';
-      
-        // Si la URL contiene "/download/https", extrae la parte externa
-        const downloadIdx = nombreArchivo.indexOf('/download/https');
-        if (downloadIdx !== -1) {
-          const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);
-          if (httpsIdx !== -1) {
-            return nombreArchivo.substring(httpsIdx);
-          }
-        }
-      
-        if (nombreArchivo.startsWith('http')) return nombreArchivo;
-        return `http://localhost:8080/download/${nombreArchivo}`;
+    if (!nombreArchivo) return 'assets/no-image.png';
+
+    // Si la URL contiene "/download/https", extrae la parte externa
+    const downloadIdx = nombreArchivo.indexOf('/download/https');
+    if (downloadIdx !== -1) {
+      const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);
+      if (httpsIdx !== -1) {
+        return nombreArchivo.substring(httpsIdx);
       }
+    }
+
+    if (nombreArchivo.startsWith('http')) return nombreArchivo;
+    return `http://localhost:8080/download/${nombreArchivo}`;
+  }
 }

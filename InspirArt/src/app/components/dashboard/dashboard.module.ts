@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -21,7 +22,8 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     DashboardRoutingModule,
     MatDialogModule,
     MatButtonModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule 
   ]
 })
 export class DashboardModule { }

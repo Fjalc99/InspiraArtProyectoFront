@@ -25,34 +25,32 @@
 
 <!-- Botón para crear artista -->
 <div *ngIf="!mostrarFormulario && !artistaDetalle" class="text-end mb-3">
-  <button class="btn btn-success" (click)="crearArtista()">
+  <button class="btn btn-corporativo" (click)="crearArtista()">
     <i class="bi bi-person-plus"></i>
     Crear artista
   </button>
 </div>
 
-<!-- Listado de artistas -->
-<div class="row" *ngIf="!mostrarFormulario && !artistaDetalle">
-  <div class="col-md-4 mb-4" *ngFor="let artista of artistas">
-    <div class="card h-100">
-      <img [src]="getImageUrl(artista.fotoPerfil)" class="card-img-top" alt="Foto de {{ artista.nombre }}">
-      <div class="card-body">
-        <h5 class="card-title">{{ artista.nombre }} {{ artista.apellidos }}</h5>
-        <p class="card-text"><strong>Usuario:</strong> {{ artista.username }}</p>
-        <p class="card-text"><strong>Email:</strong> {{ artista.email }}</p>
-        <p class="card-text"><strong>Registrado:</strong> {{ artista.createdAt | date:'medium' }}</p>
-      </div>
-      <div class="card-footer d-flex justify-content-between">
-        <button class="btn btn-outline-primary btn-sm" (click)="verArtista(artista)" title="Ver">
-          <i class="bi bi-eye"></i>
-        </button>
-        <button class="btn btn-outline-secondary btn-sm" (click)="editarArtista(artista)" title="Editar">
-          <i class="bi bi-pencil"></i>
-        </button>
-        <button class="btn btn-outline-danger btn-sm" (click)="eliminarArtista(artista)" title="Eliminar">
-          <i class="bi bi-trash"></i>
-        </button>
-      </div>
+
+<div class="user-cards" *ngIf="!mostrarFormulario && !artistaDetalle">
+  <div class="card" *ngFor="let artista of artistas">
+    <img [src]="getImageUrl(artista.fotoPerfil)" alt="Foto de {{ artista.nombre }}" />
+    <div class="card-body">
+      <h5 class="card-title text-center mb-2">{{ artista.nombre }} {{ artista.apellidos }}</h5>
+      <p class="card-text text-center mb-1"><strong>Usuario:</strong> {{ artista.username }}</p>
+      <p class="card-text text-center mb-1"><strong>Email:</strong> {{ artista.email }}</p>
+      <p class="card-text text-center mb-2"><strong>Registrado:</strong> {{ artista.createdAt | date:'medium' }}</p>
+    </div>
+    <div class="card-actions">
+      <button class="btn btn-outline-primary btn-sm" (click)="verArtista(artista)" title="Ver">
+        <i class="bi bi-eye"></i>
+      </button>
+      <button class="btn btn-outline-secondary btn-sm" (click)="editarArtista(artista)" title="Editar">
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button class="btn btn-outline-danger btn-sm" (click)="eliminarArtista(artista)" title="Eliminar">
+        <i class="bi bi-trash"></i>
+      </button>
     </div>
   </div>
 </div>

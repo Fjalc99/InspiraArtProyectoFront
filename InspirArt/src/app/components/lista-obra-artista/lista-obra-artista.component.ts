@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CategoriaDto } from '../../interfaces/categoria/CategoriaDto';
 import { ListaObraDto } from '../../interfaces/ListaObraDto';
 import { ObraDto } from '../../interfaces/ObraDto';
 import { CategoriasService } from '../../services/categorias.service';
-import { FavoritosService } from '../../services/favoritos.service';
 import { ObrasService } from '../../services/obras.service';
 
 @Component({
@@ -25,8 +24,11 @@ export class ListaObraArtistaComponent implements OnInit {
     };
   obraSeleccionada: ObraDto | null = null;
     mostrarDetalle = false;
-    
+    mostrarFormulario = false;
     categorias: CategoriaDto[] = [];
+     @Output() creada = new EventEmitter<any>();
+
+     obraSeleccionadaArtista: ListaObraDto | null = null;
 
   constructor(
       private obrasService: ObrasService,
@@ -52,6 +54,21 @@ export class ListaObraArtistaComponent implements OnInit {
         }
       });
     }
+
+    abrirFormulario(): void {
+    this.mostrarFormulario = true;
+  }
+
+  cerrarFormulario(): void {
+    this.mostrarFormulario = false;
+  }
+
+  obraCreada(): void {
+    this.mostrarFormulario = false;
+    this.loadObras();
+  }
+    
+    
   
     loadCategorias() {
       this.categoriasService.getCategorias().subscribe({
@@ -102,13 +119,23 @@ export class ListaObraArtistaComponent implements OnInit {
     this.loadObras();
   }
   
-  // ...código existente...
+
   
  
   
     getImageUrl(nombreArchivo?: string): string {
-      if (!nombreArchivo) return 'assets/no-image.png';
-      if (nombreArchivo.startsWith('http')) return nombreArchivo;
-      return `http://localhost:8080/download/${nombreArchivo}`;
+    if (!nombreArchivo) return 'assets/no-image.png';
+
+    // Si la URL contiene "/download/https", extrae la parte externa
+    const downloadIdx = nombreArchivo.indexOf('/download/https');
+    if (downloadIdx !== -1) {
+      const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);
+      if (httpsIdx !== -1) {
+        return nombreArchivo.substring(httpsIdx);
+      }
     }
+
+    if (nombreArchivo.startsWith('http')) return nombreArchivo;
+    return `http://localhost:8080/download/${nombreArchivo}`;
+  }
 }

@@ -16,8 +16,7 @@
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let obra of obras">
       <div class="card h-100">
-        <img [src]="obra.imagenObra ? obra.imagenObra : 'assets/no-image.png'"
-          class="card-img-top" [alt]="obra.nombre">
+        <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" [alt]="obra.nombre">
         <div class="card-body">
           <div class="d-flex align-items-center justify-content-between">
             <h5 class="card-title mb-0">{{ obra.nombre }}</h5>
