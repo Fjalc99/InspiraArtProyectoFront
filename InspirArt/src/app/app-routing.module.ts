@@ -12,6 +12,7 @@ import { DetalleObraComponent } from './components/detalle-obra/detalle-obra.com
 import { FavoritosComponent } from './components/favoritos/favoritos.component';
 import { ProfileUserComponent } from './components/profile-user/profile-user.component';
 import { ListaObraArtistaComponent } from './components/lista-obra-artista/lista-obra-artista.component';
+import { ProfileArtistaComponent } from './components/profile-artista/profile-artista.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'home-artista', component: HomeArtistaComponent,
     children: [
       {path: '', component: ListaObraArtistaComponent },
+      { path: 'perfil', component: ProfileArtistaComponent },
 
     ]
    },
