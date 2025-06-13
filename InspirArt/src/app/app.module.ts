@@ -43,6 +43,7 @@ import { ProfileUserComponent } from './components/profile-user/profile-user.com
 import { ListaObraArtistaComponent } from './components/lista-obra-artista/lista-obra-artista.component';
 import { DetalleObraArtistaComponent } from './components/detalle-obra-artista/detalle-obra-artista.component';
 import { ProfileArtistaComponent } from './components/profile-artista/profile-artista.component';
+import { MisObrasComponent } from './components/mis-obras/mis-obras.component';
 
 
 
@@ -76,6 +77,7 @@ import { ProfileArtistaComponent } from './components/profile-artista/profile-ar
     ListaObraArtistaComponent,
     DetalleObraArtistaComponent,
     ProfileArtistaComponent,
+    MisObrasComponent,
    
 
     
