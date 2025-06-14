@@ -123,9 +123,8 @@
 }
 
 
-/* Por ejemplo, en styles.css o el CSS del componente */
 .btn-corporativo {
-  background-color: #2a2e49; /* Cambia por tu color corporativo */
+  background-color: #2a2e49; 
   color: #fff;
 }
 .btn-corporativo:hover {
@@ -153,12 +152,20 @@
   margin: 0 5px;
   padding: 5px 10px;
   border: none;
-  background-color: #ddd;
+  background-color: #2a2e49;
   cursor: pointer;
   border-radius: 4px;
 }
 
 .pagination button.active {
-  background-color: #007bff;
+  background-color: #2a2e49;
   color: white;
+}
+
+
+img.w-100 {
+  object-fit: cover;
+  width: 100%;
+  max-height: 350px;
+  image-rendering: auto;
 }

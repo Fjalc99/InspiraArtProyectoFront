@@ -7,7 +7,7 @@
   margin: 0 5px;
   padding: 5px 10px;
   border: none;
-  background-color: #ddd;
+  background-color: #2a2e49;
   cursor: pointer;
   border-radius: 4px;
 }
@@ -28,7 +28,7 @@
   color: white;
 }
 
-/* Cards - admin y usuarios */
+
 .admin-cards, .user-cards {
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +36,7 @@
   justify-content: flex-start;
 }
 
-/* Card base */
+
 .admin-cards .card,
 .user-cards .card {
   flex: 0 1 calc(25% - 16px);
@@ -59,7 +59,7 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Imagen uniforme */
+
 .admin-cards .card img,
 .user-cards .card img,
 .user-avatar {
@@ -74,7 +74,7 @@
   display: block;
 }
 
-/* Cuerpo de la tarjeta */
+
 .admin-cards .card-body,
 .user-cards .card-body {
   display: flex;
@@ -86,7 +86,7 @@
   text-align: center;
 }
 
-/* Acciones */
+
 .admin-cards .card-actions,
 .user-cards .card-actions {
   display: flex;
@@ -95,7 +95,6 @@
   margin-top: auto;
 }
 
-/* Responsivo */
 @media (max-width: 900px) {
   .admin-cards .card,
   .user-cards .card {
@@ -108,4 +107,14 @@
   .user-cards .card {
     flex: 0 1 calc(50% - 16px);
   }
+}
+
+
+
+
+img.w-100 {
+  object-fit: cover;
+  width: 100%;
+  max-height: 350px;
+  image-rendering: auto;
 }

@@ -6,7 +6,7 @@
   (cancelar)="cerrarFormulario()">
 </app-artista-form>
 
-<!-- Card de detalle de artista -->
+
 <div *ngIf="artistaDetalle && !mostrarFormulario" class="card mx-auto my-4" style="max-width: 400px;">
   <div class="card-header text-center">
     <h5 class="card-title mb-0">{{ artistaDetalle.nombre }} {{ artistaDetalle.apellidos }}</h5>
@@ -16,14 +16,14 @@
   <div class="card-body">
     <p class="card-text"><strong>Email:</strong> {{ artistaDetalle.email }}</p>
     <p class="card-text"><strong>Registrado:</strong> {{ artistaDetalle.createdAt | date:'medium' }}</p>
-    <!-- Añade aquí más campos si los tienes en el DTO -->
+  
   </div>
   <div class="card-footer text-end">
-    <button class="btn btn-primary" (click)="artistaDetalle = null">Cerrar</button>
+    <button class="btn btn-corporativo" (click)="artistaDetalle = null">Cerrar</button>
   </div>
 </div>
 
-<!-- Botón para crear artista -->
+
 <div *ngIf="!mostrarFormulario && !artistaDetalle" class="text-end mb-3">
   <button class="btn btn-corporativo" (click)="crearArtista()">
     <i class="bi bi-person-plus"></i>
@@ -49,13 +49,13 @@
       <p class="card-text text-center mb-2"><strong>Registrado:</strong> {{ artista.createdAt | date:'medium' }}</p>
     </div>
     <div class="card-actions d-flex justify-content-center gap-2 mb-3">
-      <button class="btn btn-outline-primary btn-sm" (click)="verArtista(artista)" title="Ver">
+      <button class="btn btn-corporativo btn-sm" (click)="verArtista(artista)" title="Ver">
         <i class="bi bi-eye"></i>
       </button>
-      <button class="btn btn-outline-secondary btn-sm" (click)="editarArtista(artista)" title="Editar">
+      <button class="btn btn-secondary btn-sm" (click)="editarArtista(artista)" title="Editar">
         <i class="bi bi-pencil"></i>
       </button>
-      <button class="btn btn-outline-danger btn-sm" (click)="eliminarArtista(artista)" title="Eliminar">
+      <button class="btn btn-danger btn-sm" (click)="eliminarArtista(artista)" title="Eliminar">
         <i class="bi bi-trash"></i>
       </button>
     </div>

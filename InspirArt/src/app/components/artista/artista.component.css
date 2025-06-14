@@ -7,13 +7,13 @@
   margin: 0 5px;
   padding: 5px 10px;
   border: none;
-  background-color: #ddd;
+  background-color: #2a2e49;
   cursor: pointer;
   border-radius: 4px;
 }
 
 .btn-corporativo {
-  background-color: #2a2e49; /* Cambia por tu color corporativo */
+  background-color: #2a2e49;
   color: #fff;
 }
 .btn-corporativo:hover {

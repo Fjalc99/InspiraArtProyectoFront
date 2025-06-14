@@ -6,26 +6,24 @@
   (cancelar)="cerrarFormulario()">
 </app-user-form>
 
-<!-- Card de detalle de usuario -->
-<div *ngIf="usuarioDetalle && !mostrarFormulario" class="card usuario-detalle-card">
-  <div class="card-header text-center">
-    <h5 class="card-title mb-0">{{ usuarioDetalle.nombre }} {{ usuarioDetalle.apellidos }}</h5>
-    <small class="text-muted">{{ usuarioDetalle.username }}</small>
+<div *ngIf="usuarioDetalle && !mostrarFormulario" class="card mx-auto my-4" style="max-width: 400px;">
+  <div class="card-header text-center bg-white border-0 p-0">
+    <h5 class="card-title mb-0 mt-3 fw-bold">{{ usuarioDetalle.nombre }} {{ usuarioDetalle.apellidos }}</h5>
+    <div class="text-muted mb-2" style="font-size: 1rem;">{{ usuarioDetalle.username }}</div>
   </div>
-
-  <div class="card-body text-center">
-    <img *ngIf="usuarioDetalle.fotoPerfil"
-         [src]="getImageUrl(usuarioDetalle.fotoPerfil)"
-         class="rounded-circle perfil-img mb-3"
-         [alt]="usuarioDetalle.nombre" />
-         
-    <p class="card-text"><strong>Email:</strong> {{ usuarioDetalle.email }}</p>
-    <p class="card-text"><strong>Registrado:</strong> {{ usuarioDetalle.createdAt | date:'medium' }}</p>
-    
-    <button class="btn btn-primary mt-3" (click)="usuarioDetalle = null">Cerrar</button>
+  <img *ngIf="usuarioDetalle.fotoPerfil"
+       [src]="getImageUrl(usuarioDetalle.fotoPerfil)"
+       class="w-100"
+       style="object-fit: cover; max-height: 350px;"
+       [alt]="usuarioDetalle.nombre" />
+  <div class="card-body pb-2 pt-3">
+    <p class="card-text mb-2"><strong>Email:</strong> {{ usuarioDetalle.email }}</p>
+    <p class="card-text mb-0"><strong>Registrado:</strong> {{ usuarioDetalle.createdAt | date:'medium' }}</p>
+  </div>
+  <div class="card-footer text-end bg-white border-0">
+    <button class="btn btn-corporativo" (click)="usuarioDetalle = null">Cerrar</button>
   </div>
 </div>
-
 
 <div *ngIf="!mostrarFormulario && !usuarioDetalle" class="text-end mb-3">
   <button class="btn btn-corporativo" (click)="crearUsuario()">
@@ -52,10 +50,10 @@
       <p class="card-text text-center mb-2"><strong>Registrado:</strong> {{ usuario.createdAt | date:'medium' }}</p>
     </div>
     <div class="card-actions d-flex justify-content-center gap-2 mb-3">
-      <button class="btn btn-outline-primary btn-sm" (click)="verUsuario(usuario)" title="Ver">
+      <button class="btn btn-corporativo btn-sm" (click)="verUsuario(usuario)" title="Ver">
         <i class="bi bi-eye"></i>
       </button>
-      <button class="btn btn-outline-secondary btn-sm" (click)="editarUsuario(usuario)" title="Editar">
+      <button class="btn btn-secondary btn-sm" (click)="editarUsuario(usuario)" title="Editar">
         <i class="bi bi-pencil"></i>
       </button>
       <button class="btn btn-outline-danger btn-sm" (click)="eliminarUsuario(usuario)" title="Eliminar">
