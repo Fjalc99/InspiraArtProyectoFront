@@ -2,26 +2,26 @@
   <aside class="sidebar">
     <a class="brand" routerLink="/">Galería Admin</a>
     <nav>
-      <a routerLink="/obra" routerLinkActive="active">
-  <mat-icon>palette</mat-icon>
-  Obras
-</a>
-<a routerLink="/categoria" routerLinkActive="active">
-  <mat-icon>category</mat-icon>
-  Categorías
-</a>
-<a routerLink="/usuario" routerLinkActive="active">
-  <mat-icon>person</mat-icon>
-  Usuarios
-</a>
-<a routerLink="/artista" routerLinkActive="active">
-  <mat-icon>brush</mat-icon>
-  Artistas
-</a>
-<a routerLink="/admins" routerLinkActive="active">
-  <mat-icon>admin_panel_settings</mat-icon>
-  Administradores
-</a>
+            <a class="menu-link" routerLink="/obra" routerLinkActive="active">
+        <mat-icon class="me-2">palette</mat-icon>
+        Obras
+      </a>
+      <a class="menu-link" routerLink="/categoria" routerLinkActive="active">
+        <mat-icon class="me-2">category</mat-icon>
+        Categorías
+      </a>
+      <a class="menu-link" routerLink="/usuario" routerLinkActive="active">
+        <mat-icon class="me-2">person</mat-icon>
+        Usuarios
+      </a>
+      <a class="menu-link" routerLink="/artista" routerLinkActive="active">
+        <mat-icon class="me-2">brush</mat-icon>
+        Artistas
+      </a>
+      <a class="menu-link" routerLink="/admins" routerLinkActive="active">
+        <mat-icon class="me-2">admin_panel_settings</mat-icon>
+        Administradores
+      </a>
       <button class="btn btn-outline-light mt-3 w-100" (click)="logout()">Cerrar sesión</button>
     </nav>
   </aside>

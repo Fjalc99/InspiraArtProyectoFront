@@ -24,3 +24,13 @@ mat-form-field {
 input[type="file"] {
   margin-top: 8px;
 }
+
+.btn-corporativo {
+  background-color: #2a2e49;
+  color: #fff;
+}
+.btn-corporativo:hover {
+  background-color: #fcfcfc;
+  color: #000000;
+  border: #2a2e49 1px solid;
+}

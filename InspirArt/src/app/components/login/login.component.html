@@ -1,12 +1,12 @@
 <div class="login-wrapper">
   <mat-card class="login-card">
     <mat-card-header class="card-header d-flex justify-content-between align-items-center">
-  <mat-card-title class="mb-0">Login</mat-card-title>
-  <img src="assets/logo.png" alt="Logo" style="height: 60px;">
-</mat-card-header>
+      <mat-card-title class="mb-0">Login</mat-card-title>
+      <img src="assets/logo.png" alt="Logo" style="height: 60px;">
+    </mat-card-header>
 
     <mat-card-content>
-      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
 
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Correo electrónico o usuario</mat-label>
@@ -15,10 +15,12 @@
             name="username"
             [(ngModel)]="username"
             required
+            minlength="3"
+            maxlength="50"
             placeholder="ejemplo@correo.com"
             #usernameField="ngModel">
           <mat-error *ngIf="usernameField.invalid && usernameField.touched">
-            El usuario es obligatorio
+            El usuario es obligatorio (mínimo 3 caracteres).
           </mat-error>
         </mat-form-field>
 
@@ -30,14 +32,15 @@
             name="password"
             [(ngModel)]="password"
             required
+            minlength="6"
+            maxlength="50"
             placeholder="••••••••"
             #passwordField="ngModel">
           <mat-error *ngIf="passwordField.invalid && passwordField.touched">
-            La contraseña es obligatoria
+            La contraseña es obligatoria (mínimo 6 caracteres).
           </mat-error>
         </mat-form-field>
 
-                <!-- Puedes usar btn y tu propia clase para el color -->
         <div class="login-actions">
           <button type="submit" class="btn botonInicioSesion w-100" [disabled]="loginForm.invalid">
             Iniciar sesión
@@ -45,10 +48,10 @@
         </div>
 
         <div class="register-actions" style="margin-top: 16px; display: flex; gap: 8px; justify-content: center;">
-          <button mat-stroked-button  class="text-light" type="button" (click)="registrarArtista()">
+          <button mat-stroked-button class="text-light" type="button" (click)="registrarArtista()">
             Registrarse como Artista
           </button>
-          <button mat-stroked-button class="text-light"  type="button" (click)="registrarUsuario()">
+          <button mat-stroked-button class="text-light" type="button" (click)="registrarUsuario()">
             Registrarse como Usuario
           </button>
         </div>

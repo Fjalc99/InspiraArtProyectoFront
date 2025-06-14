@@ -1,4 +1,4 @@
-/* CARD DEL DETALLE DE OBRA */
+
 .detalle-obra-card {
   max-width: 1100px;
   margin: 2rem auto;
@@ -8,36 +8,36 @@
   background-color: #fff;
 }
 
-/* Imagen del detalle: tamaño fijo, imagen completa, sin fondo gris */
+
 .detalle-obra-img {
   width: 300px;
   height: 300px;
-  object-fit: contain; /* imagen completa */
+  object-fit: contain; 
   border-radius: 8px;
   display: block;
   margin: 0 auto;
 }
 
-/* Estrellas */
+
 .bi-star,
 .bi-star-fill {
   font-size: 1.25rem;
   margin-right: 2px;
 }
 
-/* Comentarios */
+
 ul.list-unstyled {
   padding-left: 1rem;
   margin: 0;
 }
 
-/* Footer */
+
 .card-footer {
   padding-top: 1rem;
   border-top: 1px solid #ddd;
 }
 
-/* PAGINACIÓN */
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -56,7 +56,7 @@ ul.list-unstyled {
 
 .pagination button.active,
 .pagination button:hover {
-  background-color: #007bff;
+  background-color: #2a2e49;
   color: #fff;
 }
 
@@ -75,7 +75,7 @@ ul.list-unstyled {
   background: #fff;
   display: flex;
   flex-direction: column;
-  padding: 1rem; /* <--- separa todo el contenido, incluida la imagen */
+  padding: 1rem;
   box-sizing: border-box;
 }
 
@@ -84,7 +84,7 @@ ul.list-unstyled {
   height: 200px;
   object-fit: contain;
   border-radius: 6px;
-  margin-bottom: 1rem; /* separa imagen del contenido siguiente */
+  margin-bottom: 1rem; 
   display: block;
 }
 
@@ -110,4 +110,14 @@ ul.list-unstyled {
   height: 32px;
   width: 36px;
   padding: 0;
+}
+
+.btn-corporativo {
+  background-color: #2a2e49; /* Cambia por tu color corporativo */
+  color: #fff;
+}
+.btn-corporativo:hover {
+  background-color: #fcfcfc;
+  color: #000000;
+  border: #2a2e49 1px solid;
 }

@@ -6,7 +6,7 @@
   (cancelar)="cerrarFormulario()">
 </app-artista-form>
 
-<!-- Card de detalle de artista -->
+
 <div *ngIf="artistaDetalle && !mostrarFormulario" class="card mx-auto my-4" style="max-width: 400px;">
   <div class="card-header text-center">
     <h5 class="card-title mb-0">{{ artistaDetalle.nombre }} {{ artistaDetalle.apellidos }}</h5>
@@ -16,14 +16,14 @@
   <div class="card-body">
     <p class="card-text"><strong>Email:</strong> {{ artistaDetalle.email }}</p>
     <p class="card-text"><strong>Registrado:</strong> {{ artistaDetalle.createdAt | date:'medium' }}</p>
-    <!-- Añade aquí más campos si los tienes en el DTO -->
+  
   </div>
   <div class="card-footer text-end">
-    <button class="btn btn-primary" (click)="artistaDetalle = null">Cerrar</button>
+    <button class="btn btn-corporativo" (click)="artistaDetalle = null">Cerrar</button>
   </div>
 </div>
 
-<!-- Botón para crear artista -->
+
 <div *ngIf="!mostrarFormulario && !artistaDetalle" class="text-end mb-3">
   <button class="btn btn-corporativo" (click)="crearArtista()">
     <i class="bi bi-person-plus"></i>
@@ -33,22 +33,29 @@
 
 
 <div class="user-cards" *ngIf="!mostrarFormulario && !artistaDetalle">
-  <div class="card" *ngFor="let artista of artistas">
-    <img [src]="getImageUrl(artista.fotoPerfil)" alt="Foto de {{ artista.nombre }}" />
-    <div class="card-body">
+  <div class="card shadow-sm" *ngFor="let artista of artistas">
+    <div class="d-flex justify-content-center mt-3 mb-2">
+      <img 
+        [src]="getImageUrl(artista.fotoPerfil)" 
+        class="user-avatar"
+        alt="Foto de {{ artista.nombre }}"
+        loading="lazy"
+      />
+    </div>
+    <div class="card-body p-0">
       <h5 class="card-title text-center mb-2">{{ artista.nombre }} {{ artista.apellidos }}</h5>
       <p class="card-text text-center mb-1"><strong>Usuario:</strong> {{ artista.username }}</p>
       <p class="card-text text-center mb-1"><strong>Email:</strong> {{ artista.email }}</p>
       <p class="card-text text-center mb-2"><strong>Registrado:</strong> {{ artista.createdAt | date:'medium' }}</p>
     </div>
-    <div class="card-actions">
-      <button class="btn btn-outline-primary btn-sm" (click)="verArtista(artista)" title="Ver">
+    <div class="card-actions d-flex justify-content-center gap-2 mb-3">
+      <button class="btn btn-corporativo btn-sm" (click)="verArtista(artista)" title="Ver">
         <i class="bi bi-eye"></i>
       </button>
-      <button class="btn btn-outline-secondary btn-sm" (click)="editarArtista(artista)" title="Editar">
+      <button class="btn btn-secondary btn-sm" (click)="editarArtista(artista)" title="Editar">
         <i class="bi bi-pencil"></i>
       </button>
-      <button class="btn btn-outline-danger btn-sm" (click)="eliminarArtista(artista)" title="Eliminar">
+      <button class="btn btn-danger btn-sm" (click)="eliminarArtista(artista)" title="Eliminar">
         <i class="bi bi-trash"></i>
       </button>
     </div>

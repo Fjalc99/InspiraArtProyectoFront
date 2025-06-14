@@ -2,60 +2,85 @@
 .user-cards {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 24px;
   justify-content: flex-start;
+  background: #f6f7fa;
+  padding: 24px 0;
 }
 
 .user-cards .card {
-  flex: 0 1 calc(20% - 16px); 
+  flex: 0 1 calc(20% - 24px);
   box-sizing: border-box;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 12px;
-  margin-bottom: 16px;
-  min-width: 180px;
-  max-width: 220px;
+  margin-bottom: 0;
+  min-width: 220px;
+  max-width: 270px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: box-shadow 0.2s;
 }
 
-.user-cards .card img {
+.user-cards .card:hover {
+  box-shadow: 0 4px 16px rgba(44,62,80,0.08);
+}
+
+.user-avatar {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 50%;  /* Cambia a 8px si las quieres cuadradas */
+  border-radius: 50%;
   border: 2px solid #ddd;
   margin-bottom: 12px;
   display: block;
+  background: #fff;
 }
 
-.user-cards .card-body {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
+.card-body {
   width: 100%;
-  justify-content: space-between;
-  padding-top: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
-.user-cards .card-actions {
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.card-actions {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-top: auto;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .user-cards .card {
-    flex: 0 1 calc(33.33% - 16px);
+    flex: 0 1 calc(25% - 24px);
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .user-cards .card {
-    flex: 0 1 calc(50% - 16px);
+    flex: 0 1 calc(33.33% - 24px);
+  }
+}
+@media (max-width: 700px) {
+  .user-cards .card {
+    flex: 0 1 calc(50% - 24px);
+  }
+}
+@media (max-width: 500px) {
+  .user-cards .card {
+    flex: 0 1 100%;
   }
 }
 
@@ -98,9 +123,8 @@
 }
 
 
-/* Por ejemplo, en styles.css o el CSS del componente */
 .btn-corporativo {
-  background-color: #2a2e49; /* Cambia por tu color corporativo */
+  background-color: #2a2e49; 
   color: #fff;
 }
 .btn-corporativo:hover {
@@ -128,12 +152,20 @@
   margin: 0 5px;
   padding: 5px 10px;
   border: none;
-  background-color: #ddd;
+  background-color: #2a2e49;
   cursor: pointer;
   border-radius: 4px;
 }
 
 .pagination button.active {
-  background-color: #007bff;
+  background-color: #2a2e49;
   color: white;
+}
+
+
+img.w-100 {
+  object-fit: cover;
+  width: 100%;
+  max-height: 350px;
+  image-rendering: auto;
 }

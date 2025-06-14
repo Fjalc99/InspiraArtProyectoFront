@@ -4,14 +4,6 @@
 
 </div>
 
-<!-- Formulario para crear obra -->
-<app-obras-form
-  *ngIf="mostrarFormulario"
-  [obra]="obraSeleccionada || {}"
-  [categorias]="categorias"
-  (guardar)="onGuardarObra($event)"
-  (cancelar)="cerrarFormulario()">
-</app-obras-form>
 
 <!-- Detalle de obra -->
 <div *ngIf="mostrarDetalle && obraSeleccionada" class="card detalle-obra-card">
@@ -99,11 +91,11 @@
       <p><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
       <!-- ...otros campos si quieres... -->
       <div class="card-actions">
-        <button class="btn btn-sm btn-outline-primary me-2"
+        <button class="btn btn-sm btn-corporativo me-2"
           (click)="verDetalleObra(obra)" title="Ver detalle">
           <i class="bi bi-eye"></i>
         </button>
-        <button class="btn btn-sm btn-outline-danger"
+        <button class="btn btn-sm btn-danger"
           (click)="eliminarObra(obra.idObra)" title="Eliminar">
           <i class="bi bi-trash"></i>
         </button>

@@ -8,54 +8,80 @@ import { ObrasService } from '../../services/obras.service';
 @Component({
   selector: 'app-lista-obra-artista',
   templateUrl: './lista-obra-artista.component.html',
-  styleUrl: './lista-obra-artista.component.css'
+  styleUrl: './lista-obra-artista.component.css',
 })
 export class ListaObraArtistaComponent implements OnInit {
+  obras: ListaObraDto[] = [];
+  page = 0;
+  size = 9;
+  totalPages = 0;
 
-    obras: ListaObraDto[] = [];
-    page = 0;
-    size = 10;
-    totalPages = 0;
-    filtros: { [key: string]: string } = {
-      titulo: '',
-      artista: '',
-      fechaCreacion: '',
-      estilo: ''
-    };
+  filtros: { [key: string]: string } = {
+    nombreObra: '',
+    autor: '',
+    categoria: '',
+    valoracionMedia: '',
+  };
   obraSeleccionada: ObraDto | null = null;
-    mostrarDetalle = false;
-    mostrarFormulario = false;
-    categorias: CategoriaDto[] = [];
-     @Output() creada = new EventEmitter<any>();
+  mostrarDetalle = false;
+  mostrarFormulario = false;
+  categorias: CategoriaDto[] = [];
+  @Output() creada = new EventEmitter<any>();
 
-     obraSeleccionadaArtista: ListaObraDto | null = null;
+  obraSeleccionadaArtista: ListaObraDto | null = null;
 
   constructor(
-      private obrasService: ObrasService,
-      private categoriasService: CategoriasService,
-   
-    ) {}
-  
-    ngOnInit(): void {
-      this.loadObras();
-      this.loadCategorias();
-    }
-  
-    loadObras() {
-      this.obrasService.getObras(this.filtros, this.page, this.size).subscribe({
-        next: (data: any) => {
-          this.obras = data.content;
-          this.totalPages = data.totalPages;
-        },
-        error: (error) => {
-          console.error('Error al cargar obras:', error);
-          this.obras = [];
-          this.totalPages = 0;
-        }
-      });
-    }
+    private obrasService: ObrasService,
+    private categoriasService: CategoriasService
+  ) {}
 
-    abrirFormulario(): void {
+  ngOnInit(): void {
+    this.loadObras();
+    this.loadCategorias();
+  }
+
+  loadObras() {
+    this.obrasService.getObras(this.filtros, this.page, this.size).subscribe({
+      next: (data: any) => {
+        this.obras = data.content;
+        this.totalPages = data.totalPages;
+      },
+      error: (error) => {
+        console.error('Error al cargar obras:', error);
+        this.obras = [];
+        this.totalPages = 0;
+      },
+    });
+  }
+
+  aplicarFiltros() {
+    this.page = 0;
+
+    const filtrosBackend: { [key: string]: string } = {};
+
+    if (this.filtros['titulo'])
+      filtrosBackend['nombreObra'] = this.filtros['titulo'];
+    if (this.filtros['artista'])
+      filtrosBackend['autor'] = this.filtros['artista'];
+    if (this.filtros['estilo'])
+      filtrosBackend['categoria'] = this.filtros['estilo'];
+    if (this.filtros['valoracionMedia'])
+      filtrosBackend['valoracionMedia'] = this.filtros['valoracionMedia'];
+
+    this.obrasService.getObras(filtrosBackend, this.page, this.size).subscribe({
+      next: (data: any) => {
+        this.obras = data.content;
+        this.totalPages = data.totalPages;
+      },
+      error: (error) => {
+        console.error('Error al cargar obras:', error);
+        this.obras = [];
+        this.totalPages = 0;
+      },
+    });
+  }
+
+  abrirFormulario(): void {
     this.mostrarFormulario = true;
   }
 
@@ -67,63 +93,40 @@ export class ListaObraArtistaComponent implements OnInit {
     this.mostrarFormulario = false;
     this.loadObras();
   }
-    
-    
-  
-    loadCategorias() {
-      this.categoriasService.getCategorias().subscribe({
-        next: (data) => {
-          if (data && Array.isArray((data as any).content)) {
-            this.categorias = (data as any).content;
-          } else if (Array.isArray(data)) {
-            this.categorias = data;
-          } else {
-            this.categorias = [];
-          }
-        },
-        error: (err) => console.error('Error cargando categorías', err)
-      });
-    }
-  
-    goToPage(page: number) {
-      if (page >= 0 && page < this.totalPages) {
-        this.page = page;
-        this.loadObras();
-      }
-    }
-  
-    aplicarFiltros() {
-      this.page = 0;
+
+  loadCategorias() {
+   this.categoriasService.getCategoriasForm().subscribe(resp => this.categorias = resp);
+  }
+
+  goToPage(page: number) {
+    if (page >= 0 && page < this.totalPages) {
+      this.page = page;
       this.loadObras();
     }
-  
-          verDetalleObra(obra: ListaObraDto) {
-        this.obraSeleccionada = {
-          idObra: obra.idObra,
-          nombre: obra.nombre,
-          nombreArtista: obra.nombreAutor, 
-          categoria: obra.categoria,
-          fechaSubida: obra.fechaSubida,
-          imagenObra: obra.imagenObra,
-          mediaValoracion: obra.mediaValoracion,
-          comentarios: obra.comentarios ?? [],
-          valoraciones: obra.valoraciones ?? []
-         
-        };
-        this.mostrarDetalle = true;
-      }
-  
-    cerrarDetalle() {
+  }
+
+  verDetalleObra(obra: ListaObraDto) {
+    this.obraSeleccionada = {
+      idObra: obra.idObra,
+      nombre: obra.nombre,
+      nombreArtista: obra.nombreAutor,
+      categoria: obra.categoria,
+      fechaSubida: obra.fechaSubida,
+      imagenObra: obra.imagenObra,
+      mediaValoracion: obra.mediaValoracion,
+      comentarios: obra.comentarios ?? [],
+      valoraciones: obra.valoraciones ?? [],
+    };
+    this.mostrarDetalle = true;
+  }
+
+  cerrarDetalle() {
     this.mostrarDetalle = false;
     this.obraSeleccionada = null;
     this.loadObras();
   }
-  
 
-  
- 
-  
-    getImageUrl(nombreArchivo?: string): string {
+  getImageUrl(nombreArchivo?: string): string {
     if (!nombreArchivo) return 'assets/no-image.png';
 
     // Si la URL contiene "/download/https", extrae la parte externa
