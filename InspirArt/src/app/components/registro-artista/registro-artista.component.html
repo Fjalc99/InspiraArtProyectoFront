@@ -1,40 +1,64 @@
 <div class="fondoCorporativo">
   <div class="container" style="max-width: 500px;">
     <div class="card shadow">
-            <div class="card-header text-center bg-corporativo text-white">
+      <div class="card-header text-center bg-corporativo text-white">
         <h4 class="mb-0">Registro de Artista</h4>
       </div>
       <div class="card-body">
-        <form #artistaForm="ngForm" (ngSubmit)="onSubmit()">
+        <form #artistaForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="artista.nombre" required>
+            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="artista.nombre" required minlength="2" maxlength="50" #nombre="ngModel">
+            <div *ngIf="nombre.invalid && nombre.touched" class="text-danger small">
+              El nombre es obligatorio (2-50 caracteres).
+            </div>
           </div>
           <div class="mb-3">
             <label for="apellidos" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="artista.apellidos" required>
+            <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="artista.apellidos" required minlength="2" maxlength="100" #apellidos="ngModel">
+            <div *ngIf="apellidos.invalid && apellidos.touched" class="text-danger small">
+              Los apellidos son obligatorios (2-100 caracteres).
+            </div>
           </div>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="artista.username" required>
+            <input type="text" class="form-control" id="username" name="username" [(ngModel)]="artista.username" required minlength="3" maxlength="30" #username="ngModel">
+            <div *ngIf="username.invalid && username.touched" class="text-danger small">
+              El usuario es obligatorio (3-30 caracteres).
+            </div>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="artista.email" required>
+            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="artista.email" required email #email="ngModel">
+            <div *ngIf="email.invalid && email.touched" class="text-danger small">
+              Introduce un email válido.
+            </div>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="artista.password" required>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="artista.password" required minlength="6" maxlength="50" #password="ngModel">
+            <div *ngIf="password.invalid && password.touched" class="text-danger small">
+              La contraseña es obligatoria (mínimo 6 caracteres).
+            </div>
           </div>
           <div class="mb-3">
             <label for="verifyPassword" class="form-label">Repetir Contraseña</label>
-            <input type="password" class="form-control" id="verifyPassword" name="verifyPassword" [(ngModel)]="artista.verifyPassword" required>
+            <input type="password" class="form-control" id="verifyPassword" name="verifyPassword" [(ngModel)]="artista.verifyPassword" required minlength="6" maxlength="50" #verifyPassword="ngModel">
+            <div *ngIf="verifyPassword.invalid && verifyPassword.touched" class="text-danger small">
+              Repite la contraseña (mínimo 6 caracteres).
+            </div>
+          </div>
+          <div *ngIf="artista.password && artista.verifyPassword && artista.password !== artista.verifyPassword" class="text-danger small mb-2">
+            Las contraseñas no coinciden.
           </div>
           <div class="mb-3">
             <label for="file" class="form-label">Foto de perfil (opcional)</label>
             <input type="file" class="form-control" id="file" (change)="onFileChange($event)">
           </div>
-                    <button type="submit" class="btn btn-corporativo w-100 mb-2" [disabled]="artistaForm.invalid">Registrarse</button>
+          <button type="submit" class="btn btn-corporativo w-100 mb-2"
+            [disabled]="artistaForm.invalid || (artista.password !== artista.verifyPassword)">
+            Registrarse
+          </button>
           <button type="button" class="btn btn-outline-secondary w-100" (click)="volverLogin()">Volver al login</button>
           <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
         </form>

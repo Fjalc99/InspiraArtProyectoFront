@@ -5,50 +5,73 @@
         <h4 class="mb-0">Registro de Usuario</h4>
       </div>
       <div class="card-body">
-        <form #usuarioForm="ngForm" (ngSubmit)="onSubmit()">
+        <form #usuarioForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
           <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="nombre"
-              [(ngModel)]="usuario.nombre" required>
+              [(ngModel)]="usuario.nombre" required minlength="2" maxlength="50" #nombre="ngModel">
+            <div *ngIf="nombre.invalid && nombre.touched" class="text-danger small">
+              El nombre es obligatorio (2-50 caracteres).
+            </div>
           </div>
           <div class="mb-3">
             <label for="apellidos" class="form-label">Apellidos</label>
             <input type="text" class="form-control" id="apellidos"
-              name="apellidos" [(ngModel)]="usuario.apellidos" required>
+              name="apellidos" [(ngModel)]="usuario.apellidos" required minlength="2" maxlength="100" #apellidos="ngModel">
+            <div *ngIf="apellidos.invalid && apellidos.touched" class="text-danger small">
+              Los apellidos son obligatorios (2-100 caracteres).
+            </div>
           </div>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username"
-              name="username" [(ngModel)]="usuario.username" required>
+              name="username" [(ngModel)]="usuario.username" required minlength="3" maxlength="30" #username="ngModel">
+            <div *ngIf="username.invalid && username.touched" class="text-danger small">
+              El usuario es obligatorio (3-30 caracteres).
+            </div>
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email"
-              [(ngModel)]="usuario.email" required>
+              [(ngModel)]="usuario.email" required email #email="ngModel">
+            <div *ngIf="email.invalid && email.touched" class="text-danger small">
+              Introduce un email válido.
+            </div>
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Contraseña</label>
             <input type="password" class="form-control" id="password"
-              name="password" [(ngModel)]="usuario.password" required>
+              name="password" [(ngModel)]="usuario.password" required minlength="6" maxlength="50" #password="ngModel">
+            <div *ngIf="password.invalid && password.touched" class="text-danger small">
+              La contraseña es obligatoria (mínimo 6 caracteres).
+            </div>
           </div>
           <div class="mb-3">
-            <label for="verifyPassword" class="form-label">Repetir
-              Contraseña</label>
+            <label for="verifyPassword" class="form-label">Repetir Contraseña</label>
             <input type="password" class="form-control" id="verifyPassword"
               name="verifyPassword" [(ngModel)]="usuario.verifyPassword"
-              required>
+              required minlength="6" maxlength="50" #verifyPassword="ngModel">
+            <div *ngIf="verifyPassword.invalid && verifyPassword.touched" class="text-danger small">
+              Repite la contraseña (mínimo 6 caracteres).
+            </div>
+          </div>
+          <div *ngIf="usuario.password && usuario.verifyPassword && usuario.password !== usuario.verifyPassword" class="text-danger small mb-2">
+            Las contraseñas no coinciden.
           </div>
           <div class="mb-3">
-            <label for="file" class="form-label">Foto de perfil
-              (opcional)</label>
+            <label for="file" class="form-label">Foto de perfil (opcional)</label>
             <input type="file" class="form-control" id="file"
               (change)="onFileChange($event)">
           </div>
-         <button type="submit" class="btn btn-corporativo w-100" [disabled]="usuarioForm.invalid">Registrarse</button>
+          <button type="submit" class="btn btn-corporativo w-100"
+            [disabled]="usuarioForm.invalid || (usuario.password !== usuario.verifyPassword)">
+            Registrarse
+          </button>
           <button type="button" class="btn btn-outline-secondary w-100 mt-2"
             (click)="volverLogin()">Volver al login</button>
-          <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{
-            errorMessage }}</div>
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+            {{ errorMessage }}
+          </div>
         </form>
       </div>
     </div>

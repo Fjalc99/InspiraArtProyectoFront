@@ -38,21 +38,21 @@
 
 <!-- Listado de admins -->
 <div class="user-cards" *ngIf="!mostrarFormulario && !adminDetalle">
-  <div class="card" *ngFor="let admin of admins">
-    <div class="avatar-container">
+  <div class="card shadow-sm" *ngFor="let admin of admins">
+    <div class="avatar-container d-flex justify-content-center mt-3 mb-2">
       <img 
         [src]="getImageUrl(admin.fotoPerfil)" 
         class="user-avatar"
         alt="Foto de {{ admin.nombre }}"
       />
     </div>
-    <div class="card-body">
-      <h5 class="card-title text-center">{{ admin.nombre }} {{ admin.apellidos }}</h5>
-      <p class="card-text text-center"><strong>Usuario:</strong> {{ admin.username }}</p>
-      <p class="card-text text-center"><strong>Email:</strong> {{ admin.email }}</p>
-      <p class="card-text text-center"><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
+    <div class="card-body p-0">
+      <h5 class="card-title text-center mb-2">{{ admin.nombre }} {{ admin.apellidos }}</h5>
+      <p class="card-text text-center mb-1"><strong>Usuario:</strong> {{ admin.username }}</p>
+      <p class="card-text text-center mb-1"><strong>Email:</strong> {{ admin.email }}</p>
+      <p class="card-text text-center mb-2"><strong>Registrado:</strong> {{ admin.createdAt | date:'medium' }}</p>
     </div>
-    <div class="card-actions">
+    <div class="card-actions d-flex justify-content-center gap-2 mb-3">
       <button class="btn btn-outline-primary btn-sm" (click)="verAdmin(admin)" title="Ver">
         <i class="bi bi-eye"></i>
       </button>

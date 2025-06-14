@@ -14,14 +14,14 @@ import { FavoritosService } from '../../services/favoritos.service';
 export class ListaObrasUsuarioComponent implements OnInit {
   obras: ListaObraDto[] = [];
   page = 0;
-  size = 10;
+  size = 9;
   totalPages = 0;
   filtros: { [key: string]: string } = {
-    titulo: '',
-    artista: '',
-    fechaCreacion: '',
-    estilo: ''
-  };
+  nombreObra: '',
+  autor: '',
+  categoria: '',
+  valoracionMedia: ''
+};
 obraSeleccionada: ObraDto | null = null;
   mostrarDetalle = false;
   
@@ -51,21 +51,11 @@ obraSeleccionada: ObraDto | null = null;
         this.totalPages = 0;
       }
     });
-  }
+}
+
 
   loadCategorias() {
-    this.categoriasService.getCategorias().subscribe({
-      next: (data) => {
-        if (data && Array.isArray((data as any).content)) {
-          this.categorias = (data as any).content;
-        } else if (Array.isArray(data)) {
-          this.categorias = data;
-        } else {
-          this.categorias = [];
-        }
-      },
-      error: (err) => console.error('Error cargando categorías', err)
-    });
+    this.categoriasService.getCategoriasForm().subscribe(resp => this.categorias = resp);
   }
 
   goToPage(page: number) {
@@ -75,10 +65,30 @@ obraSeleccionada: ObraDto | null = null;
     }
   }
 
-  aplicarFiltros() {
-    this.page = 0;
-    this.loadObras();
-  }
+aplicarFiltros() {
+  this.page = 0;
+
+  // Mapea filtros frontend a backend
+  const filtrosBackend: { [key: string]: string } = {};
+
+  if (this.filtros["titulo"]) filtrosBackend['nombreObra'] = this.filtros["titulo"];
+  if (this.filtros["artista"]) filtrosBackend['autor'] = this.filtros["artista"];
+  if (this.filtros["estilo"]) filtrosBackend['categoria'] = this.filtros["estilo"];
+  if (this.filtros["valoracionMedia"]) filtrosBackend['valoracionMedia'] = this.filtros["valoracionMedia"];
+
+  this.obrasService.getObras(filtrosBackend, this.page, this.size).subscribe({
+    next: (data: any) => {
+      this.obras = data.content;
+      this.totalPages = data.totalPages;
+    },
+    error: (error) => {
+      console.error('Error al cargar obras:', error);
+      this.obras = [];
+      this.totalPages = 0;
+    }
+  });
+}
+
 
         verDetalleObra(obra: ListaObraDto) {
       this.obraSeleccionada = {

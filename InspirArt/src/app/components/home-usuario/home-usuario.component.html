@@ -7,22 +7,25 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse align-items-center" id="navbarUsuario">
+            <!-- ...existing code... -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/home-usuario" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Obras</a>
+          <a class="nav-link" routerLink="/home-usuario" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-images me-1"></i> Obras
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="favoritos" routerLinkActive="active">Favoritos</a>
-
+          <a class="nav-link" routerLink="favoritos" routerLinkActive="active">
+            <i class="bi bi-heart-fill me-1"></i> Favoritos
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="perfil" routerLinkActive="active">Perfil</a>
+          <a class="nav-link" routerLink="perfil" routerLinkActive="active">
+            <i class="bi bi-person-circle me-1"></i> Perfil
+          </a>
         </li>
       </ul>
-      <form class="d-flex me-2 align-items-center" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-        <button class="btn btn-outline-light" type="submit">Buscar</button>
-      </form>
+     
       <button class="btn btn-outline-light align-self-center" (click)="logout()">Cerrar sesión</button>
     </div>
   </div>

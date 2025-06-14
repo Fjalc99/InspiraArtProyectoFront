@@ -1,4 +1,4 @@
-<!-- Detalle de obra -->
+
 <div *ngIf="mostrarDetalle && obraSeleccionada">
   <app-detalle-obra
     [obraSeleccionada]="obraSeleccionada"
@@ -6,11 +6,47 @@
   </app-detalle-obra>
 </div>
 
-<!-- Listado de obras -->
+
 <div *ngIf="!mostrarDetalle">
   <div class="obra-header"
     style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
     <h3>Obras</h3>
+  </div>
+
+  
+  <form class="row g-3 align-items-end mb-4 p-3 bg-light rounded shadow-sm" (ngSubmit)="aplicarFiltros()" #formFiltros="ngForm">
+    <div class="col-md-3">
+      <label for="filtroTitulo" class="form-label mb-1">Título</label>
+      <input id="filtroTitulo" type="text" class="form-control"
+        [(ngModel)]="filtros['titulo']" name="titulo">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroArtista" class="form-label mb-1">Artista</label>
+      <input id="filtroArtista" type="text" class="form-control"
+        [(ngModel)]="filtros['artista']" name="artista">
+    </div>
+    <div class="col-md-3">
+      <label for="filtroEstilo" class="form-label mb-1">Categoria</label>
+      <input id="filtroEstilo" type="text" class="form-control"
+        [(ngModel)]="filtros['estilo']" name="estilo">
+    </div>
+     <div class="col-md-3">
+          <label for="filtroValoracion" class="form-label">Valoración media</label>
+          <input id="filtroValoracion" type="text" class="form-control" placeholder="Valoración media"
+            [(ngModel)]="filtros['valoracionMedia']" name="valoracionMedia">
+        </div>
+    <div class="col-12 d-flex justify-content-end mt-2">
+      <button class="btn btn-corporativo me-2" type="submit">Buscar</button>
+      <button class="btn btn-secondary" type="button"
+        (click)="filtros = {titulo:'', artista:'', estilo:'', valoracionMedia:''}; aplicarFiltros();">
+        Limpiar
+      </button>
+    </div>
+  </form>
+
+
+  <div *ngIf="obras.length === 0" class="alert alert-warning mt-3">
+    No hay obras con ese filtro.
   </div>
 
   <div class="row">
@@ -27,27 +63,23 @@
                 [ngClass]="esFavorito(obra) ? 'bi-heart-fill text-danger' : 'bi-heart'"></i>
             </button>
           </div>
-          <p class="card-text"><strong>Autor:</strong> {{ obra.nombreAutor
-            }}</p>
-          <p class="card-text"><strong>Categoría:</strong> {{
-            obra.categoria.nombre }}</p>
-          <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida |
-            date:'mediumDate' }}</p>
+          <p class="card-text"><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
+          <p class="card-text"><strong>Categoría:</strong> {{ obra.categoria.nombre }}</p>
+          <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida | date:'mediumDate' }}</p>
           <p class="card-text" *ngIf="obra.mediaValoracion != null">
-            <strong>Valoración:</strong> {{ obra.mediaValoracion |
-            number:'1.1-2' }} / 5
+            <strong>Valoración:</strong> {{ obra.mediaValoracion | number:'1.1-2' }} / 5
           </p>
-                                <button class="btn btn-corporativo ancho-personalizado me-2"
-        (click)="verDetalleObra(obra)"
-        aria-label="Ver detalle">
-  <i class="bi bi-eye fs-6"></i>
-</button>
+          <button class="btn btn-corporativo ancho-personalizado me-2"
+            (click)="verDetalleObra(obra)"
+            aria-label="Ver detalle">
+            <i class="bi bi-eye fs-6"></i>
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Paginación -->
+
   <div class="pagination mt-3 d-flex justify-content-center">
     <button *ngFor="let p of [].constructor(totalPages); let i = index"
       class="btn btn-sm mx-1"

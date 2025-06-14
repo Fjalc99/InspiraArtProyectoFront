@@ -1,10 +1,13 @@
-<form (ngSubmit)="onGuardar()" class="p-3 border rounded bg-white" style="max-width: 400px; margin: 0 auto;">
+<form #categoriaForm="ngForm" (ngSubmit)="onGuardar()" class="p-3 border rounded bg-white" style="max-width: 400px; margin: 0 auto;" novalidate>
   <div class="mb-3">
     <label for="nombre" class="form-label">Nombre</label>
-    <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="categoriaLocal.nombre" required>
+    <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="categoriaLocal.nombre" required minlength="2" maxlength="50" #nombre="ngModel">
+    <div *ngIf="nombre.invalid && nombre.touched" class="text-danger small">
+      El nombre es obligatorio (2-50 caracteres).
+    </div>
   </div>
   <div class="d-flex justify-content-end gap-2">
-    <button class="btn btn-primary" type="submit">
+    <button class="btn btn-corporativo" type="submit" [disabled]="!categoriaForm.form.valid">
       {{ esEdicion ? 'Guardar cambios' : 'Crear categoría' }}
     </button>
     <button class="btn btn-secondary" type="button" (click)="onCancelar()">Cancelar</button>

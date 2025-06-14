@@ -44,6 +44,7 @@ import { ListaObraArtistaComponent } from './components/lista-obra-artista/lista
 import { DetalleObraArtistaComponent } from './components/detalle-obra-artista/detalle-obra-artista.component';
 import { ProfileArtistaComponent } from './components/profile-artista/profile-artista.component';
 import { MisObrasComponent } from './components/mis-obras/mis-obras.component';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 
@@ -97,6 +98,8 @@ import { MisObrasComponent } from './components/mis-obras/mis-obras.component';
     MatTableModule,
     MatIconModule ,
     MatSelectModule,
+    MatSliderModule,
+    
   
     
     

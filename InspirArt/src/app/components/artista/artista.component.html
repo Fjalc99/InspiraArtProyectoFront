@@ -33,15 +33,22 @@
 
 
 <div class="user-cards" *ngIf="!mostrarFormulario && !artistaDetalle">
-  <div class="card" *ngFor="let artista of artistas">
-    <img [src]="getImageUrl(artista.fotoPerfil)" alt="Foto de {{ artista.nombre }}" />
-    <div class="card-body">
+  <div class="card shadow-sm" *ngFor="let artista of artistas">
+    <div class="d-flex justify-content-center mt-3 mb-2">
+      <img 
+        [src]="getImageUrl(artista.fotoPerfil)" 
+        class="user-avatar"
+        alt="Foto de {{ artista.nombre }}"
+        loading="lazy"
+      />
+    </div>
+    <div class="card-body p-0">
       <h5 class="card-title text-center mb-2">{{ artista.nombre }} {{ artista.apellidos }}</h5>
       <p class="card-text text-center mb-1"><strong>Usuario:</strong> {{ artista.username }}</p>
       <p class="card-text text-center mb-1"><strong>Email:</strong> {{ artista.email }}</p>
       <p class="card-text text-center mb-2"><strong>Registrado:</strong> {{ artista.createdAt | date:'medium' }}</p>
     </div>
-    <div class="card-actions">
+    <div class="card-actions d-flex justify-content-center gap-2 mb-3">
       <button class="btn btn-outline-primary btn-sm" (click)="verArtista(artista)" title="Ver">
         <i class="bi bi-eye"></i>
       </button>

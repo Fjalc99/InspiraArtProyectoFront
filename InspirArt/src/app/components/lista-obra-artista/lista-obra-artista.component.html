@@ -1,68 +1,87 @@
+<ng-container *ngIf="mostrarDetalle && obraSeleccionada; else listadoObras"></ng-container>
 
+<ng-template #listadoObras>
+  <ng-container *ngIf="mostrarFormulario; else contenidoObras">
+    <app-obras-form
+      (creada)="obraCreada()"
+      (cancelarForm)="cerrarFormulario()">
+    </app-obras-form>
+  </ng-container>
+  <ng-template #contenidoObras>
 
-<div *ngIf="mostrarDetalle && obraSeleccionada">
-  <app-detalle-obra-artista
-    [obraSeleccionada]="obraSeleccionada"
-    (cerrar)="cerrarDetalle()">
-  </app-detalle-obra-artista>
-</div>
-
-
-<app-obras-form
-  *ngIf="mostrarFormulario"
-  (creada)="obraCreada()"
-  (cancelarForm)="cerrarFormulario()">
-</app-obras-form>
-
-
-
-<div *ngIf="!mostrarDetalle && !mostrarFormulario">
+    <div class="container mt-4">
   <div class="obra-header d-flex align-items-center justify-content-between mb-4">
-  <h3>Obras</h3>
-  <button class="btn btn-corporativo d-flex align-items-center px-4 py-2 shadow-sm"
-          style="font-size: 1.1rem; border-radius: 8px;"
-          (click)="abrirFormulario()">
-    <i class="bi bi-plus-lg me-2" style="font-size: 1.3rem;"></i>
-    <span>Crear obra</span>
-  </button>
-</div>
-
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let obra of obras">
-      <div class="card h-100">
-        <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" [alt]="obra.nombre">
-        <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between">
-            <h5 class="card-title mb-0">{{ obra.nombre }}</h5>
-          </div>
-          <p class="card-text"><strong>Autor:</strong> {{ obra.nombreAutor
-            }}</p>
-          <p class="card-text"><strong>Categoría:</strong> {{
-            obra.categoria.nombre }}</p>
-          <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida |
-            date:'mediumDate' }}</p>
-          <p class="card-text" *ngIf="obra.mediaValoracion != null">
-            <strong>Valoración:</strong> {{ obra.mediaValoracion |
-            number:'1.1-2' }} / 5
-          </p>
-                                <button class="btn btn-corporativo ancho-personalizado me-2"
-        (click)="verDetalleObra(obra)"
-        aria-label="Ver detalle">
-  <i class="bi bi-eye fs-6"></i>
-</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Paginación -->
-  <div class="pagination mt-3 d-flex justify-content-center">
-    <button *ngFor="let p of [].constructor(totalPages); let i = index"
-      class="btn btn-sm mx-1"
-      [class.btn-primary]="page === i"
-      [class.btn-outline-primary]="page !== i"
-      (click)="goToPage(i)">
-      {{ i + 1 }}
+    <h3 class="mb-0">Obras</h3>
+    <button class="btn btn-corporativo" (click)="abrirFormulario()" style="margin-left: 32px;">
+      <i class="bi bi-plus-lg me-1"></i> Crear obra
     </button>
   </div>
-</div>
+  <form class="row g-3 align-items-end mb-4 p-4 bg-light rounded shadow-sm" (ngSubmit)="aplicarFiltros()" #formFiltros="ngForm">
+    <div class="col-md-3">
+          <label for="filtroTitulo" class="form-label">Título</label>
+          <input id="filtroTitulo" type="text" class="form-control" placeholder="Título"
+            [(ngModel)]="filtros['titulo']" name="titulo">
+        </div>
+        <div class="col-md-3">
+          <label for="filtroArtista" class="form-label">Artista</label>
+          <input id="filtroArtista" type="text" class="form-control" placeholder="Artista"
+            [(ngModel)]="filtros['artista']" name="artista">
+        </div>
+        <div class="col-md-3">
+          <label for="filtroEstilo" class="form-label">Categoría</label>
+          <select id="filtroEstilo" class="form-select"
+            [(ngModel)]="filtros['estilo']" name="estilo">
+            <option value="">Todas</option>
+            <option *ngFor="let cat of categorias" [value]="cat.nombre">{{ cat.nombre }}</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label for="filtroValoracion" class="form-label">Valoración media</label>
+          <input id="filtroValoracion" type="text" class="form-control" placeholder="Valoración media"
+            [(ngModel)]="filtros['valoracionMedia']" name="valoracionMedia">
+        </div>
+        <div class="col-12 d-flex justify-content-end mt-2">
+          <button class="btn btn-corporativo me-2" type="submit">Buscar</button>
+          <button class="btn btn-secondary" type="button"
+            (click)="filtros = {titulo:'', artista:'', estilo:'', valoracionMedia:''}; aplicarFiltros();">
+            Limpiar
+          </button>
+        </div>
+      </form>
+      <div *ngIf="obras.length === 0" class="alert alert-warning mt-3">
+        No hay obras con ese filtro.
+      </div>
+      <div class="row" *ngIf="obras.length > 0">
+        <div class="col-md-4 mb-4" *ngFor="let obra of obras">
+          <div class="card h-100">
+            <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" [alt]="obra.nombre">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h5 class="card-title mb-0">{{ obra.nombre }}</h5>
+              </div>
+              <p class="card-text"><strong>Artista:</strong> {{ obra.nombreAutor }}</p>
+              <p class="card-text"><strong>Categoría:</strong> {{ obra.categoria.nombre }}</p>
+              <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida | date:'mediumDate' }}</p>
+              <p class="card-text" *ngIf="obra.mediaValoracion != null">
+                <strong>Valoración:</strong> {{ obra.mediaValoracion | number:'1.1-2' }} / 5
+              </p>
+              <button class="btn btn-corporativo ancho-personalizado me-2"
+                (click)="verDetalleObra(obra)"
+                aria-label="Ver detalle">
+                <i class="bi bi-eye fs-6"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pagination mt-3 d-flex justify-content-center">
+        <button *ngFor="let p of [].constructor(totalPages); let i = index"
+          class="btn btn-sm mx-1"
+          [class.btn-primary]="page === i"
+          [class.btn-outline-primary]="page !== i"
+          (click)="goToPage(i)">
+          {{ i + 1 }}
+        </button>
+      </div>
+    </div>
+  </ng-template>

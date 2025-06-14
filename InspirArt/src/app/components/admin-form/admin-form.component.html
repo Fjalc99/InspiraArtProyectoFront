@@ -1,33 +1,50 @@
-<form #adminForm="ngForm" (ngSubmit)="guardarAdmin()" class="mx-auto my-4 p-4 border rounded bg-white" style="max-width: 400px;">
+<form #adminForm="ngForm" (ngSubmit)="guardarAdmin()" class="mx-auto my-4 p-4 border rounded bg-white" style="max-width: 400px;" novalidate>
   <div class="mb-3">
     <label for="nombre" class="form-label">Nombre</label>
-    <input type="text" class="form-control" id="nombre" [(ngModel)]="admin.nombre" name="nombre" required>
+    <input type="text" class="form-control" id="nombre" [(ngModel)]="admin.nombre" name="nombre" required minlength="2" maxlength="50" #nombre="ngModel">
+    <div *ngIf="nombre.invalid && nombre.touched" class="text-danger small">
+      El nombre es obligatorio (2-50 caracteres).
+    </div>
   </div>
 
   <div class="mb-3">
     <label for="apellidos" class="form-label">Apellidos</label>
-    <input type="text" class="form-control" id="apellidos" [(ngModel)]="admin.apellidos" name="apellidos" required>
+    <input type="text" class="form-control" id="apellidos" [(ngModel)]="admin.apellidos" name="apellidos" required minlength="2" maxlength="100" #apellidos="ngModel">
+    <div *ngIf="apellidos.invalid && apellidos.touched" class="text-danger small">
+      Los apellidos son obligatorios (2-100 caracteres).
+    </div>
   </div>
 
   <div class="mb-3">
     <label for="username" class="form-label">Usuario</label>
-    <input type="text" class="form-control" id="username" [(ngModel)]="admin.username" name="username" required>
+    <input type="text" class="form-control" id="username" [(ngModel)]="admin.username" name="username" required minlength="3" maxlength="30" #username="ngModel">
+    <div *ngIf="username.invalid && username.touched" class="text-danger small">
+      El usuario es obligatorio (3-30 caracteres).
+    </div>
   </div>
 
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email" [(ngModel)]="admin.email" name="email" required>
+    <input type="email" class="form-control" id="email" [(ngModel)]="admin.email" name="email" required email #email="ngModel">
+    <div *ngIf="email.invalid && email.touched" class="text-danger small">
+      Introduce un email válido.
+    </div>
   </div>
 
   <div class="mb-3">
     <label for="password" class="form-label">Contraseña</label>
-    <input type="password" class="form-control" id="password" [(ngModel)]="admin.password" name="password">
+    <input type="password" class="form-control" id="password" [(ngModel)]="admin.password" name="password" [required]="!admin.idAdmin" minlength="6" maxlength="50" #password="ngModel">
+    <div *ngIf="password.invalid && password.touched && !admin.idAdmin" class="text-danger small">
+      La contraseña es obligatoria (mínimo 6 caracteres).
+    </div>
   </div>
 
-  <!-- Solo mostrar al crear admin -->
   <div class="mb-3" *ngIf="!admin.idAdmin">
     <label for="verifyPassword" class="form-label">Repite la contraseña</label>
-    <input type="password" class="form-control" id="verifyPassword" [(ngModel)]="admin.verifyPassword" name="verifyPassword" required>
+    <input type="password" class="form-control" id="verifyPassword" [(ngModel)]="admin.verifyPassword" name="verifyPassword" required minlength="6" maxlength="50" #verifyPassword="ngModel">
+    <div *ngIf="verifyPassword.invalid && verifyPassword.touched" class="text-danger small">
+      Repite la contraseña (mínimo 6 caracteres).
+    </div>
   </div>
 
   <div *ngIf="!contrasenasIguales() && admin.password && admin.verifyPassword && !admin.idAdmin" class="text-danger mb-2">
@@ -40,7 +57,7 @@
   </div>
 
   <div class="d-flex justify-content-end gap-2">
-    <button class="btn btn-primary" type="submit"
+    <button class="btn btn-corporativo" type="submit"
       [disabled]="!adminForm.form.valid || (!admin.idAdmin && !contrasenasIguales())">
       {{ admin.idAdmin ? 'Guardar cambios' : 'Crear admin' }}
     </button>

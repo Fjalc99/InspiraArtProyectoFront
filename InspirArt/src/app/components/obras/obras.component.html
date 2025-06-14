@@ -4,14 +4,6 @@
 
 </div>
 
-<!-- Formulario para crear obra -->
-<app-obras-form
-  *ngIf="mostrarFormulario"
-  [obra]="obraSeleccionada || {}"
-  [categorias]="categorias"
-  (guardar)="onGuardarObra($event)"
-  (cancelar)="cerrarFormulario()">
-</app-obras-form>
 
 <!-- Detalle de obra -->
 <div *ngIf="mostrarDetalle && obraSeleccionada" class="card detalle-obra-card">
