@@ -25,7 +25,7 @@ export class ListaObrasUsuarioComponent implements OnInit {
 obraSeleccionada: ObraDto | null = null;
   mostrarDetalle = false;
   
-  categorias: CategoriaDto[] = [];
+ categorias: CategoriaDto[] = [];
 
   constructor(
     private obrasService: ObrasService,
@@ -36,7 +36,7 @@ obraSeleccionada: ObraDto | null = null;
   ngOnInit(): void {
     this.loadObras();
     this.loadCategorias();
-    this.favoritosService.cargarFavoritos(); // Cargar favoritos al iniciar
+    this.favoritosService.cargarFavoritos();
   }
 
   loadObras() {
@@ -55,9 +55,10 @@ obraSeleccionada: ObraDto | null = null;
 
 
   loadCategorias() {
-    this.categoriasService.getCategoriasForm().subscribe(resp => this.categorias = resp);
+   this.categoriasService.getCategoriasForm().subscribe(resp => this.categorias = resp);
   }
 
+  
   goToPage(page: number) {
     if (page >= 0 && page < this.totalPages) {
       this.page = page;
@@ -66,28 +67,31 @@ obraSeleccionada: ObraDto | null = null;
   }
 
 aplicarFiltros() {
-  this.page = 0;
+    this.page = 0;
 
-  // Mapea filtros frontend a backend
-  const filtrosBackend: { [key: string]: string } = {};
+    const filtrosBackend: { [key: string]: string } = {};
 
-  if (this.filtros["titulo"]) filtrosBackend['nombreObra'] = this.filtros["titulo"];
-  if (this.filtros["artista"]) filtrosBackend['autor'] = this.filtros["artista"];
-  if (this.filtros["estilo"]) filtrosBackend['categoria'] = this.filtros["estilo"];
-  if (this.filtros["valoracionMedia"]) filtrosBackend['valoracionMedia'] = this.filtros["valoracionMedia"];
+    if (this.filtros['titulo'])
+      filtrosBackend['nombreObra'] = this.filtros['titulo'];
+    if (this.filtros['artista'])
+      filtrosBackend['autor'] = this.filtros['artista'];
+    if (this.filtros['estilo'])
+      filtrosBackend['categoria'] = this.filtros['estilo'];
+    if (this.filtros['valoracionMedia'])
+      filtrosBackend['valoracionMedia'] = this.filtros['valoracionMedia'];
 
-  this.obrasService.getObras(filtrosBackend, this.page, this.size).subscribe({
-    next: (data: any) => {
-      this.obras = data.content;
-      this.totalPages = data.totalPages;
-    },
-    error: (error) => {
-      console.error('Error al cargar obras:', error);
-      this.obras = [];
-      this.totalPages = 0;
-    }
-  });
-}
+    this.obrasService.getObras(filtrosBackend, this.page, this.size).subscribe({
+      next: (data: any) => {
+        this.obras = data.content;
+        this.totalPages = data.totalPages;
+      },
+      error: (error) => {
+        console.error('Error al cargar obras:', error);
+        this.obras = [];
+        this.totalPages = 0;
+      },
+    });
+  }
 
 
         verDetalleObra(obra: ListaObraDto) {
