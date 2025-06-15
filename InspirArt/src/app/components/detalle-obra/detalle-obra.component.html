@@ -98,5 +98,13 @@
     <ng-template #sinComentarios>
       <div class="text-muted mb-3">Aún no hay comentarios.</div>
     </ng-template>
+     <div class="mt-3" *ngIf="!comentarioEditandoId">
+      <textarea class="form-control mb-2" [(ngModel)]="nuevoComentario" rows="2"
+        placeholder="Añade un comentario..."></textarea>
+      <button class="btn btn-corporativo" (click)="agregarComentarioUsuario()"
+        [disabled]="!nuevoComentario">
+        Comentar
+      </button>
+    </div>
   </div>
 </div>
