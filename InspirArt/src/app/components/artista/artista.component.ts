@@ -4,6 +4,7 @@ import { ArtistaDto } from '../../interfaces/ArtistaDto';
 import { firstValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-artista',
@@ -20,7 +21,7 @@ export class ArtistaComponent implements OnInit {
   artistaSeleccionado: Partial<ArtistaDto> = {};
   artistaDetalle: ArtistaDto | null = null;
 
-  constructor(private artistaService: ArtistaService, private dialog: MatDialog) {}
+  constructor(private artistaService: ArtistaService, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.loadArtistas();
@@ -93,6 +94,7 @@ export class ArtistaComponent implements OnInit {
       }
       try {
         await firstValueFrom(this.artistaService.createArtista(formData));
+        this.router.navigate(['/activar-cuenta-artista']);
         this.mostrarFormulario = false;
         await this.loadArtistas();
       } catch (error) {

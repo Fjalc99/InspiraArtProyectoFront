@@ -26,5 +26,17 @@ export class ActivarCuentaArtistaComponent {
         this.errorMessage = err.error?.message || 'Token incorrecto o expirado.';
       }
     });
+
+     this.authService.activarCuentaArtistaAdmin(request).subscribe({
+      next: () => {
+        this.successMessage = 'Cuenta de artista activada correctamente. Ya puedes iniciar sesión.';
+        setTimeout(() => this.router.navigate(['/artista']), 2000);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Token incorrecto o expirado.';
+      }
+    });
   }
+
+  
 }

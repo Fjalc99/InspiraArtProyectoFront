@@ -45,6 +45,7 @@ import { DetalleObraArtistaComponent } from './components/detalle-obra-artista/d
 import { ProfileArtistaComponent } from './components/profile-artista/profile-artista.component';
 import { MisObrasComponent } from './components/mis-obras/mis-obras.component';
 import {MatSliderModule} from '@angular/material/slider';
+import { ActivarCuentaAdminComponent } from './components/activar-cuenta-admin/activar-cuenta-admin.component';
 
 
 
@@ -79,6 +80,7 @@ import {MatSliderModule} from '@angular/material/slider';
     DetalleObraArtistaComponent,
     ProfileArtistaComponent,
     MisObrasComponent,
+    ActivarCuentaAdminComponent,
    
 
     
