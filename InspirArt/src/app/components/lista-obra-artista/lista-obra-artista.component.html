@@ -47,29 +47,29 @@
     No hay obras con ese filtro.
   </div>
 
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let obra of obras">
-      <div class="card h-100">
-        <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" [alt]="obra.nombre">
-        <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between">
-            <h5 class="card-title mb-0">{{ obra.nombre }}</h5>
+  <div class="row" *ngIf="obras.length > 0">
+        <div class="col-md-4 mb-4" *ngFor="let obra of obras">
+          <div class="card h-100">
+            <img [src]="getImageUrl(obra.imagenObra)" class="card-img-top" [alt]="obra.nombre">
+            <div class="card-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <h5 class="card-title mb-0">{{ obra.nombre }}</h5>
+              </div>
+              <p class="card-text"><strong>Artista:</strong> {{ obra.nombreAutor }}</p>
+              <p class="card-text"><strong>Categoría:</strong> {{ obra.categoria.nombre }}</p>
+              <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida | date:'mediumDate' }}</p>
+              <p class="card-text" *ngIf="obra.mediaValoracion != null">
+                <strong>Valoración:</strong> {{ obra.mediaValoracion | number:'1.1-2' }} / 5
+              </p>
+              <button class="btn btn-corporativo ancho-personalizado me-2"
+                (click)="verDetalleObra(obra)"
+                aria-label="Ver detalle">
+                <i class="bi bi-eye fs-6"></i>
+              </button>
+            </div>
           </div>
-          <p class="card-text"><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
-          <p class="card-text"><strong>Categoría:</strong> {{ obra.categoria.nombre }}</p>
-          <p class="card-text"><strong>Fecha:</strong> {{ obra.fechaSubida | date:'mediumDate' }}</p>
-          <p class="card-text" *ngIf="obra.mediaValoracion != null">
-            <strong>Valoración:</strong> {{ obra.mediaValoracion | number:'1.1-2' }} / 5
-          </p>
-          <button class="btn btn-corporativo ancho-personalizado me-2"
-            (click)="verDetalleObra(obra)"
-            aria-label="Ver detalle">
-            <i class="bi bi-eye fs-6"></i>
-          </button>
         </div>
       </div>
-    </div>
-  </div>
 
   <div class="pagination mt-3 d-flex justify-content-center">
     <button *ngFor="let p of [].constructor(totalPages); let i = index"

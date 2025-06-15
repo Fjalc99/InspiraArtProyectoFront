@@ -1,6 +1,7 @@
 // detalle-obra-artista.component.ts
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ObraDto } from '../../interfaces/ObraDto';
+import { ListaObraDto } from '../../interfaces/ListaObraDto';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { ObraDto } from '../../interfaces/ObraDto';
   styleUrls: ['./detalle-obra-artista.component.css']
 })
 export class DetalleObraArtistaComponent {
-  @Input() obraSeleccionada!: ObraDto;
+  @Input() obraSeleccionada!: ListaObraDto;
   @Output() cerrar = new EventEmitter<void>();
 
   getImageUrl(nombreArchivo?: string): string {
