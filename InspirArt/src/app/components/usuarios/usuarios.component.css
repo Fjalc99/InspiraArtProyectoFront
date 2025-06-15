@@ -84,7 +84,7 @@
   }
 }
 
-/* === Card de detalle de usuario === */
+
 .usuario-detalle-card {
   max-width: 360px;
   margin: 2rem auto;
@@ -142,7 +142,7 @@
   background: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-/* === Paginación === */
+
 .pagination {
   margin-top: 20px;
   text-align: center;

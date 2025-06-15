@@ -35,7 +35,7 @@ export class ArtistaService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
-      // No pongas 'Content-Type' aquí
+      
     });
     return this.http.put<ArtistaDto>(`${this.API_URL}/artista/${id}`, formData, { headers });
   }
@@ -53,7 +53,7 @@ export class ArtistaService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
-      // No pongas 'Content-Type' aquí
+      
     });
     return this.http.post<ArtistaDto>(`${this.API_URL}/auth/register/artista`, formData, { headers });
   }

@@ -31,7 +31,7 @@ export class RegistroArtistaComponent {
     this.authService.registerArtista(this.artista, this.file).subscribe({
       next: () => {
         alert('Artista registrado correctamente. Revisa tu correo para activar la cuenta.');
-        this.router.navigate(['/activar-cuenta-artista']); // Cambia aquí la ruta
+        this.router.navigate(['/activar-cuenta-artista']);
       },
       error: (err) => {
         this.errorMessage = err.error?.message || 'Error al registrar artista';

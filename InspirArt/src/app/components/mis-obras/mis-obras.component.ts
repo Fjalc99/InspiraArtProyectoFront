@@ -24,7 +24,7 @@ export class MisObrasComponent implements OnInit {
     this.loading = true;
     this.obrasService.getObrasArtista().subscribe({
       next: resp => {
-        this.obras = resp.content ?? resp; // resp.content si es paginado, resp si es array plano
+        this.obras = resp.content ?? resp;
         this.loading = false;
       },
       error: () => this.loading = false
@@ -55,7 +55,6 @@ export class MisObrasComponent implements OnInit {
   getImageUrl(nombreArchivo?: string): string {
     if (!nombreArchivo) return 'assets/no-image.png';
 
-    // Si la URL contiene "/download/https", extrae la parte externa
     const downloadIdx = nombreArchivo.indexOf('/download/https');
     if (downloadIdx !== -1) {
       const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

@@ -52,7 +52,7 @@ export class ProfileUserComponent implements OnInit {
 
   cancelarEdicion(): void {
     this.editando = false;
-    this.ngOnInit(); // Recarga los datos originales
+    this.ngOnInit();
   }
 
 
@@ -60,7 +60,7 @@ export class ProfileUserComponent implements OnInit {
   getImageUrl(nombreArchivo?: string): string {
         if (!nombreArchivo) return 'assets/no-image.png';
       
-        // Si la URL contiene "/download/https", extrae la parte externa
+      
         const downloadIdx = nombreArchivo.indexOf('/download/https');
         if (downloadIdx !== -1) {
           const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

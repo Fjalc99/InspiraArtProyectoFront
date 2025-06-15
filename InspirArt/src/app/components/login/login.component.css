@@ -19,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px; /* Puedes ajustar el valor según lo que necesites */
+  margin-bottom: 24px; 
 }
 
 mat-card-title {

@@ -1,11 +1,8 @@
 <div class="obra-header"
   style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
   <h3>Obras</h3>
-
 </div>
 
-
-<!-- Detalle de obra -->
 <div *ngIf="mostrarDetalle && obraSeleccionada" class="card detalle-obra-card">
   <div class="card-header text-center bg-light border-0 pb-2">
     <h4 class="mb-0">Detalle de obra</h4>
@@ -29,7 +26,7 @@
         </ng-container>
         <ng-template #sinValoracion>-</ng-template>
       </p>
-            <p>
+      <p>
         <strong>Comentarios:</strong>
         <ng-container *ngIf="(obraSeleccionada.comentarios?.length ?? 0) > 0; else sinComentarios">
           <ul class="list-unstyled">
@@ -37,7 +34,7 @@
               <div class="flex-grow-1">
                 <b>{{ comentario.nombreAutor }}:</b>
                 <span *ngIf="comentarioEditandoId !== comentario.idComentario">{{ comentario.comentario }}</span>
-                <!-- Textarea para editar -->
+              
                 <textarea *ngIf="comentarioEditandoId === comentario.idComentario"
                           class="form-control mb-1"
                           [(ngModel)]="nuevoComentario"
@@ -68,8 +65,7 @@
         </ng-container>
         <ng-template #sinComentarios>-</ng-template>
       </p>
-      
-      <!-- Textarea para nuevo comentario (solo si no se está editando) -->
+    
       <form *ngIf="!comentarioEditandoId" (ngSubmit)="agregarComentarioAdmin()" class="mt-3">
         <div class="mb-2">
           <textarea class="form-control" [(ngModel)]="nuevoComentario" name="nuevoComentario" rows="2" placeholder="Escribe un comentario..."></textarea>
@@ -83,13 +79,14 @@
   </div>
 </div>
 
+
 <div class="obra-cards" *ngIf="!mostrarFormulario && !mostrarDetalle">
   <div class="card" *ngFor="let obra of obras">
     <img [src]="getImageUrl(obra.imagenObra)" alt="Imagen de {{ obra.nombre }}">
     <div class="card-body">
       <h3>{{ obra.nombre }}</h3>
       <p><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
-      <!-- ...otros campos si quieres... -->
+     
       <div class="card-actions">
         <button class="btn btn-sm btn-corporativo me-2"
           (click)="verDetalleObra(obra)" title="Ver detalle">
@@ -102,12 +99,12 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="pagination">
-  <button *ngFor="let p of [].constructor(totalPages); let i = index"
-    (click)="goToPage(i)"
-    [class.active]="page === i">
-    {{ i + 1 }}
-  </button>
+  <div class="pagination">
+    <button *ngFor="let p of [].constructor(totalPages); let i = index"
+      (click)="goToPage(i)"
+      [class.active]="page === i">
+      {{ i + 1 }}
+    </button>
+  </div>
 </div>

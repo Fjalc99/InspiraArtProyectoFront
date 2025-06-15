@@ -1,6 +1,6 @@
 <h2 class="mb-4 obra-header">Mis obras</h2>
 
-<!-- Detalle de obra -->
+
 <div *ngIf="obraSeleccionada">
   <app-detalle-obra-artista
     [obraSeleccionada]="obraSeleccionada"
@@ -8,14 +8,14 @@
   </app-detalle-obra-artista>
 </div>
 
-<!-- Formulario para crear obra -->
+
 <app-obras-form
   *ngIf="mostrarFormulario"
   (creada)="obraCreada()"
   (cancelarForm)="cerrarFormulario()">
 </app-obras-form>
 
-<!-- Listado de obras y botón crear -->
+
 <div *ngIf="!obraSeleccionada && !mostrarFormulario">
   <div class="d-flex justify-content-end mb-4">
         <button class="btn btn-corporativo text-white d-flex align-items-center px-4 py-2 shadow-sm"

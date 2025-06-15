@@ -51,13 +51,13 @@ artista: ArtistaDto | null = null;
 
   cancelarEdicion(): void {
     this.editando = false;
-    this.ngOnInit(); // Recarga los datos originales
+    this.ngOnInit();
   }
 
   getImageUrl(nombreArchivo?: string): string {
         if (!nombreArchivo) return 'assets/no-image.png';
       
-        // Si la URL contiene "/download/https", extrae la parte externa
+        
         const downloadIdx = nombreArchivo.indexOf('/download/https');
         if (downloadIdx !== -1) {
           const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

@@ -98,14 +98,14 @@ aplicarFiltros() {
       this.obraSeleccionada = {
         idObra: obra.idObra,
         nombre: obra.nombre,
-        nombreArtista: obra.nombreAutor, // <-- usa el nombre correcto según tu ObraDto
+        nombreArtista: obra.nombreAutor, 
         categoria: obra.categoria,
         fechaSubida: obra.fechaSubida,
         imagenObra: obra.imagenObra,
         mediaValoracion: obra.mediaValoracion,
         comentarios: obra.comentarios ?? [],
         valoraciones: obra.valoraciones ?? []
-        // agrega aquí cualquier otro campo requerido por ObraDto
+       
       };
       this.mostrarDetalle = true;
     }
@@ -116,7 +116,7 @@ aplicarFiltros() {
   this.loadObras();
 }
 
-// ...código existente...
+
 
 esFavorito(obra: ListaObraDto): boolean {
   return this.favoritosService.favoritos.some(f => f.obra.idObra === obra.idObra);
@@ -134,7 +134,7 @@ toggleFavorito(obra: ListaObraDto) {
   getImageUrl(nombreArchivo?: string): string {
     if (!nombreArchivo) return 'assets/no-image.png';
 
-    // Si la URL contiene "/download/https", extrae la parte externa
+   
     const downloadIdx = nombreArchivo.indexOf('/download/https');
     if (downloadIdx !== -1) {
       const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

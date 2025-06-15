@@ -70,7 +70,7 @@ export class AdminsComponent implements OnInit {
     const formData = new FormData();
 
     if (admin.idAdmin) {
-      // EDITAR
+   
       const adminEdit = { ...admin };
       delete adminEdit.idAdmin;
       formData.append('admin', new Blob([JSON.stringify(adminEdit)], { type: 'application/json' }));
@@ -85,7 +85,7 @@ export class AdminsComponent implements OnInit {
         console.error('Error al guardar el admin:', error);
       }
     } else {
-      // CREAR
+    
       formData.append('createAdminDto', new Blob([JSON.stringify(admin)], { type: 'application/json' }));
       if (file) {
         formData.append('file', file);
@@ -132,7 +132,7 @@ export class AdminsComponent implements OnInit {
   getImageUrl(nombreArchivo?: string): string {
     if (!nombreArchivo) return 'assets/no-image.png';
 
-    // Si la URL contiene "/download/https", extrae la parte externa
+    
     const downloadIdx = nombreArchivo.indexOf('/download/https');
     if (downloadIdx !== -1) {
       const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

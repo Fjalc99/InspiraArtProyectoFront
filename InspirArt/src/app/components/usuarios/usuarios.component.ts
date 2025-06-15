@@ -74,7 +74,7 @@ async onGuardarUsuario(event: { usuario: any, file: File | null }) {
   const formData = new FormData();
 
   if (usuario.idUser) {
-    // EDITAR
+    
     const usuarioEdit = { ...usuario };
     delete usuarioEdit.idUser;
     formData.append('user', new Blob([JSON.stringify(usuarioEdit)], { type: 'application/json' }));
@@ -89,14 +89,14 @@ async onGuardarUsuario(event: { usuario: any, file: File | null }) {
       console.error('Error al guardar el usuario:', error);
     }
   } else {
-    // CREAR
+    
     formData.append('createUserDto', new Blob([JSON.stringify(usuario)], { type: 'application/json' }));
     if (file) {
       formData.append('file', file);
     }
     this.usuarioService.createUsuario(formData).subscribe({
   next: (respuesta) => {
-    // Redirige a la pantalla de activar cuenta, pasando el id si lo necesitas
+    
     this.router.navigate(['/activar-cuenta-usuario']);
   },
 });
@@ -128,7 +128,7 @@ async onGuardarUsuario(event: { usuario: any, file: File | null }) {
   getImageUrl(nombreArchivo?: string): string {
     if (!nombreArchivo) return 'assets/no-image.png';
 
-    // Si la URL contiene "/download/https", extrae la parte externa
+    
     const downloadIdx = nombreArchivo.indexOf('/download/https');
     if (downloadIdx !== -1) {
       const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

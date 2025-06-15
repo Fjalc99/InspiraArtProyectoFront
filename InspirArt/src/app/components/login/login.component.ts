@@ -26,7 +26,7 @@ export class LoginComponent {
     const loginRequest = { username: this.username, password: this.password };
     this.authService.login(this.username, this.password, loginRequest).subscribe({
            next: (res) => {
-        console.log('Respuesta login:', res); // <-- Añade esto
+       
         if (res.role) {
           localStorage.setItem('rol', res.role);
         }

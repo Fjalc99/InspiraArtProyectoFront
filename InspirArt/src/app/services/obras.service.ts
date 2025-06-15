@@ -26,7 +26,7 @@ export class ObrasService {
       .set('page', page)
       .set('size', size);
 
-    // Agregar filtros a los parámetros
+   
     for (const key in filtros) {
       if (filtros.hasOwnProperty(key) && filtros[key]) {
         params = params.set(key, filtros[key]);
@@ -54,7 +54,7 @@ export class ObrasService {
   const token = localStorage.getItem('token');
   const headers = new HttpHeaders({
     Authorization: `Bearer ${token}`
-    // No pongas Content-Type aquí
+   
   });
 
   return this.http.post<any>(`${this.API_URL}`, formData, { headers });

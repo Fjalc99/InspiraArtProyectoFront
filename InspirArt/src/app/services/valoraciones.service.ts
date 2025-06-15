@@ -11,7 +11,7 @@ export class ValoracionesService {
 
   constructor(private http: HttpClient) {}
 
-  // Crear valoración
+ 
   crearValoracion(valoracion: ValoracionDto): Observable<ValoracionDto> {
     const token = localStorage.getItem('token');
     const headers = {
@@ -32,9 +32,7 @@ export class ValoracionesService {
     return this.http.get<{ content: ValoracionDto[]; totalElements: number; totalPages: number; }>(this.API_URL, { headers, params });
   }
   
-  // ...existing code...
-
-  // Editar valoración
+ 
   editarValoracion(valoracionId: string, valoracion: ValoracionDto): Observable<ValoracionDto> {
     const token = localStorage.getItem('token');
     const headers = {
@@ -43,7 +41,7 @@ export class ValoracionesService {
     return this.http.put<ValoracionDto>(`${this.API_URL}/${valoracionId}`, valoracion, { headers });
   }
 
-  // Eliminar valoración
+ 
   eliminarValoracion(valoracionId: string): Observable<void> {
     const token = localStorage.getItem('token');
     const headers = {

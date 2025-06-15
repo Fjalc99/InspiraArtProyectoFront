@@ -20,7 +20,7 @@ export class FavoritosService {
     });
   }
 
-  // Añadir obra a favoritos (POST /favoritos con body { obraId })
+ 
  agregarFavorito(obraId: string): Observable<FavoritoDto> {
   return this.http.post<FavoritoDto>(
     `${this.apiUrl}/${obraId}`,
@@ -29,7 +29,7 @@ export class FavoritosService {
   );
 }
 
-  // Obtener favoritos del usuario autenticado (GET /favoritos)
+  
   obtenerFavoritosPorUsuario(page: number = 0, size: number = 10): Observable<{ content: FavoritoDto[] }> {
     return this.http.get<{ content: FavoritoDto[] }>(
       `${this.apiUrl}?page=${page}&size=${size}`,
@@ -44,7 +44,7 @@ export class FavoritosService {
     });
   }
 
-  // Eliminar favorito (DELETE /favoritos/{favoritoId})
+  
   eliminarFavorito(favoritoId: string): Observable<void> {
     return this.http.delete<void>(
       `${this.apiUrl}/${favoritoId}`,

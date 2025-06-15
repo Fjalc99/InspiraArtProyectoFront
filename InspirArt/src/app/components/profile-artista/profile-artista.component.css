@@ -3,20 +3,20 @@
   height: 120px;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #2a2e49; /* Color corporativo, cámbialo si quieres */
+  border: 3px solid #2a2e49;
   transition: box-shadow 0.2s;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 
 .btn-corporativo {
-  background-color: #2a2e49; /* Cambia este valor por tu color corporativo */
+  background-color: #2a2e49;
   color: #fff;
   border: none;
 }
 
 .btn-corporativo:hover,
 .btn-corporativo:focus {
-  background-color: #1d2033; /* Un tono más oscuro para el hover */
+  background-color: #1d2033;
   color: #fff;
 }

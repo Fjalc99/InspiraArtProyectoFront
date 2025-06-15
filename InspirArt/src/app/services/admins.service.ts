@@ -32,7 +32,7 @@ export class AdminsService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
-      // No pongas 'Content-Type' aquí
+      
     });
     return this.http.put<AdminDto>(`${this.API_URL}/admin/${id}`, formData, { headers });
   }
@@ -49,7 +49,7 @@ export class AdminsService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
-      // No pongas 'Content-Type' aquí
+      
     });
     return this.http.post<AdminDto>(`${this.API_URL}/auth/register/admin`, formData, { headers });
   }

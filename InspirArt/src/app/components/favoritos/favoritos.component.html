@@ -1,9 +1,9 @@
-<!-- Título -->
+
 <div class="obra-header">
   <h3 *ngIf="!obraSeleccionada">Mis obras favoritas</h3>
 </div>
 
-<!-- Detalle de obra -->
+
 <div *ngIf="mostrarDetalle && obraSeleccionada">
   <app-detalle-obra
     [obraSeleccionada]="obraSeleccionada"
@@ -11,7 +11,7 @@
   </app-detalle-obra>
 </div>
 
-<!-- Lista de favoritos (solo si no hay obra seleccionada) -->
+
 <div *ngIf="!obraSeleccionada">
 
   <div *ngIf="loading" class="text-muted">Cargando favoritos...</div>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <!-- Si no hay favoritos -->
+ 
   <ng-template #sinFavoritos>
     <div class="text-muted">No tienes obras favoritas.</div>
   </ng-template>

@@ -160,7 +160,7 @@ agregarComentarioAdmin() {
   });
 }
 
-// Editar comentario como admin
+
 editarComentarioAdmin(comentario: ComentarioDto) {
   this.comentarioEditandoId = comentario.idComentario;
   this.comentarioEditado = comentario.comentario;
@@ -185,7 +185,7 @@ cancelarEdicionComentarioAdmin() {
   this.comentarioEditado = '';
 }
 
-// Eliminar comentario como admin
+
 eliminarComentarioAdmin(comentario: ComentarioDto) {
   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
     width: '300px',
@@ -209,7 +209,7 @@ eliminarComentarioAdmin(comentario: ComentarioDto) {
  getImageUrl(nombreArchivo?: string): string {
     if (!nombreArchivo) return 'assets/no-image.png';
 
-    // Si la URL contiene "/download/https", extrae la parte externa
+   
     const downloadIdx = nombreArchivo.indexOf('/download/https');
     if (downloadIdx !== -1) {
       const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

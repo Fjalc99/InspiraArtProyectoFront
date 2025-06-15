@@ -72,7 +72,7 @@ export class ArtistaComponent implements OnInit {
     const formData = new FormData();
 
     if (artista.idArtista) {
-      // EDITAR
+      
       const artistaEdit = { ...artista };
       delete artistaEdit.idArtista;
       formData.append('artista', new Blob([JSON.stringify(artistaEdit)], { type: 'application/json' }));
@@ -87,7 +87,7 @@ export class ArtistaComponent implements OnInit {
         console.error('Error al guardar el artista:', error);
       }
     } else {
-      // CREAR
+      
       formData.append('createArtistaDto', new Blob([JSON.stringify(artista)], { type: 'application/json' }));
       if (file) {
         formData.append('file', file);
@@ -127,7 +127,6 @@ export class ArtistaComponent implements OnInit {
   getImageUrl(nombreArchivo?: string): string {
     if (!nombreArchivo) return 'assets/no-image.png';
 
-    // Si la URL contiene "/download/https", extrae la parte externa
     const downloadIdx = nombreArchivo.indexOf('/download/https');
     if (downloadIdx !== -1) {
       const httpsIdx = nombreArchivo.indexOf('https', downloadIdx);

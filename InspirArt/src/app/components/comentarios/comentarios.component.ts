@@ -23,7 +23,7 @@ ngOnInit(): void {
   getComentarios() {
     this.comentariosService.getComentarios(this.page, this.size).subscribe({
       next: (data: any) => {
-        this.comentarios = data.content ? data.content : data; // Si tu backend devuelve un Page, usa data.content
+        this.comentarios = data.content ? data.content : data;
       },
       error: (error) => {
         console.error('Error al cargar comentarios:', error);

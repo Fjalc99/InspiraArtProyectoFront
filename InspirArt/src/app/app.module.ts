@@ -28,8 +28,6 @@ import { ObrasFormComponent } from './components/obra-form/obra-form.component';
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { AdminFormComponent } from './components/admin-form/admin-form.component';
 import { ArtistaFormComponent } from './components/artista-form/artista-form.component';
-import { DashboardModule } from './components/dashboard/dashboard.module';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
 import { RegistroArtistaComponent } from './components/registro-artista/registro-artista.component';
 import { HomeUsuarioComponent } from './components/home-usuario/home-usuario.component';

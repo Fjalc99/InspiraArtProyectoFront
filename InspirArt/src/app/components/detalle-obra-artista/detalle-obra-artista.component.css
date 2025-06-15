@@ -49,26 +49,26 @@ textarea.form-control {
   margin-top: 1.5rem !important;
 }
 
-/* Por ejemplo, en styles.css o el CSS del componente */
+
 .btn-corporativo {
-  background-color: #2a2e49; /* Usa el color de tu nav */
+  background-color: #2a2e49;
   color: #fff;
   border: none;
 }
 .btn-corporativo:hover {
-  background-color: #23263a; /* Un poco más oscuro al pasar el ratón */
+  background-color: #23263a;
   color: #fff;
 }
 
 .btn-corporativo-cerrar {
-  background-color: #2a2e49; /* Cambia por tu color corporativo */
+  background-color: #2a2e49;
   color: #fff;
   border: none;
 }
 
 .btn-corporativo-cerrar:hover,
 .btn-corporativo-cerrar:focus {
-  background-color: #1d2033; /* Un tono más oscuro si quieres */
+  background-color: #1d2033;
   color: #fff;
 }
 
