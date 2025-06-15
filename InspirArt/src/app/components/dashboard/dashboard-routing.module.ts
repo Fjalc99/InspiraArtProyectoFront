@@ -19,6 +19,7 @@ const routes: Routes = [
       { path: 'usuario', component: UsuariosComponent, canActivate: [AuthGuard] },
       { path: 'artista', component: ArtistaComponent, canActivate: [AuthGuard] },
       { path: 'admins', component: AdminsComponent, canActivate: [AuthGuard] },
+      
       { path: '', redirectTo: 'obra', pathMatch: 'full' }
     ]
   }

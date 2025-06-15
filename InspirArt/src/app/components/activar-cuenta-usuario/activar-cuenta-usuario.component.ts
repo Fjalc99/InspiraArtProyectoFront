@@ -26,5 +26,19 @@ export class ActivarCuentaUsuarioComponent {
         this.errorMessage = err.error?.message || 'Token incorrecto o expirado.';
       }
     });
+
+
+     this.authService.activarCuentaUsuarioAdmin(request).subscribe({
+      next: () => {
+        this.successMessage = 'Cuenta activada correctamente. Ya puedes iniciar sesión.';
+        setTimeout(() => this.router.navigate(['/usuarios']), 2000);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Token incorrecto o expirado.';
+      }
+    });
   }
+  
+
+
 }

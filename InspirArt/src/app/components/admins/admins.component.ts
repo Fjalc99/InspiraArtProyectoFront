@@ -4,6 +4,7 @@ import { AdminDto } from '../../interfaces/AdminDto';
 import { firstValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admins',
@@ -21,7 +22,7 @@ export class AdminsComponent implements OnInit {
   adminDetalle: AdminDto | null = null;
 
 
-  constructor(private adminsService: AdminsService, private dialog: MatDialog) {}
+  constructor(private adminsService: AdminsService, private dialog: MatDialog, private router: Router) {}
 
   ngOnInit(): void {
     this.loadAdmins();
@@ -91,6 +92,7 @@ export class AdminsComponent implements OnInit {
       }
       try {
         await firstValueFrom(this.adminsService.createAdmin(formData));
+        this.router.navigate(['/activar-cuenta-admin']);
         this.mostrarFormulario = false;
         await this.loadAdmins();
       } catch (error) {

@@ -13,9 +13,12 @@ import { ActivateAccountRequest } from '../interfaces/ActivateAccountRequest';
 })
 export class AuthServiceService {
   private readonly API_URL = 'http://localhost:8080/auth';
-  private readonly url_Activacion_User = 'http://localhost:8080/activate/account/';
-  private readonly url_Activacion_Artista = 'http://localhost:8080/activate/account/artista';
-
+  private readonly url_Activacion_User =
+    'http://localhost:8080/activate/account/';
+  private readonly url_Activacion_Artista =
+    'http://localhost:8080/activate/account/artista';
+  private readonly url_Activacion_User_Admin =
+    'http://localhost:8080/activate/account/admin';
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +33,6 @@ export class AuthServiceService {
         localStorage.setItem('refreshToken', res.refreshToken);
         localStorage.setItem('username', res.username);
         localStorage.setItem('userId', res.id);
-        
       })
     );
   }
@@ -63,54 +65,88 @@ export class AuthServiceService {
           localStorage.setItem('refreshToken', res.refreshToken);
           localStorage.setItem('username', res.username);
           localStorage.setItem('userId', res.id);
-
         })
       );
   }
 
   registerUsuario(
-  usuario: RegisterUsuarioDto,
-  file: File | null
-): Observable<RegisterUsuarioDto> {
+    usuario: RegisterUsuarioDto,
+    file: File | null
+  ): Observable<RegisterUsuarioDto> {
     const formData = new FormData();
-  formData.append(
-    'createUserDto',
-    new Blob([JSON.stringify(usuario)], { type: 'application/json' })
-  );
-  if (file) {
-    formData.append('file', file);
+    formData.append(
+      'createUserDto',
+      new Blob([JSON.stringify(usuario)], { type: 'application/json' })
+    );
+    if (file) {
+      formData.append('file', file);
+    }
+    return this.http.post<RegisterUsuarioDto>(
+      `${this.API_URL}/register`,
+      formData
+    );
   }
-  return this.http.post<RegisterUsuarioDto>(`${this.API_URL}/register`, formData);
-}
 
-registerArtista(
-  artista: RegisterArtistaDto,
-  file: File | null
-): Observable<RegisterArtistaDto> {
-  const formData = new FormData();
-  formData.append(
-    'createArtistaDto',
-    new Blob([JSON.stringify(artista)], { type: 'application/json' })
-  );
-  if (file) {
-    formData.append('file', file);
+  registerArtista(
+    artista: RegisterArtistaDto,
+    file: File | null
+  ): Observable<RegisterArtistaDto> {
+    const formData = new FormData();
+    formData.append(
+      'createArtistaDto',
+      new Blob([JSON.stringify(artista)], { type: 'application/json' })
+    );
+    if (file) {
+      formData.append('file', file);
+    }
+    return this.http.post<RegisterArtistaDto>(
+      `${this.API_URL}/register/artista`,
+      formData
+    );
   }
-  return this.http.post<RegisterArtistaDto>(`${this.API_URL}/register/artista`, formData);
-}
 
-// Ejemplo de cómo agregar el token manualmente
-activarCuentaUsuario(request: ActivateAccountRequest): Observable<ActivateAccountRequest> {
-  return this.http.post<ActivateAccountRequest>(
-    `${this.url_Activacion_User}`,
-    request
-  );
-}
+  activarCuentaUsuario(
+    request: ActivateAccountRequest
+  ): Observable<ActivateAccountRequest> {
+    return this.http.post<ActivateAccountRequest>(
+      `${this.url_Activacion_User}`,
+      request
+    );
+  }
 
-activarCuentaArtista(request: ActivateAccountRequest): Observable<ActivateAccountRequest> {
-  return this.http.post<ActivateAccountRequest>(
-    `${this.url_Activacion_Artista}`,
-    request
-  );
-}
+  activarCuentaArtista(
+    request: ActivateAccountRequest
+  ): Observable<ActivateAccountRequest> {
+    return this.http.post<ActivateAccountRequest>(
+      `${this.url_Activacion_Artista}`,
+      request
+    );
+  }
 
+  activarCuentaUsuarioAdmin(
+    request: ActivateAccountRequest
+  ): Observable<ActivateAccountRequest> {
+    return this.http.post<ActivateAccountRequest>(
+      `${this.url_Activacion_User}`,
+      request
+    );
+  }
+
+  activarCuentaArtistaAdmin(
+    request: ActivateAccountRequest
+  ): Observable<ActivateAccountRequest> {
+    return this.http.post<ActivateAccountRequest>(
+      `${this.url_Activacion_Artista}`,
+      request
+    );
+  }
+
+  activarCuentaAdmin(
+    request: ActivateAccountRequest
+  ): Observable<ActivateAccountRequest> {
+    return this.http.post<ActivateAccountRequest>(
+      `${this.url_Activacion_User_Admin}`,
+      request
+    );
+  }
 }

@@ -4,6 +4,7 @@ import { UsuarioDto } from '../../interfaces/UsuarioDto';
 import { firstValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-usuarios',
@@ -19,7 +20,7 @@ export class UsuariosComponent implements OnInit {
   usuarioSeleccionado: Partial<UsuarioDto> = {};
   usuarioDetalle: UsuarioDto | null = null;
 
-  constructor(private usuarioService: UsuariosService, private dialog: MatDialog) {}
+  constructor(private usuarioService: UsuariosService, private dialog: MatDialog, private router: Router) {}
 
   async ngOnInit() {
     await this.loadUsuarios();
@@ -68,14 +69,14 @@ export class UsuariosComponent implements OnInit {
     this.usuarioSeleccionado = {};
   }
 
- async onGuardarUsuario(event: { usuario: any, file: File | null }) {
+async onGuardarUsuario(event: { usuario: any, file: File | null }) {
   const { usuario, file } = event;
   const formData = new FormData();
 
   if (usuario.idUser) {
     // EDITAR
     const usuarioEdit = { ...usuario };
-    delete usuarioEdit.idUser; // Elimina si tu backend no lo espera
+    delete usuarioEdit.idUser;
     formData.append('user', new Blob([JSON.stringify(usuarioEdit)], { type: 'application/json' }));
     if (file) {
       formData.append('file', file);
@@ -93,14 +94,13 @@ export class UsuariosComponent implements OnInit {
     if (file) {
       formData.append('file', file);
     }
-    try {
-      await firstValueFrom(this.usuarioService.createUsuario(formData));
-      this.mostrarFormulario = false;
-      await this.loadUsuarios();
-    } catch (error) {
-      console.error('Error al guardar el usuario:', error);
-    }
-  }
+    this.usuarioService.createUsuario(formData).subscribe({
+  next: (respuesta) => {
+    // Redirige a la pantalla de activar cuenta, pasando el id si lo necesitas
+    this.router.navigate(['/activar-cuenta-usuario']);
+  },
+});
+}
 }
 
   verUsuario(usuario: UsuarioDto) {
