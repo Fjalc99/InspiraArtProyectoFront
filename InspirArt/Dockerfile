@@ -8,5 +8,4 @@ RUN ng build --configuration production --aot
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 COPY --from=build /app/dist/inspir-art/ .
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 4200
