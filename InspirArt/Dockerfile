@@ -1,11 +1,12 @@
-FROM node:20.19-alpine AS build
+# Etapa de build
+FROM node:18-alpine AS build
 WORKDIR /app
-COPY . .
-RUN npm install -g @angular/cli
+COPY package*.json ./
 RUN npm install
-RUN ng build --configuration production --aot
+COPY . .
+RUN npm run build -- --configuration production
 
+# Etapa de producción
 FROM nginx:alpine
-WORKDIR /usr/share/nginx/html
-COPY --from=build /app/dist/inspir-art/ .
-EXPOSE 4200
+COPY --from=build /app/dist/inspir-art/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
