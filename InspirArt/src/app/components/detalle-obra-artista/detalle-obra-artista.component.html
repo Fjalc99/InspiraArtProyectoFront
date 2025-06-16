@@ -13,7 +13,7 @@
       alt="Imagen de la obra"
       class="detalle-obra-img me-4 mb-3" />
     <div class="flex-grow-1">
-      <p><strong>Autor:</strong> {{ obraSeleccionada.nombreAutor }}</p>
+      <p><strong>Autor:</strong> {{ obraSeleccionada.nombreArtista }}</p>
       <p><strong>Categoría:</strong> {{ obraSeleccionada.categoria.nombre }}</p>
       <p><strong>Fecha de subida:</strong> {{ obraSeleccionada.fechaSubida | date:'mediumDate' }}</p>
       <p *ngIf="obraSeleccionada.mediaValoracion != null">

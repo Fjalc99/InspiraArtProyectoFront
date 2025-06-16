@@ -9,7 +9,7 @@ export interface ObraDto {
   nombre: string;
   fechaSubida: string;
   imagenObra: string;
-  nombreAutor?: string;
+  nombreArtista?: string;
   categoria: { nombre: string; idCategoria: string };
   mediaValoracion: number;
   comentarios: ComentarioDto[];

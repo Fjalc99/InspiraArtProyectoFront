@@ -98,7 +98,7 @@ aplicarFiltros() {
       this.obraSeleccionada = {
         idObra: obra.idObra,
         nombre: obra.nombre,
-        nombreAutor: obra.nombreAutor, 
+        nombreArtista: obra.nombreAutor, 
         categoria: obra.categoria,
         fechaSubida: obra.fechaSubida,
         imagenObra: obra.imagenObra,
