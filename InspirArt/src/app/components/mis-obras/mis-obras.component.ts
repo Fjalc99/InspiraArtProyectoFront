@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ObrasArtistaService } from '../../services/obras-artista.service';
 import { ListaObraDto } from '../../interfaces/ListaObraDto';
+import { ObraDto } from '../../interfaces/ObraDto';
 
 @Component({
   selector: 'app-mis-obras',
