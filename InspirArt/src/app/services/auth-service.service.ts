@@ -12,13 +12,13 @@ import { ActivateAccountRequest } from '../interfaces/ActivateAccountRequest';
   providedIn: 'root',
 })
 export class AuthServiceService {
-  private readonly API_URL = 'http://localhost:8080/auth';
+  private readonly API_URL = 'http://localhost:8081/auth';
   private readonly url_Activacion_User =
-    'http://localhost:8080/activate/account/';
+    'http://localhost:8081/activate/account/';
   private readonly url_Activacion_Artista =
-    'http://localhost:8080/activate/account/artista';
+    'http://localhost:8081/activate/account/artista';
   private readonly url_Activacion_User_Admin =
-    'http://localhost:8080/activate/account/admin';
+    'http://localhost:8081/activate/account/admin';
 
   constructor(private http: HttpClient) {}
 

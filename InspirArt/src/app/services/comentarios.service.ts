@@ -7,7 +7,7 @@ import { ComentarioDto } from '../interfaces/ComentarioDto';
   providedIn: 'root',
 })
 export class ComentariosService {
-  private readonly API_URL = 'http://localhost:8080/comentarios';
+  private readonly API_URL = 'http://localhost:8081/comentarios';
 
   constructor(private http: HttpClient) {}
 

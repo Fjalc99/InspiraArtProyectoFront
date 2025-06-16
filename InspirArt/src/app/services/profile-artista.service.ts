@@ -9,7 +9,7 @@ import { ArtistaDto } from '../interfaces/ArtistaDto';
 export class ProfileArtistaService {
 
 
-    private apiUrl = 'http://localhost:8080/artista/me';
+    private apiUrl = 'http://localhost:8081/artista/me';
 
 
   constructor(private http: HttpClient) { }

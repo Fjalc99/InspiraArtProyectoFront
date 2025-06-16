@@ -7,7 +7,7 @@ import { ListaObraDto } from '../interfaces/ListaObraDto';
   providedIn: 'root'
 })
 export class ObrasArtistaService {
-  private apiUrl = 'http://localhost:8080/obra/perfil/obras';
+  private apiUrl = 'http://localhost:8081/obra/perfil/obras';
 
   constructor(private http: HttpClient) {}
 

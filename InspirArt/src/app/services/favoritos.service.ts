@@ -9,7 +9,7 @@ import { FavoritoDto } from '../interfaces/FavoritoDto';
 export class FavoritosService {
 
   favoritos: FavoritoDto[] = [];
-  private apiUrl = 'http://localhost:8080/favoritos';
+  private apiUrl = 'http://localhost:8081/favoritos';
 
   constructor(private http: HttpClient) { }
 

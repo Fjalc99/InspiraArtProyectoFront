@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminsService {
 
-  private readonly API_URL = 'http://localhost:8080';
+  private readonly API_URL = 'http://localhost:8081';
 
   constructor(private http: HttpClient) {}
 

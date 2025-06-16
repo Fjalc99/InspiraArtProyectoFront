@@ -10,7 +10,7 @@ import { CreateObraDto } from '../interfaces/CreateObraDto';
 })
 export class ObrasService {
 
-  private API_URL = 'http://localhost:8080/obra';
+  private API_URL = 'http://localhost:8081/obra';
 
   constructor(private http: HttpClient) { }
 

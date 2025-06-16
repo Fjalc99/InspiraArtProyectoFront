@@ -65,6 +65,6 @@ export class MisObrasComponent implements OnInit {
     }
 
     if (nombreArchivo.startsWith('http')) return nombreArchivo;
-    return `http://localhost:8080/download/${nombreArchivo}`;
+    return `http://localhost:8081/download/${nombreArchivo}`;
   }
 }

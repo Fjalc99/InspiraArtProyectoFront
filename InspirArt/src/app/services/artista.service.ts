@@ -9,7 +9,7 @@ import { ArtistaDto } from '../interfaces/ArtistaDto';
 
 
 export class ArtistaService {
-  private readonly API_URL = 'http://localhost:8080';
+  private readonly API_URL = 'http://localhost:8081';
 
   constructor(private http: HttpClient) { }
 

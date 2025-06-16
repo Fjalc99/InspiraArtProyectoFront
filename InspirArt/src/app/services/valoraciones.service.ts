@@ -7,7 +7,7 @@ import { ValoracionDto } from '../interfaces/ValoracionDto';
   providedIn: 'root'
 })
 export class ValoracionesService {
-  private readonly API_URL = 'http://localhost:8080/valoraciones';
+  private readonly API_URL = 'http://localhost:8081/valoraciones';
 
   constructor(private http: HttpClient) {}
 

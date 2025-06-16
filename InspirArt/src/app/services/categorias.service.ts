@@ -11,7 +11,7 @@ import { map } from 'rxjs';
 })
 export class CategoriasService {
 
-  private readonly API_URL = 'http://localhost:8080/categoria';
+  private readonly API_URL = 'http://localhost:8081/categoria';
 
   constructor(private http: HttpClient) { }
 
