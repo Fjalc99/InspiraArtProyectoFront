@@ -121,3 +121,20 @@ ul.list-unstyled {
   color: #000000;
   border: #2a2e49 1px solid;
 }
+
+
+.contenedor-principal {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenido-tarjetas {
+  flex: 1;
+  /* Aquí van tus tarjetas */
+}
+
+.paginacion {
+  margin-top: 2rem;
+  /* Aquí va tu paginador */
+}

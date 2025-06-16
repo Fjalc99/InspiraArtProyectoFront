@@ -1,16 +1,15 @@
 // detalle-obra-artista.component.ts
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ObraDto } from '../../interfaces/ObraDto';
-import { ListaObraDto } from '../../interfaces/ListaObraDto';
 
 
 @Component({
   selector: 'app-detalle-obra-artista',
-  templateUrl: './detalle-obra-artista.component.html',
+  templateUrl:'./detalle-obra-artista.component.html',
   styleUrls: ['./detalle-obra-artista.component.css']
 })
 export class DetalleObraArtistaComponent {
-  @Input() obraSeleccionada!: ListaObraDto;
+  @Input() obraSeleccionada!: ObraDto;
   @Output() cerrar = new EventEmitter<void>();
 
   getImageUrl(nombreArchivo?: string): string {

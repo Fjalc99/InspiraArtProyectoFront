@@ -97,7 +97,7 @@ categorias: CategoriaDto[] = [];
  
   this.obraSeleccionada = {
     ...obra,
-    nombreArtista: (obra as any).nombreArtista ?? (obra as any).nombreAutor ?? ''
+    nombreAutor: (obra as any).nombreArtista ?? (obra as any).nombreAutor ?? ''
   };
   console.log('Obra seleccionada:', this.obraSeleccionada);
   this.mostrarDetalle = true;

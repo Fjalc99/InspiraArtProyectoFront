@@ -13,7 +13,7 @@
          alt="Imagen de {{ obraSeleccionada.nombre }}"
          class="detalle-obra-img rounded">
     <div class="flex-grow-1">
-      <p><strong>Autor:</strong> {{ obraSeleccionada.nombreArtista }}</p>
+      <p><strong>Autor:</strong> {{ obraSeleccionada.nombreAutor }}</p>
       <p><strong>Categoría:</strong> {{ obraSeleccionada.categoria?.nombre }}</p>
       <p><strong>Subida:</strong> {{ obraSeleccionada.fechaSubida | date:'medium' }}</p>
       <p>
@@ -80,26 +80,26 @@
 </div>
 
 
-<div class="obra-cards" *ngIf="!mostrarFormulario && !mostrarDetalle">
-  <div class="card" *ngFor="let obra of obras">
-    <img [src]="getImageUrl(obra.imagenObra)" alt="Imagen de {{ obra.nombre }}">
-    <div class="card-body">
-      <h3>{{ obra.nombre }}</h3>
-      <p><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
-     
-      <div class="card-actions">
-        <button class="btn btn-sm btn-corporativo me-2"
-          (click)="verDetalleObra(obra)" title="Ver detalle">
-          <i class="bi bi-eye"></i>
-        </button>
-        <button class="btn btn-sm btn-danger"
-          (click)="eliminarObra(obra.idObra)" title="Eliminar">
-          <i class="bi bi-trash"></i>
-        </button>
+<div class="cards-contenedor" *ngIf="!mostrarFormulario && !mostrarDetalle">
+  <div class="obra-cards">
+    <div class="card" *ngFor="let obra of obras">
+      <img [src]="getImageUrl(obra.imagenObra)" alt="Imagen de {{ obra.nombre }}">
+      <div class="card-body">
+        <h3>{{ obra.nombre }}</h3>
+        <p><strong>Autor:</strong> {{ obra.nombreAutor }}</p>
+        <div class="card-actions">
+          <button class="btn btn-sm btn-corporativo me-2"
+            (click)="verDetalleObra(obra)" title="Ver detalle">
+            <i class="bi bi-eye"></i>
+          </button>
+          <button class="btn btn-sm btn-danger"
+            (click)="eliminarObra(obra.idObra)" title="Eliminar">
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-
   <div class="pagination">
     <button *ngFor="let p of [].constructor(totalPages); let i = index"
       (click)="goToPage(i)"
