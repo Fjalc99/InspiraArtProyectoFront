@@ -109,7 +109,7 @@ export class ListaObraArtistaComponent implements OnInit {
     this.obraSeleccionada = {
       idObra: obra.idObra,
       nombre: obra.nombre,
-      nombreArtista: obra.nombreAutor,
+      nombreAutor: obra.nombreAutor,
       categoria: obra.categoria,
       fechaSubida: obra.fechaSubida,
       imagenObra: obra.imagenObra,

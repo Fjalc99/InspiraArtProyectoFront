@@ -1,11 +1,10 @@
 
 <div *ngIf="mostrarDetalle && obraSeleccionada">
-  <app-detalle-obra
+  <app-detalle-obra-artista
     [obraSeleccionada]="obraSeleccionada"
     (cerrar)="cerrarDetalle()">
-  </app-detalle-obra>
+  </app-detalle-obra-artista>
 </div>
-
 
 <div *ngIf="!mostrarDetalle">
   <div class="obra-header"
